@@ -436,6 +436,41 @@ public class SontHelper {
         }
     }
 
+    public static void vibrate(final Context ctx) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot(40, -1));
+                } else {
+                    v.vibrate(40);
+                }
+            }
+        };
+        thread.start();
+    }
+
+    public static String locationToStringAddress(Context ctx, Location location) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder();
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("");
+                }
+                strAdd = strReturnedAddress.toString();
+            }
+        } catch (Exception e) {
+            Log.d("Error_", e.toString());
+        }
+        return strAdd;
+    }
+
     public static void sendEmail(String subject, String body, String fromAddress, String toAddress) {
         final String username = "sont16@gmail.com";
         final String password = "snqjuzgfpwetrgpe";
@@ -1135,20 +1170,6 @@ public class SontHelper {
         thread.start();
     }
 
-    public static void vibrate(Context ctx) {
-        Thread thread = new Thread() {
-            public void run() {
-                Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(40, -1));
-                } else {
-                    v.vibrate(40);
-                }
-            }
-        };
-        thread.start();
-    }
-
     public static void vibrate(Context ctx, int amplitude, int time) {
         Thread thread = new Thread() {
             public void run() {
@@ -1161,17 +1182,6 @@ public class SontHelper {
             }
         };
         thread.start();
-    }
-
-    public static void double_vibrate(Context ctx) {
-        Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
-        long[] pattern = {50, 0, 50, 0};
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createWaveform(pattern, 1));
-        } else {
-            v.vibrate(40);
-            v.vibrate(VibrationEffect.createWaveform(pattern, 1));
-        }
     }
 
     public static boolean zipFileAtPath(String sourcePath, String toLocation) {

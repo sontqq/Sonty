@@ -16,7 +16,7 @@ public class receiver extends BroadcastReceiver {
             context.startForegroundService(i);
         }
         if (intent.getAction() == "exit") {
-            BackgroundService.vibrate(context);
+            SontHelper.vibrate(context);
             context.stopService(intent);
             context.stopService(new Intent(context, BackgroundService.class));
             context.stopService(new Intent(context, MainActivity.class));

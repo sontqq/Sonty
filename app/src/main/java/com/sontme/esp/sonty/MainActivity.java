@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         if (BackgroundService.scanresult != null || BackgroundService.unique != null) {
                             textview.setText("Near: " + BackgroundService.scanresult.size() + " Unique: " + BackgroundService.unique.size());
                         }
-                        BackgroundService.vibrate(getApplicationContext());
+                        SontHelper.vibrate(getApplicationContext());
                         getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
                         getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
                     } catch (Exception e) {
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                         LineChart newchart = findViewById(R.id.newchart);
                         newchart.clear();
 //                        newchart.clearValues();
-                        BackgroundService.vibrate(getApplicationContext());
+                        SontHelper.vibrate(getApplicationContext());
                     }
                 });
     }
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                         LineChart newchart = findViewById(R.id.newchart2);
                         newchart.clear();
                         //newchart.clearValues();
-                        BackgroundService.vibrate(getApplicationContext());
+                        SontHelper.vibrate(getApplicationContext());
                     }
                 });
     }

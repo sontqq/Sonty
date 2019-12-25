@@ -12,8 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.GnssStatus;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -23,12 +21,9 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,7 +50,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -144,7 +138,7 @@ public class BackgroundService extends Service {
                             if (wifiManager.getScanResults().isEmpty() != true) {
 
                                 notificationText = "Count: " + count +
-                                        " @ " + locationToStringAddress(getApplicationContext(), location);
+                                        " @ " + SontHelper.locationToStringAddress(getApplicationContext(), location);
 
                                 for (ScanResult result : wifiManager.getScanResults()) {
                                     unique.add(result.BSSID);
@@ -309,7 +303,7 @@ public class BackgroundService extends Service {
 
             wifiManager.startScan();
 
-            initHeadOverlay();
+            initHeadOverlay(getApplicationContext());
 
             // Catch all Exception globally (class level (BackgroundService))
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
@@ -524,12 +518,6 @@ public class BackgroundService extends Service {
     }
 
     public void showOngoing() {
-        /*
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-        */
-        // OPEN HEADOVERLAY (initHeadOverlay())
         Intent notificationIntent = new Intent(getApplicationContext(), receiver.class);
         notificationIntent.putExtra("29293", "29293");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -571,117 +559,6 @@ public class BackgroundService extends Service {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
         }
-    }
-
-    public void initHeadOverlay() {
-        mHeadView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.head_layout, null);
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = 700;
-        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mWindowManager.addView(mHeadView, params);
-
-        lay_txt1 = mHeadView.findViewById(R.id.laytext);
-        lay_btn1 = mHeadView.findViewById(R.id.lay_btn1);
-        lay_btn2 = mHeadView.findViewById(R.id.lay_btn2);
-
-        lay_btn1.setText("Ping");
-        lay_btn2.setText("Hide");
-        lay_btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
-            }
-        });
-        lay_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mHeadView.setVisibility(View.GONE);
-            }
-        });
-
-        lay_txt1.setText("SERVICE STARTED");
-
-        lay_txt1.setOnTouchListener(new View.OnTouchListener() {
-            private int lastAction;
-            private int initialX;
-            private int initialY;
-            private float initialTouchX;
-            private float initialTouchY;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = params.x;
-                        initialY = params.y;
-                        initialTouchX = event.getRawX();
-                        initialTouchY = event.getRawY();
-
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        if (lastAction == MotionEvent.ACTION_DOWN) {
-                            //OPEN MAIN ACTIVITY
-                            Intent intent = new Intent(BackgroundService.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            stopSelf();
-                        }
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                        mWindowManager.updateViewLayout(mHeadView, params);
-                        lastAction = event.getAction();
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    public static void vibrate(final Context ctx) {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(40, -1));
-                } else {
-                    v.vibrate(40);
-                }
-            }
-        };
-        thread.start();
-    }
-
-    public static String locationToStringAddress(Context ctx, Location location) {
-        String strAdd = "";
-        Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addresses != null) {
-                Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder();
-
-                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
-                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("");
-                }
-                strAdd = strReturnedAddress.toString();
-            }
-        } catch (Exception e) {
-            Log.d("Error_", e.toString());
-        }
-        return strAdd;
     }
 
     public static int convertDBM(int dbm) {
@@ -807,11 +684,11 @@ class SAVE_HTTP extends AsyncTask<String, String, String> {
                         //Log.d("HTTP_RESPONSE_DEBUG_", "'" + response + "'" + "_" + response.length());
                         if (response.contains("new")) {
                             BackgroundService.recorded++;
-                            BackgroundService.vibrate(c);
+                            SontHelper.vibrate(c);
                             if (SontHelper.getSSID(c).contains("UPCAEDB2C3")) {
                                 SontHelper.blinkLed(c, 50);
                             } else {
-                                BackgroundService.vibrate(c);
+                                SontHelper.vibrate(c);
                                 Thread vibroThread = new Thread() {
                                     @Override
                                     public void run() {
@@ -822,7 +699,7 @@ class SAVE_HTTP extends AsyncTask<String, String, String> {
                                 vibroThread.start();
                             }
                         } else if (response.contains("regi_old")) {
-                            BackgroundService.vibrate(c);
+                            SontHelper.vibrate(c);
                             BackgroundService.updated++;
                         } else if (response.contains("not_recorded")) {
                             BackgroundService.not_touched++;
