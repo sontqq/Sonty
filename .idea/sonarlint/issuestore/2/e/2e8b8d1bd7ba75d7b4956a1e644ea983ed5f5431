@@ -1,0 +1,42 @@
+
+ squid:S1186Ä"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8êœµÂß-
+¥squid:S1186é"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8êœµÂß-
+|squid:S2293X"YReplace the type specification in this constructor call with the diamond operator ("<>").(¸‚èøÿÿÿÿ8êœµÂß-
+hsquid:S2095¡"DUse try-with-resources or close this "Socket" in a "finally" clause.(È¦Ìúÿÿÿÿ8êœµÂß-
+Lsquid:S1125‹"(Remove the literal "true" boolean value.(ÏŸ™çùÿÿÿÿ8êœµÂß-
+Ÿsquid:S1186_"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8êœµÂß-
+Isquid:S00108û")Either remove or fill this block of code.(”ı¾8„áºÂß-
+isquid:S3027ƒ"JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(òÍÒÿ8êœµÂß-
+Ÿsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼¦Ğ¸8êœµÂß-
+hsquid:S2095Ë"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(¯Æå8êœµÂß-
+¥squid:S1186‹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8êœµÂß-
+[squid:UselessImportCheck"0Remove this unused import 'com.dosse.upnp.UPnP'.(œ„‡”8êœµÂß-
+Gsquid:S1148ª"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8êœµÂß-
+}squid:S2293½"YReplace the type specification in this constructor call with the diamond operator ("<>").(¸‚èøÿÿÿÿ8êœµÂß-
+Tsquid:S1481Ñ"0Remove this unused "outToClient" local variable.(Øã´”úÿÿÿÿ8êœµÂß-
+Gsquid:S1148€"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8êœµÂß-
+jsquid:S20959"LUse try-with-resources or close this "DatagramSocket" in a "finally" clause.(şÄÙ8êœµÂß-
+Gsquid:S1148Ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8êœµÂß-
+hsquid:S2095Š"DUse try-with-resources or close this "Socket" in a "finally" clause.(ŠëÄıÿÿÿÿ8êœµÂß-
+dsquid:S1854¤"@Remove this useless assignment to local variable "inFromServer".(«œÙŒüÿÿÿÿ8êœµÂß-
+¤squid:S1186R"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8êœµÂß-
+csquid:S1854Ñ"?Remove this useless assignment to local variable "outToClient".(Øã´”úÿÿÿÿ8êœµÂß-
+jsquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(¯•­Ü8êœµÂß-
+osquid:CommentedOutCodeLineÙ"<This block of commented-out lines of code should be removed.(–êÌûÿÿÿÿ8êœµÂß-
+¥squid:S1186±"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8êœµÂß-
+Usquid:S1481¤"1Remove this unused "inFromServer" local variable.(«œÙŒüÿÿÿÿ8êœµÂß-
+Usquid:S1481Î"1Remove this unused "inFromClient" local variable.(Ëä™ãùÿÿÿÿ8êœµÂß-
+Ÿsquid:S11861"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8êœµÂß-
+ksquid:S2095h"MUse try-with-resources or close this "MulticastSocket" in a "finally" clause.(Ë“ğŠ8êœµÂß-
+nsquid:S3027‚"JPut single-quotes around '/' to use the faster "lastIndexOf(char)" method.(±ğ’ƒüÿÿÿÿ8êœµÂß-
+squid:S1319î"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¡‘®Í8êœµÂß-
+¤squid:S1186M"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8êœµÂß-
+¥squid:S1186ä"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8êœµÂß-
+dsquid:S1854Î"@Remove this useless assignment to local variable "inFromClient".(Ëä™ãùÿÿÿÿ8êœµÂß-
+zsquid:UselessImportCheck"ORemove this unused import 'com.turn.ttorrent.client.peer.PeerActivityListener'.(ù¤”ï8êœµÂß-
+nsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(™ç‡úÿÿÿÿ8êœµÂß-
+¥squid:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8êœµÂß-
+nsquid:S00100î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡‘®Í8êœµÂß-
+Fsquid:S1148G"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8êœµÂß-
+ squid:S1186™"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8êœµÂß-
+¥squid:S1186¶"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8êœµÂß-
