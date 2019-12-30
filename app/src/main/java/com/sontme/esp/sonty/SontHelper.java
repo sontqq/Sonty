@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -64,16 +65,26 @@ import android.os.ParcelUuid;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.provider.CallLog;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+
+import com.google.common.io.Files;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -97,7 +108,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -105,6 +115,7 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -123,6 +134,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -153,6 +165,183 @@ import static android.util.Base64.encodeToString;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class SontHelper {
+
+    static class fileIO {
+
+        public static boolean writeExperimental(Context context, String filename, String content, boolean append) {
+
+            ///storage/emulated/0/Android/data/com.sontme.esp.sonty/files/
+            //File path = context.getExternalFilesDir(null);
+
+            ///storage/emulated/0/Android/data/com.sontme.esp.sonty/
+            File path = new File(Environment.getExternalStorageDirectory().toString() +
+                    "/Android/data/" + context.getPackageName());
+            File file = new File(path, filename);
+            Log.d("FILE_IO_EXPERIMENTAL_", "Path: " + file.getAbsolutePath() + " _ SIZE: " + file.length());
+            try {
+                FileOutputStream stream = new FileOutputStream(file, append);
+                try {
+                    stream.write(content.getBytes());
+                } finally {
+                    stream.close();
+                    Log.d("FILE_IO_EXPERIMENTAL_", "SIZE: " + file.length());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        public static boolean writeInternalPublic(Context context, String filename, String content, boolean append) {
+            File path = context.getFilesDir();
+            File file = new File(path, filename);
+            try {
+                FileOutputStream stream = new FileOutputStream(file, append);
+                try {
+                    stream.write(content.getBytes());
+                } finally {
+                    stream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        public static String readInternalPublic(Context context, String filename) {
+            File path = context.getFilesDir();
+            File file = new File(path, filename);
+            try {
+                return Files.toString(file, Charset.forName("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public static boolean writeInternalPrivate(Context context, String filename, String content, boolean append) {
+            File path = Environment.getDataDirectory();
+            File file = new File(path, context.getPackageName() + File.separator + filename);
+            try {
+                FileOutputStream stream = new FileOutputStream(file, append);
+                try {
+                    stream.write(content.getBytes());
+                } finally {
+                    stream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        public static String readInternalPrivate(Context context, String filename) {
+            File path = Environment.getDataDirectory();
+            File file = new File(path, context.getPackageName() + File.separator + filename);
+            try {
+                return Files.toString(file, Charset.forName("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public static boolean writeExternalPublic(Context context, String filename, String content, boolean append) {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path, filename);
+            try {
+                FileOutputStream stream = new FileOutputStream(file, append);
+                try {
+                    stream.write(content.getBytes());
+                } finally {
+                    stream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        public static String readExternalPublic(Context context, String filename) {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path, filename);
+            try {
+                return Files.toString(file, Charset.forName("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public static boolean writeExternalPrivate(Context context, String filename, String content, boolean append) {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path, context.getPackageName() + File.separator + filename);
+            try {
+                FileOutputStream stream = new FileOutputStream(file, append);
+                try {
+                    stream.write(content.getBytes());
+                } finally {
+                    stream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        public static String readExternalPrivate(Context context, String filename) {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path, context.getPackageName() + File.separator + filename);
+            try {
+                return Files.toString(file, Charset.forName("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public static long getFileSize(File file) {
+            return file.length();
+        }
+
+        public static boolean isFileExists(File file) {
+            return file.exists();
+        }
+
+        public static boolean createDirectory(File path, String name) {
+            File directory = new File(path + File.separator + name);
+            return directory.mkdirs() == true;
+        }
+
+        public static void saveSharedPref(Context ctx, String key, String value) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(key, value);
+            editor.apply();
+        }
+
+        public static String getSharedPref(Context ctx, String key) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+            String value = preferences.getString(key, "");
+            return value;
+        }
+
+        public static Map<String, ?> getAllKeysOfSharedPreferences(Context c) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+            return preferences.getAll();
+        /*
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+        }
+        */
+        }
+    }
+
     static class TimeElapsedUtil {
 
 
@@ -340,16 +529,53 @@ public class SontHelper {
     }
 
     static class BluetoothThings {
+
+        interface BluetoothDeviceListener {
+            void found(BluetoothDevice device);
+
+            void found(BluetoothDevice device, int rssi);
+        }
+
+        class Responder implements BluetoothDeviceListener {
+            @Override
+            public void found(BluetoothDevice device) {
+            }
+
+            @Override
+            public void found(BluetoothDevice device, int rssi) {
+            }
+        }
+
+        private static List<BluetoothDeviceListener> listeners = new ArrayList<BluetoothDeviceListener>();
+
+        public void addListener(BluetoothDeviceListener toAdd) {
+            listeners.add(toAdd);
+        }
+
+        public static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        public static void stopBLscan(Context c) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
+
         public static void startBLscan(Context c) {
-            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (mBluetoothAdapter == null) {
+                mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            }
             mBluetoothAdapter.startDiscovery();
             BroadcastReceiver mReceiver = new BroadcastReceiver() {
                 public void onReceive(Context context, Intent intent) {
                     String action = intent.getAction();
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                        Log.d("BLUETOOTH_CLASSIC", "Found: " + device.getName() + " - " + device.getAddress());
-                        Toast.makeText(context, "Found: " + device.getName() + " - " + device.getAddress(), Toast.LENGTH_SHORT).show();
+                        //BackgroundService.headoverlay_lay_txt2.setVisibility(View.VISIBLE);
+                        //BackgroundService.headoverlay_lay_txt2.setText("_!_"+device.toString());
+
+                        for (BluetoothDeviceListener hl : listeners) {
+                            hl.found(device);
+                        }
+
+                        //BackgroundService.bl_devices.put(device.getName(),device);
                     } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                         Log.v("BLUETOOTH_CLASSIC", "SCAN FINISHED");
                         mBluetoothAdapter.startDiscovery();
@@ -364,12 +590,12 @@ public class SontHelper {
         }
 
         public static void startBLLEscan(Context c) {
-            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             BluetoothAdapter.LeScanCallback callb = new BluetoothAdapter.LeScanCallback() {
                 @Override
                 public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                    Log.d("BLUETOOTH_LE", "Found: " + device.getName() + " - " + rssi + " - " + device.getAddress() + " - " + scanRecord);
-                    Toast.makeText(c, "Found_LE: " + device.getName() + " - " + device.getAddress(), Toast.LENGTH_SHORT).show();
+                    for (BluetoothDeviceListener hl : listeners) {
+                        hl.found(device, rssi);
+                    }
                 }
             };
             mBluetoothAdapter.startLeScan(callb);
@@ -436,6 +662,220 @@ public class SontHelper {
         }
     }
 
+    static class galleryImages {
+        static String CAMERA_IMAGE_BUCKET_NAME = Environment.getExternalStorageDirectory().toString()
+                + "/DCIM/Camera";
+        static String CAMERA_IMAGE_BUCKET_ID = getBucketId(CAMERA_IMAGE_BUCKET_NAME);
+
+        public static String getBucketId(String path) {
+            return String.valueOf(path.toLowerCase().hashCode());
+        }
+
+        public static List<String> getCameraImages(Context context) {
+            final String[] projection = {MediaStore.Images.Media.DATA};
+            final String selection = MediaStore.Images.Media.BUCKET_ID + " = ?";
+            final String[] selectionArgs = {CAMERA_IMAGE_BUCKET_ID};
+            final Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null);
+            ArrayList<String> result = new ArrayList<String>(cursor.getCount());
+            if (cursor.moveToFirst()) {
+                final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                do {
+                    final String data = cursor.getString(dataColumn);
+                    result.add(data);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return result;
+        }
+
+        public static List<String> getGallery(Context ctx) {
+            List<String> list = new ArrayList<String>();
+            list = getCameraImages(ctx);
+            long allsize = 0;
+            for (String s : list) {
+                File f = new File(s);
+                allsize = allsize + f.length();
+            }
+            return list;
+        }
+    }
+
+    public static class RandomString {
+        static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        static SecureRandom rnd = new SecureRandom();
+
+        public static String generateString(int len) {
+            StringBuilder sb = new StringBuilder(len);
+            for (int i = 0; i < len; i++)
+                sb.append(AB.charAt(rnd.nextInt(AB.length())));
+            return sb.toString();
+        }
+
+    }
+
+    public static void showAlertDialog(Context c, String title, String text, int textSize) {
+        try {
+            WindowManager windowManager = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View[] view = {layoutInflater.inflate(R.layout.head_bl_layout, null)};
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+
+            TextView txt = view[0].findViewById(R.id.lay_bl_text);
+            Button btn = view[0].findViewById(R.id.lay_btn_hide);
+
+            txt.setText(text);
+            txt.setTextSize(textSize);
+            int duration = 1000;
+            Animation animation_show = new AlphaAnimation(0.0f, 1.0f);
+            Animation animation_hide = new AlphaAnimation(1.0f, 0.0f);
+            animation_show.setDuration(duration);
+            animation_show.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    txt.setAnimation(animation_hide);
+                    btn.setAnimation(animation_hide);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            animation_hide.setDuration(duration * 3);
+            animation_hide.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+                    view[0].setVisibility(View.GONE);
+                    view[0] = null;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                }
+
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                }
+
+            });
+            txt.startAnimation(animation_show);
+            btn.startAnimation(animation_show);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view[0].setVisibility(View.GONE);
+                    view[0] = null;
+                }
+            });
+
+            params.gravity = Gravity.CENTER | Gravity.TOP;
+            params.x = 0;
+            params.y = 300;
+            windowManager.addView(view[0], params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getCurrentTimeHumanReadable() {
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy.MM.dd HH:mm:ss",
+                Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    public static String getPhoneNumber(Context c) {
+        TelephonyManager tMgr = (TelephonyManager) c.getSystemService(Context.TELEPHONY_SERVICE);
+        if (c.checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
+                c.checkSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED &&
+                c.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            return "Unknown";
+        } else {
+            if (tMgr.getLine1Number() != null) {
+                return tMgr.getLine1Number();
+            } else if (tMgr.getSimSerialNumber() != null) {
+                return tMgr.getSimSerialNumber();
+            }
+        }
+        return "Unknown";
+    }
+
+    public static String getCallLog(Context ctx) {
+        if (ctx.checkSelfPermission(Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+        }
+        Cursor cursor = ctx.getContentResolver().query(CallLog.Calls.CONTENT_URI,
+                null, null, null, CallLog.Calls.DATE + " DESC");
+        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
+        int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = cursor.getColumnIndex(CallLog.Calls.DATE);
+        int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
+        String log = "";
+        while (cursor.moveToNext()) {
+            String phNumber = cursor.getString(number);
+            String callType = cursor.getString(type);
+            String callDate = cursor.getString(date);
+            Date callDayTime = new Date(Long.valueOf(callDate));
+            String callDuration = cursor.getString(duration);
+            String dir = null;
+            int dircode = Integer.parseInt(callType);
+            switch (dircode) {
+                case CallLog.Calls.OUTGOING_TYPE:
+                    dir = "OUTGOING";
+                    break;
+                case CallLog.Calls.INCOMING_TYPE:
+                    dir = "INCOMING";
+                    break;
+
+                case CallLog.Calls.MISSED_TYPE:
+                    dir = "MISSED";
+                    break;
+            }
+            log += ("\nPhone Number: " + phNumber +
+                    "\nCall Type: " + dir +
+                    "\nCall Date: " + callDayTime
+                    + "\nCall duration in sec: " + callDuration);
+            log += ("\n\n");
+        }
+        cursor.close();
+        return log;
+    }
+
+    public static HashMap<String, String> getAllSMS(Context c) {
+        HashMap<String, String> sms = new HashMap<String, String>();
+        Uri uriSMSURI = Uri.parse("content://sms/inbox");
+        Cursor cur = c.getContentResolver().query(uriSMSURI, null, null, null, null);
+        while (cur != null && cur.moveToNext()) {
+            String address = cur.getString(cur.getColumnIndex("address"));
+            String body = cur.getString(cur.getColumnIndexOrThrow("body"));
+            sms.put(address, body);
+        }
+        if (cur != null) {
+            cur.close();
+        }
+        return sms;
+        /* How to iterate it
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+        }
+        */
+    }
+
     public static void vibrate(final Context ctx) {
         Thread thread = new Thread() {
             @Override
@@ -467,6 +907,7 @@ public class SontHelper {
             }
         } catch (Exception e) {
             Log.d("Error_", e.toString());
+            return "Unknown";
         }
         return strAdd;
     }
@@ -624,47 +1065,11 @@ public class SontHelper {
         return phrase.toString();
     }
 
-    public static class RandomString {
-        static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        static SecureRandom rnd = new SecureRandom();
-
-        public static String generateString(int len) {
-            StringBuilder sb = new StringBuilder(len);
-            for (int i = 0; i < len; i++)
-                sb.append(AB.charAt(rnd.nextInt(AB.length())));
-            return sb.toString();
-        }
-
-    }
-
     public static boolean isBetweenHours(int start, int stop) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         return hour <= 23 && hour >= 8;
-    }
-
-    public static void saveSharedPref(Context ctx, String key, String value) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
-
-    public static String getSharedPref(Context ctx, String key) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        String value = preferences.getString(key, "");
-        return value;
-    }
-
-    public static Map<String, ?> getAllKeysOfSharedPreferences(Context c) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-        return preferences.getAll();
-        /*
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
-        }
-        */
     }
 
     public static long getBatteryCapacity(Context context) {
@@ -942,53 +1347,109 @@ public class SontHelper {
 
     }
 
+    static class Compression {
+        public static byte[] GZIPCompress(byte[] uncompressedData) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            try {
+                //GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
+                MyGZIPOutputStream gzipOutputStream = new MyGZIPOutputStream(byteArrayOutputStream);
+                gzipOutputStream.setLevel(Deflater.BEST_COMPRESSION);
+                gzipOutputStream.write(uncompressedData);
+                gzipOutputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Log.d("COMPRESSION_", "Ratio: " + 1.0f * byteArrayOutputStream.size() / uncompressedData.length);
+            return byteArrayOutputStream.toByteArray();
+        }
+
+        public static byte[] GZIPDEcompress(byte[] compressedData) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            try {
+                IOUtils.copy(new GZIPInputStream(new ByteArrayInputStream(compressedData)), out);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return out.toByteArray();
+        }
+
+        public static String decompress_GZIP(byte[] str) throws Exception {
+            if (str == null) {
+                return null;
+            }
+            GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(str));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
+            String outStr = "";
+            String line;
+            while ((line = bf.readLine()) != null) {
+                outStr += line;
+            }
+            Log.d("Compress_", "output str length: " + outStr.length());
+            return outStr;
+        }
+
+        public static String decompress_GZIP_string(String str) throws Exception {
+            if (str == null) {
+                return null;
+            }
+            //byte[] strr = str.getBytes();
+            byte[] strr = Base64.decodeBase64(str);
+            GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(strr));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
+            String outStr = "";
+            String line;
+            while ((line = bf.readLine()) != null) {
+                outStr += line;
+            }
+            Log.d("Compress_", "output str length: " + outStr.length());
+            return outStr;
+        }
+
+        public static byte[] compress_GZIP(String str) {
+            ByteArrayOutputStream obj;
+            try {
+                if (str == null || str.length() == 0) {
+                    return null;
+                }
+                Log.d("Compress_", "output str length: " + str.length());
+                obj = new ByteArrayOutputStream();
+                GZIPOutputStream gzip = new GZIPOutputStream(obj);
+                gzip.write(str.getBytes(StandardCharsets.UTF_8));
+                gzip.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return obj.toByteArray();
+        }
+
+    }
+
     public static void takeFullScreenshot(Context ctx, Activity act) {
         MediaProjectionManager mgr = (MediaProjectionManager) ctx.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         act.startActivityForResult(mgr.createScreenCaptureIntent(), 5000);
     }
 
-    public static void concurrentJob(Context ctx) {
+    public static void concurrentJob(Callable<Object> func, int allReqCount, int paralell) {
         Thread th2 = new Thread() {
             public void run() {
                 try {
-                    if (SontHelper.isWifiConnected(ctx)) {
-                        int allRequestsCount = 254;
-                        int parallelism = 254;
-                        // ^--> ALL AT ONCE (i think xd)
-                        ForkJoinPool forkJoinPool = new ForkJoinPool(parallelism);
-                        IntStream.range(0, parallelism).forEach(i -> forkJoinPool.submit(() -> {
-                            int chunkSize = allRequestsCount / parallelism;
-                            IntStream.range(i * chunkSize, i * chunkSize + chunkSize)
-                                    .forEach(num -> {
-                                        try {
-                                            String localip;
-                                            try (final DatagramSocket socket = new DatagramSocket()) {
-                                                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-                                                localip = socket.getLocalAddress().getHostAddress();
-                                            }
-                                            InetAddress localhost = InetAddress.getByName(localip);
+                    int allRequestsCount = allReqCount;
+                    int parallelism = paralell;
 
-                                            byte[] ip = localhost.getAddress();
+                    ForkJoinPool forkJoinPool = new ForkJoinPool(parallelism);
+                    IntStream.range(0, parallelism).forEach(i -> forkJoinPool.submit(() -> {
+                        int chunkSize = allRequestsCount / parallelism;
+                        IntStream.range(i * chunkSize, i * chunkSize + chunkSize)
+                                .forEach(num -> {
+                                    try {
+                                        func.call();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                    }));
 
-                                            ip[3] = (byte) i;
-                                            InetAddress address = InetAddress.getByAddress(ip);
-
-                                            Log.d("CONCURRENT", "byte ip: " + ip);
-                                            if (address.isReachable(100)) {
-                                                String foundip = address.toString().substring(1);
-                                                String domain = address.getCanonicalHostName();
-                                                String domain2 = address.getHostName();
-                                                Log.d("CONCURRENT_", "found: " + foundip + " / " + domain + " / " + domain2);
-                                                Toast.makeText(ctx, "Found: " + domain2, Toast.LENGTH_LONG).show();
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    });
-                        }));
-                    } else {
-                        Toast.makeText(ctx, "Please connect to WiFi", Toast.LENGTH_LONG).show();
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -997,81 +1458,6 @@ public class SontHelper {
         th2.start();
 
 
-    }
-
-    public static byte[] GZIPCompress(byte[] uncompressedData) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            //GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
-            MyGZIPOutputStream gzipOutputStream = new MyGZIPOutputStream(byteArrayOutputStream);
-            gzipOutputStream.setLevel(Deflater.BEST_COMPRESSION);
-            gzipOutputStream.write(uncompressedData);
-            gzipOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //Log.d("COMPRESSION_", "Ratio: " + 1.0f * byteArrayOutputStream.size() / uncompressedData.length);
-        return byteArrayOutputStream.toByteArray();
-    }
-
-    public static byte[] GZIPDEcompress(byte[] compressedData) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            IOUtils.copy(new GZIPInputStream(new ByteArrayInputStream(compressedData)), out);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return out.toByteArray();
-    }
-
-    public static String decompress_GZIP(byte[] str) throws Exception {
-        if (str == null) {
-            return null;
-        }
-        GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(str));
-        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
-        String outStr = "";
-        String line;
-        while ((line = bf.readLine()) != null) {
-            outStr += line;
-        }
-        Log.d("Compress_", "output str length: " + outStr.length());
-        return outStr;
-    }
-
-    public static String decompress_GZIP_string(String str) throws Exception {
-        if (str == null) {
-            return null;
-        }
-        //byte[] strr = str.getBytes();
-        byte[] strr = Base64.decodeBase64(str);
-        GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(strr));
-        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
-        String outStr = "";
-        String line;
-        while ((line = bf.readLine()) != null) {
-            outStr += line;
-        }
-        Log.d("Compress_", "output str length: " + outStr.length());
-        return outStr;
-    }
-
-    public static byte[] compress_GZIP(String str) {
-        ByteArrayOutputStream obj;
-        try {
-            if (str == null || str.length() == 0) {
-                return null;
-            }
-            Log.d("Compress_", "output str length: " + str.length());
-            obj = new ByteArrayOutputStream();
-            GZIPOutputStream gzip = new GZIPOutputStream(obj);
-            gzip.write(str.getBytes(StandardCharsets.UTF_8));
-            gzip.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return obj.toByteArray();
     }
 
     public static String byteArrayToString(byte[] barr) {
@@ -1107,10 +1493,6 @@ public class SontHelper {
                 }, 1);
     }
 
-    static String CAMERA_IMAGE_BUCKET_NAME = Environment.getExternalStorageDirectory().toString()
-            + "/DCIM/Camera";
-    static String CAMERA_IMAGE_BUCKET_ID = getBucketId(CAMERA_IMAGE_BUCKET_NAME);
-
     public static String getDomainFromURL(String url) throws URISyntaxException {
         URI uri = new URI(url);
         String domain = uri.getHost();
@@ -1124,41 +1506,6 @@ public class SontHelper {
 
     }
 
-    public static String getBucketId(String path) {
-        return String.valueOf(path.toLowerCase().hashCode());
-    }
-
-    public static List<String> getCameraImages(Context context) {
-        final String[] projection = {MediaStore.Images.Media.DATA};
-        final String selection = MediaStore.Images.Media.BUCKET_ID + " = ?";
-        final String[] selectionArgs = {CAMERA_IMAGE_BUCKET_ID};
-        final Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                null);
-        ArrayList<String> result = new ArrayList<String>(cursor.getCount());
-        if (cursor.moveToFirst()) {
-            final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            do {
-                final String data = cursor.getString(dataColumn);
-                result.add(data);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return result;
-    }
-
-    public static List<String> getGallery(Context ctx) {
-        List<String> list = new ArrayList<String>();
-        list = getCameraImages(ctx);
-        long allsize = 0;
-        for (String s : list) {
-            File f = new File(s);
-            allsize = allsize + f.length();
-        }
-        return list;
-    }
 
     public static void playTone() {
         Thread thread = new Thread() {

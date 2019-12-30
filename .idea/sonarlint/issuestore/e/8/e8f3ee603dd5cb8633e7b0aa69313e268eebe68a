@@ -1,49 +1,30 @@
 
-[squid:UselessImportCheck7"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ
-Zsquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ
-|squid:UselessImportCheck,"YRemove this unused import 'com.github.mikephil.charting.formatter.DefaultValueFormatter'.(§®Ä`
-jsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(°Û¦€8œÅªµğ-
-hsquid:UselessImportCheck"=Remove this unused import 'androidx.core.app.ActivityCompat'.(ş¤—²8‹ÅÖçò-
-}squid:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
-dsquid:UselessImportCheck"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8Ÿ¨‰½Ş-
-csquid:UselessImportCheck"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8Ÿ¨‰½Ş-
-vsquid:UselessImportCheck%"MRemove this unused import 'com.github.mikephil.charting.components.AxisBase'.(ìÿªãúÿÿÿÿ
-Vsquid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ
-Fsquid:S1148V"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8©şÕçò-
-Isquid:S00108ğ")Either remove or fill this block of code.(”ı¾8œÅªµğ-
-Xsquid:UselessImportCheck"/Remove this unused import 'android.os.IBinder'.(Ñğôˆùÿÿÿÿ
-lsquid:MaximumInheritanceDepth<"<This class has 6 parents which is greater than 5 authorized.(²Ú±8Ÿ¨‰½Ş-
-hsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(ÖˆÑëıÿÿÿÿ
-_squid:UselessImportCheck"4Remove this unused import 'android.content.Context'.(©Ê‰è8Ÿ¨‰½Ş-
-nsquid:UselessImportCheck">Remove this unused import 'android.content.pm.PackageManager'.(€®¥õÿÿÿÿÿ8‹ÅÖçò-
-€squid:UselessImportCheck-"WRemove this unused import 'com.github.mikephil.charting.formatter.IAxisValueFormatter'.(‡¸ß¼ıÿÿÿÿ
-xsquid:S2293Û"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8œÅªµğ-
-wsquid:UselessImportCheck."SRemove this unused import 'com.github.mikephil.charting.formatter.IValueFormatter'.(“Òôİ
-Fsquid:S1148q"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8…™ëãò-
-isquid:UselessImportCheck"9Remove this unused import 'android.net.wifi.WifiManager'.(‰şéùÿÿÿÿ8Ÿ¨‰½Ş-
-[squid:UselessImportCheck#"0Remove this unused import 'com.dosse.upnp.UPnP'.(œ„‡”8‹Ç´Ãß-
-osquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(şè»€ùÿÿÿÿ8œÅªµğ-
-}squid:S2293ß"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
-isquid:S1192\"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8œÅªµğ-
-]squid:UselessImportCheck"2Remove this unused import 'android.view.MenuItem'.(Ğ¬Ó‘8Ÿ¨‰½Ş-
-]squid:UselessImportCheck	"-Remove this unused import 'android.Manifest'.(¦øïúÿÿÿÿ8‹ÅÖçò-
-hsquid:UselessImportCheck"?Remove this unused import 'android.graphics.drawable.Drawable'.(Á‰º„ùÿÿÿÿ
-}squid:S2293à"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
-}squid:S2293†"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
-isquid:UselessImportCheck"@Remove this unused import 'androidx.core.content.ContextCompat'.(üäÂùÿÿÿÿ
-^squid:UselessImportCheck
-":Remove this unused import 'android.content.ComponentName'.(½‹æŠ
-bsquid:UselessImportCheck">Remove this unused import 'android.content.ServiceConnection'.(¾ÄãÛ
-jsquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
-usquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
-jsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(†€éˆ8œÅªµğ-
-\squid:UselessImportCheck1"1Remove this unused import 'com.google.gson.Gson'.(–§8¸Ôâƒß-
-xsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8œÅªµğ-
-vsquid:S2293Ù"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
-jsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(µöšÂ8œÅªµğ-
-jsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
-squid:CallToDeprecatedMethod¶"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ø™ñŒşÿÿÿÿ8œÅªµğ-
-Vsquid:UselessImportCheck6"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ
-\squid:UselessImportCheck"3Remove this unused import 'android.graphics.Color'.(øãíòşÿÿÿÿ
-osquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(§œ÷±úÿÿÿÿ8œÅªµğ-
-asquid:UselessImportCheck3"1Remove this unused import 'java.net.InetAddress'.(ë³ƒÒÿÿÿÿÿ8‹Ç´Ãß-
+xsquid:S2293î"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8œÅªµğ-
+osquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(§œ÷±úÿÿÿÿ8œÅªµğ-
+xsquid:S2293”"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8œÅªµğ-
+Fsquid:S1148N"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8©şÕçò-
+vsquid:S2293’"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
+}squid:S2293™"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
+Isquid:S00108ƒ")Either remove or fill this block of code.(”ı¾8œÅªµğ-
+jsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
+Fsquid:S1148y"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8…™ëãò-
+jsquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(µöšÂ8œÅªµğ-
+osquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(şè»€ùÿÿÿÿ8œÅªµğ-
+isquid:S1192T"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8œÅªµğ-
+jsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(†€éˆ8œÅªµğ-
+}squid:S2293ò"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
+jsquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
+isquid:UselessImportCheck"@Remove this unused import 'androidx.core.content.ContextCompat'.(üäÂùÿÿÿÿ
+}squid:S2293˜"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
+squid:CallToDeprecatedMethodÉ"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ø™ñŒşÿÿÿÿ8œÅªµğ-
+vsquid:S2293ì"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
+Zsquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ
+lsquid:MaximumInheritanceDepth,"<This class has 6 parents which is greater than 5 authorized.(²Ú±8Ÿ¨‰½Ş-
+}squid:S2293ó"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
+csquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(°Û¦€
+usquid:S00117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÛ®Ñûÿÿÿÿ8¡ÇÛ„õ-
+_squid:UselessImportCheck#"4Remove this unused import 'java.lang.reflect.Field'.(„‡Áú8¡ÇÛ„õ-
+vsquid:UselessImportCheck*"FRemove this unused import 'io.netty.handler.codec.http.HttpConstants'.(œ‚ÅŒûÿÿÿÿ8¡ÇÛ„õ-
+Fsquid:S11854"(Remove this method to simply inherit it.(Û£Ì…8¡ÇÛ„õ-
+isquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(ìË¨»8¡ÇÛ„õ-
+osquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(ÖˆÑëıÿÿÿÿ8¡ÇÛ„õ-

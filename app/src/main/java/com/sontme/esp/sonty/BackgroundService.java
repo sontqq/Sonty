@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.Html;
@@ -45,7 +47,6 @@ import com.github.anrwatchdog.ANRWatchDog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -62,6 +63,7 @@ public class BackgroundService extends Service {
     public static List<ScanResult> scanresult;
 
     public static Set<String> unique = new LinkedHashSet<>();
+    //public static HashMap<String, Integer> uniqueness = new HashMap<>();
     /*
     public static HashSet<String> unique2 = new HashSet<>();
     public static LinkedHashSet<String> unique3 = new LinkedHashSet<>();
@@ -69,36 +71,46 @@ public class BackgroundService extends Service {
     */
 
     public static int count = 0;
-    public static String lastcolor = "red";
+    public static String service_icon_lastColor = "red";
     public static String started_time;
-    public static long capacity;
 
     public static int recorded; // new
     public static int updated; // regi_old, regi_str
     public static int not_touched; // not_recorded
     public static int retry_count; // http retry;
 
-    static WindowManager mWindowManager;
-    public static View mHeadView;
-    static Button lay_btn1;
-    static Button lay_btn2;
-    static TextView lay_txt1;
+    public static WindowManager headoverlay_mWindowManager;
+    public static View headoverlay_mHeadView;
 
-    static SontHelper.TimeElapsedUtil teu;
+    static Button headoverlay_lay_btn1;
+    static Button headoverlay_lay_btn2;
+    static TextView headoverlay_lay_txt1;
+    static TextView headoverlay_lay_txt2;
+
+    static SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
+    static SontHelper.TimeElapsedUtil elapsed_since_start = new SontHelper.TimeElapsedUtil();
+    static int started_at_battery;
     static String gns;
-    Map<Integer, String> satellite_types = new HashMap<Integer, String>();
+
+    public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
+
+    public static Location CURRENT_LOCATION;
+
     boolean reallyexit = false;
+
+    public Handler inactivity_handler;
+    public Runnable inactivity_runnable;
+
+    public static SontHelper.BluetoothThings bl = new SontHelper.BluetoothThings();
 
     @Override
     public void onCreate() {
         try {
             super.onCreate();
 
-            SontHelper.TimeElapsedUtil t = new SontHelper.TimeElapsedUtil();
-            t.setStartTime(System.currentTimeMillis());
-
+            elapsed_since_start.setStartTime(System.currentTimeMillis());
             exitOnTooLowBattery();
-
+            started_at_battery = SontHelper.getBatteryLevel(getApplicationContext());
             SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
             SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
 
@@ -116,11 +128,14 @@ public class BackgroundService extends Service {
                 }
             };
             vibroThread.start();
-
-            if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3"))
+            /*
+            if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
                 SontHelper.blinkLed(getApplicationContext(), 5);
-
-            registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+            }
+            */
+            registerReceiver(wifiReceiver, new IntentFilter(
+                    WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
+            ));
 
             wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -129,6 +144,8 @@ public class BackgroundService extends Service {
                 @Override
                 public void onLocationChanged(Location location) {
                     try {
+                        resetInactivityHandler();
+                        CURRENT_LOCATION = location;
                         Log.d("WIFI_LOCATION", "Location Changed: " + location.toString());
                         count++;
                         String notificationText;
@@ -137,8 +154,13 @@ public class BackgroundService extends Service {
                         if (wifiManager.getScanResults() != null) { // scanResult
                             if (wifiManager.getScanResults().isEmpty() != true) {
 
-                                notificationText = "Count: " + count +
-                                        " @ " + SontHelper.locationToStringAddress(getApplicationContext(), location);
+                                String addr = SontHelper.locationToStringAddress(getApplicationContext(), location);
+
+                                if (addr != null) {
+                                    notificationText = "Count: " + count + " @ " + addr;
+                                } else {
+                                    notificationText = "Count: " + count + " @ Unknown";
+                                }
 
                                 for (ScanResult result : wifiManager.getScanResults()) {
                                     unique.add(result.BSSID);
@@ -172,7 +194,7 @@ public class BackgroundService extends Service {
                                                     save.execute();
                                                 } catch (Exception e) {
                                                     Log.d("HTTP_", "ERROR: " + e.getMessage());
-                                                    lay_txt1.setText("HTTP ERROR");
+                                                    headoverlay_lay_txt1.setText("HTTP ERROR");
                                                     e.printStackTrace();
                                                 }
                                             }
@@ -180,7 +202,7 @@ public class BackgroundService extends Service {
                                         };
                                         saveHttpThread.start();
 
-                                        Log.d("ELAPSED_TIME_SINCE_WIFI_SCAN", "TIME: " + teu.getElapsed());
+                                        //Log.d("ELAPSED_TIME_SINCE_WIFI_SCAN", "TIME: " + teu.getElapsed());
                                     }
                                 }
                                 scanresult.clear();
@@ -219,9 +241,17 @@ public class BackgroundService extends Service {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getApplicationContext(), "PERMISSION ERROR", Toast.LENGTH_LONG).show();
             }
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+            locationManager.requestSingleUpdate(
+                    LocationManager.GPS_PROVIDER,
+                    locationListener,
+                    null
+            );
             locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 3, 5, locationListener);
+                    LocationManager.GPS_PROVIDER,
+                    3,
+                    5,
+                    locationListener
+            );
             locationManager.addGpsStatusListener(new GpsStatus.Listener() {
                 @Override
                 public void onGpsStatusChanged(int event) {
@@ -229,9 +259,12 @@ public class BackgroundService extends Service {
                         updateCurrent("Sonty Service", "[GPSS] Signal Lost");
                         //Toast.makeText(getApplicationContext(),"GPS SIGNAL LOST",Toast.LENGTH_LONG).show();
                     }
-                    if (event == GpsStatus.GPS_EVENT_STARTED || event == GpsStatus.GPS_EVENT_FIRST_FIX) {
+                    if (event == GpsStatus.GPS_EVENT_STARTED) {
                         //Waiting for
-                        updateCurrent("Sonty Service", "[GPS] Waiting..");
+                        updateCurrent("Sonty Service", "[GPS] Connecting..");
+                    }
+                    if (event == GpsStatus.GPS_EVENT_FIRST_FIX) {
+                        updateCurrent("Sonty Service", "[GPS] Connected");
                     }
                 }
             });
@@ -245,9 +278,9 @@ public class BackgroundService extends Service {
                 public void onSatelliteStatusChanged(GnssStatus status) {
                     gns = String.valueOf(status.getSatelliteCount());
                     for (int i = 0; i < status.getSatelliteCount(); i++) {
-                        int type = status.getConstellationType(i);
-                        satellite_types.put(i, convert(type));
-                        Log.d("GNSS_", "TYPE: " + i + " -> " + convert(type));
+                        //int type = status.getConstellationType(i);
+                        //satellite_types.put(i, convert(type));
+                        //Log.d("GNSS_", "TYPE: " + i + " -> " + convert(type));
                     }
                     super.onSatelliteStatusChanged(status);
                 }
@@ -286,8 +319,11 @@ public class BackgroundService extends Service {
                         @Override
                         public void run() {
                             SontHelper.sendEmail(
-                                    "[SONTY][ANR] SERVICE STARTED",
-                                    "SERVICE THREAD NOT RESPONDING \n" + error.toString(),
+                                    "[SONTY][ANR] ERROR",
+                                    "SERVICE THREAD NOT RESPONDING\n\n" +
+                                            error.toString() + "\n\n" +
+                                            error.getCause().getStackTrace()[0].toString() + "\n\n" +
+                                            error.getStackTrace()[0].toString(),
                                     "sont16@gmail.com",
                                     "egedzsolt@protonmail.com"
                             );
@@ -297,15 +333,8 @@ public class BackgroundService extends Service {
                 }
             });
 
-            if (wifiManager.isWifiEnabled() == false) {
-                Toast.makeText(getApplicationContext(), "Please TURN ON WIFI", Toast.LENGTH_SHORT).show();
-            }
-
-            wifiManager.startScan();
-
             initHeadOverlay(getApplicationContext());
 
-            // Catch all Exception globally (class level (BackgroundService))
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                 @Override
                 public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
@@ -317,7 +346,12 @@ public class BackgroundService extends Service {
                         public void run() {
                             SontHelper.sendEmail(
                                     "[SONTY] UNHANDLED ERROR",
-                                    "Error: " + paramThread.getName() + " _ " + paramThrowable.getMessage() + "\n" + paramThread.toString() + "\n" + paramThrowable.toString(),
+                                    "Error: " + paramThread.getName() + " _ " +
+                                            paramThrowable.getMessage() + "\n" +
+                                            paramThread.toString() + "\n" +
+                                            paramThrowable.toString() + "\n Line number: " +
+                                            paramThrowable.getStackTrace()[0].getLineNumber() + "\n" +
+                                            paramThread.getStackTrace()[0].getLineNumber(),
                                     "sont16@gmail.com",
                                     "egedzsolt@protonmail.com"
                             );
@@ -329,39 +363,153 @@ public class BackgroundService extends Service {
 
             //region BATTERY POWER CHECKER TIMER
             android.os.Handler handler = new android.os.Handler();
-            handler.postDelayed(new
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    exitOnTooLowBattery();
 
-                                        Runnable() {
-                                            public void run() {
-                                                exitOnTooLowBattery();
-                                                handler.postDelayed(this, 10000);
-                                            }
-                                        }, 10000);
+                    handler.postDelayed(this, 10000);
+                }
+            }, 10000);
             //endregion
 
-            Thread emailThread = new Thread() {
+            inactivity_handler = new Handler();
+            inactivity_runnable = new Runnable() {
                 @Override
                 public void run() {
+                    Toast.makeText(getApplicationContext(), "INACTIVE", Toast.LENGTH_SHORT).show();
                     SontHelper.sendEmail(
-                            "[SONTY] SERVICE STARTED",
-                            "SERVICE STARTED \n IP: " + SontHelper.getLocalIpAddress(),
+                            "[SONTY] SERVICE INACTIVE",
+                            "SERVICE is INACTIVE since 1 HOUR!",
                             "sont16@gmail.com",
                             "egedzsolt@protonmail.com"
                     );
                 }
             };
-            emailThread.start();
+            startInactivityHandler();
 
-            Log.d("SERVICE_INITIALIZATION_TOOK: ", "Elapsed time: " + t.getElapsed());
+            bl = new SontHelper.BluetoothThings();
+            SontHelper.BluetoothThings.BluetoothDeviceListener listener =
+                    new SontHelper.BluetoothThings.BluetoothDeviceListener() {
+                        @Override
+                        public void found(BluetoothDevice device) {
+                            try {
+                                SontHelper.showAlertDialog(getApplicationContext(),
+                                        "Bluetooth Classic device found",
+                                        device.getName() + " -> " + device.getAddress(),
+                                        22
+                                );
+                                if (CURRENT_LOCATION != null)
+                                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
+                                            "bluetoothlist.txt",
+                                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() +
+                                                    "\n" + CURRENT_LOCATION.toString() + "\n" +
+                                                    device.getName() + "\n" +
+                                                    device.getAddress(),
+                                            true
+                                    );
+
+                                if (bl_devices.containsValue(device) != true) {
+                                    if (bl_devices.size() >= 1) {
+                                        headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() + "\n");
+                                    }
+                                    bl_devices.put(CURRENT_LOCATION, device);
+                                    headoverlay_lay_txt2.setVisibility(View.VISIBLE);
+                                    headoverlay_lay_txt2.setText(
+                                            headoverlay_lay_txt2.getText() +
+                                                    device.getName() + " -> " +
+                                                    device.getAddress() + "\n"
+                                    );
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void found(BluetoothDevice device, int rssi) {
+                            try {
+                                SontHelper.showAlertDialog(getApplicationContext(),
+                                        "Bluetooth LE device found",
+                                        device.getName() + "\n" + device.getAddress(),
+                                        22
+                                );
+                                if (CURRENT_LOCATION != null)
+                                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
+                                            "bluetoothlist.txt",
+                                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() + "\n" +
+                                                    CURRENT_LOCATION.toString() + "\n" +
+                                                    device.getName() + "_LE -> " +
+                                                    device.getAddress(),
+                                            true
+                                    );
+                                if (bl_devices.containsValue(device) != true) {
+                                    if (bl_devices.size() >= 1) {
+                                        headoverlay_lay_txt2.setText(
+                                                headoverlay_lay_txt2.getText() + "\n");
+                                    }
+                                    bl_devices.put(CURRENT_LOCATION, device);
+                                    String time = SontHelper.getCurrentTimeHumanReadable();
+                                    headoverlay_lay_txt2.setVisibility(View.VISIBLE);
+                                    if (headoverlay_lay_txt2.getText().length() > 500)
+                                        headoverlay_lay_txt2.setText("");
+                                    headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() +
+                                            time + " @LE_" + device.getName() +
+                                            " -> " + device.getAddress() +
+                                            " -> RSSI: " + rssi
+                                    );
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+            bl.addListener(listener);
+
+            startBLscanFromService(getApplicationContext());
+            startBLLEscanFromService(getApplicationContext());
+
+            Log.d("SERVICE_INITIALIZATION", "Elapsed time: " + elapsed_since_start.getElapsed());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void startBLLEscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.startBLLEscan(getApplicationContext());
+    }
+
+    public void startBLscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.startBLscan(getApplicationContext());
+    }
+
+    public void stopBLLEscanFromService(Context ctx) {
+
+    }
+
+    public void stopBLscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.stopBLscan(getApplicationContext());
+    }
+
+    public void resetInactivityHandler() {
+        stopInactivityHandler();
+        startInactivityHandler();
+    }
+
+    public void stopInactivityHandler() {
+        inactivity_handler.removeCallbacks(inactivity_runnable);
+    }
+
+    public void startInactivityHandler() {
+        inactivity_handler.postDelayed(inactivity_runnable, 3600000); // 1h minutes
+    }
+
     public static void initHeadOverlay(Context c) {
-        mHeadView.setVisibility(View.GONE);
-        mHeadView = null;
-        mHeadView = LayoutInflater.from(c).inflate(R.layout.head_layout, null);
+        if (headoverlay_mHeadView != null) {
+            headoverlay_mHeadView.setVisibility(View.GONE);
+            headoverlay_mHeadView = null;
+        }
+        headoverlay_mHeadView = LayoutInflater.from(c).inflate(R.layout.head_layout, null);
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -371,31 +519,32 @@ public class BackgroundService extends Service {
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = 700;
-        mWindowManager = (WindowManager) c.getSystemService(WINDOW_SERVICE);
-        mWindowManager.addView(mHeadView, params);
+        headoverlay_mWindowManager = (WindowManager) c.getSystemService(WINDOW_SERVICE);
+        headoverlay_mWindowManager.addView(headoverlay_mHeadView, params);
 
-        lay_txt1 = mHeadView.findViewById(R.id.laytext);
-        lay_btn1 = mHeadView.findViewById(R.id.lay_btn1);
-        lay_btn2 = mHeadView.findViewById(R.id.lay_btn2);
+        headoverlay_lay_txt1 = headoverlay_mHeadView.findViewById(R.id.laytext);
+        headoverlay_lay_txt2 = headoverlay_mHeadView.findViewById(R.id.laytext2);
+        headoverlay_lay_btn1 = headoverlay_mHeadView.findViewById(R.id.lay_btn1);
+        headoverlay_lay_btn2 = headoverlay_mHeadView.findViewById(R.id.lay_btn2);
 
-        lay_btn1.setText("Ping");
-        lay_btn2.setText("Hide");
-        lay_btn1.setOnClickListener(new View.OnClickListener() {
+        headoverlay_lay_btn1.setText("Ping");
+        headoverlay_lay_btn2.setText("Hide");
+        headoverlay_lay_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
+                headoverlay_lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
             }
         });
-        lay_btn2.setOnClickListener(new View.OnClickListener() {
+        headoverlay_lay_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHeadView.setVisibility(View.GONE);
+                headoverlay_mHeadView.setVisibility(View.GONE);
+                headoverlay_mHeadView = null;
             }
         });
 
-        lay_txt1.setText("SERVICE STARTED");
-
-        lay_txt1.setOnTouchListener(new View.OnTouchListener() {
+        headoverlay_lay_txt1.setText("SERVICE STARTED");
+        headoverlay_lay_txt1.setOnTouchListener(new View.OnTouchListener() {
             private int lastAction;
             private int initialX;
             private int initialY;
@@ -427,14 +576,53 @@ public class BackgroundService extends Service {
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
 
-                        mWindowManager.updateViewLayout(mHeadView, params);
+                        headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
                         lastAction = event.getAction();
                         return true;
                 }
                 return false;
             }
         });
+        headoverlay_lay_txt2.setVisibility(View.GONE);
+        headoverlay_lay_txt2.setOnTouchListener(new View.OnTouchListener() {
+            private int lastAction;
+            private int initialX;
+            private int initialY;
+            private float initialTouchX;
+            private float initialTouchY;
 
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialX = params.x;
+                        initialY = params.y;
+                        initialTouchX = event.getRawX();
+                        initialTouchY = event.getRawY();
+
+                        lastAction = event.getAction();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        if (lastAction == MotionEvent.ACTION_DOWN) {
+                            //OPEN MAIN ACTIVITY
+                            Intent intent = new Intent(c, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            c.startActivity(intent);
+                            //stopSelf();
+                        }
+                        lastAction = event.getAction();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
+                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
+
+                        headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
+                        lastAction = event.getAction();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void updateCurrent(String title, String text) {
@@ -444,12 +632,12 @@ public class BackgroundService extends Service {
             }
 
             int color_drawable = R.drawable.service;
-            if (lastcolor == "red") {
+            if (service_icon_lastColor == "red") {
                 color_drawable = R.drawable.service_gray;
-                lastcolor = "gray";
-            } else if (lastcolor == "gray") {
+                service_icon_lastColor = "gray";
+            } else if (service_icon_lastColor == "gray") {
                 color_drawable = R.drawable.service;
-                lastcolor = "red";
+                service_icon_lastColor = "red";
             }
             /*
             Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -464,25 +652,25 @@ public class BackgroundService extends Service {
             Intent intent_start = new Intent(getApplicationContext(), receiver.class);
             Intent intent_pause = new Intent(getApplicationContext(), receiver.class);
             Intent intent_exit = new Intent(getApplicationContext(), receiver.class);
+            Intent start_bl = new Intent(getApplicationContext(), receiver.class);
+            Intent stop_bl = new Intent(getApplicationContext(), receiver.class);
 
             intent_exit.setAction("exit");
             intent_start.setAction("start");
             intent_pause.setAction("pause");
+            start_bl.setAction("start_bl");
+            stop_bl.setAction("stop_bl");
 
             PendingIntent pi_start = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_start, PendingIntent.FLAG_IMMUTABLE);
             PendingIntent pi_pause = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_pause, PendingIntent.FLAG_IMMUTABLE);
             PendingIntent pi_exit = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_exit, PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pi_start_bl = PendingIntent.getBroadcast(getApplicationContext(), 1, start_bl, PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pi_stop_bl = PendingIntent.getBroadcast(getApplicationContext(), 1, stop_bl, PendingIntent.FLAG_IMMUTABLE);
 
             String ip = NetworkUtils.getIPAddress(true);
 
-            String x = "";
-            ArrayList<String> ts = new ArrayList<>();
-            for (int i = 0; i < Integer.parseInt(gns); i++) {
-                ts.add(satellite_types.get(i));
-            }
-            for (String s : ts) {
-                x += s + " -> " + Collections.frequency(ts, s) + "\n";
-            }
+            String elapsed = elapsed_since_start.getElapsed();
+            String finalText = "Elapsed: " + elapsed + " @ " + started_at_battery + "%";
 
             if (scanresult == null) {
                 scanresult = new ArrayList<>();
@@ -490,10 +678,11 @@ public class BackgroundService extends Service {
             Notification notification = new NotificationCompat.Builder(getApplicationContext(), "sonty")
                     .setContentTitle(title + " | Started: " + started_time)
                     .setContentText(text)
-                    // Known Direct Subclasses
-                    // NotificationCompat.BigPictureStyle,NotificationCompat.BigTextStyle,NotificationCompat.DecoratedCustomViewStyle,NotificationCompat.InboxStyle,NotificationCompat.MediaStyle,NotificationCompat.MessagingStyle
+                    /* Known Direct Subclasses
+                    NotificationCompat.BigPictureStyle,NotificationCompat.BigTextStyle,NotificationCompat.DecoratedCustomViewStyle,NotificationCompat.InboxStyle,NotificationCompat.MediaStyle,NotificationCompat.MessagingStyle
+                    */
                     .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(x)
+                            .bigText(finalText)
                             .setSummaryText("IP: " + ip)
                             .setBigContentTitle("Satellites: " + gns)
                     )
@@ -501,12 +690,11 @@ public class BackgroundService extends Service {
                     .setSmallIcon(color_drawable)
                     .setContentIntent(pendingIntent)
                     .setChannelId("sonty")
-                    .addAction(R.drawable.service, "START",
-                            pi_start)
-                    .addAction(R.drawable.service, "PAUSE",
-                            pi_pause)
-                    .addAction(R.drawable.service, "EXIT",
-                            pi_exit)
+                    .addAction(R.drawable.service, "BL START", pi_start_bl)
+                    .addAction(R.drawable.service, "BL STOP", pi_stop_bl)
+                    //.addAction(R.drawable.service, "START", pi_start)
+                    //.addAction(R.drawable.service, "PAUSE", pi_pause)
+                    .addAction(R.drawable.service, "EXIT", pi_exit)
                     .build();
 
             NotificationManager nm = getSystemService(NotificationManager.class);
@@ -548,16 +736,19 @@ public class BackgroundService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        Log.d("BLUETOOTH_LE", "Scan Started");
     }
 
     public void exitOnTooLowBattery() {
-        BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
-        int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        if (batLevel <= 25 && SontHelper.isBatteryCharging(getApplicationContext()) == false) {
-            Toast.makeText(getApplicationContext(), "Exiting, too low battery!", Toast.LENGTH_LONG).show();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+        try {
+            BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
+            int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+            if (batLevel <= 25 && SontHelper.isBatteryCharging(getApplicationContext()) == false) {
+                Toast.makeText(getApplicationContext(), "Exiting, too low battery!", Toast.LENGTH_LONG).show();
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -584,32 +775,11 @@ public class BackgroundService extends Service {
 
     @Override
     public void onDestroy() {
-        //super.onDestroy();
-        /*
-        BackgroundService.vibrate(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "SERVICE EXITING", Toast.LENGTH_LONG).show();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(1);
-        notificationManager.cancelAll();
-
-        long apprx = TrafficStats.getUidRxBytes(getApplicationInfo().uid);
-        long apptx = TrafficStats.getUidTxBytes(getApplicationInfo().uid);
-        long app_r_pa = TrafficStats.getUidRxPackets(getApplicationInfo().uid);
-        long app_s_pa = TrafficStats.getUidTxPackets(getApplicationInfo().uid);
-
-        SontHelper.saveSharedPref(getApplicationContext(), "sonty_rx", String.valueOf(apprx));
-        SontHelper.saveSharedPref(getApplicationContext(), "sonty_tx", String.valueOf(apptx));
-
-        if (mHeadView != null) mWindowManager.removeView(mHeadView);
-        */
-        //SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
-        //SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
         if (reallyexit != true) {
             Intent i = new Intent(getApplicationContext(), BackgroundService.class);
             startForegroundService(i);
-        } else {
-            super.onDestroy();
         }
+        //super.onDestroy();
     }
 
     @Override
@@ -634,32 +804,36 @@ public class BackgroundService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             // make a bit delay to test out power consumption
-            TextView headtext = mHeadView.findViewById(R.id.laytext);
-            headtext.setText(Html.fromHtml(
-                    "New: <b>" + recorded + "</b> | " +
-                            "Updated: <b>" + updated + "</b><br>" +
-                            "Not updated: <b>" + not_touched + "</b> | " +
-                            "Retry: <b>" + retry_count + "</b>",
-                    Html.FROM_HTML_MODE_COMPACT
-            ));
-            headtext.setTextSize(15f);
-            headtext.setBackgroundResource(R.color.headOverlayTextBackgroundColor);
+            try {
+                TextView headtext = headoverlay_mHeadView.findViewById(R.id.laytext);
+                headtext.setText(Html.fromHtml(
+                        "New: <b>" + recorded + "</b> | " +
+                                "Updated: <b>" + updated + "</b><br>" +
+                                "Not updated: <b>" + not_touched + "</b> | " +
+                                "Retry: <b>" + retry_count + "</b>",
+                        Html.FROM_HTML_MODE_COMPACT
+                ));
+                headtext.setTextSize(15f);
+                headtext.setBackgroundResource(R.color.headOverlayTextBackgroundColor);
 
-            Thread scanThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        scanresult = wifiManager.getScanResults();
-                        Thread.sleep(3000);
-                        wifiManager.startScan();
-                        teu = new SontHelper.TimeElapsedUtil();
-                        teu.setStartTime(System.currentTimeMillis());
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                Thread scanThread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            scanresult = wifiManager.getScanResults();
+                            Thread.sleep(3000);
+                            wifiManager.startScan();
+                            teu = new SontHelper.TimeElapsedUtil();
+                            teu.setStartTime(System.currentTimeMillis());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            };
-            scanThread.start();
+                };
+                scanThread.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 }

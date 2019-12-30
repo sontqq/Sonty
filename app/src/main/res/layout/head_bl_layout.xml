@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_head_root_2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <!--android:background="@drawable/rounded_layout_background">!-->
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"></ImageView>
+
+    <TextView
+        android:id="@+id/lay_bl_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="#FF5722"
+        android:textSize="36sp"></TextView>
+
+    <Button
+        android:id="@+id/lay_btn_hide"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Hide"></Button>
+
+
+</LinearLayout>

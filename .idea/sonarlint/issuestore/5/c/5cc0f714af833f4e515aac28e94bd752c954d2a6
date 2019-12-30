@@ -1,25 +1,6 @@
 
-isquid:UselessImportCheck">Remove this unused import 'android.bluetooth.BluetoothDevice'.(˜¾Ÿü8à”ÙÆð-
-squid:UselessImportCheck"URemove this unused import 'com.google.android.gms.location.ActivityTransitionResult'.(åà¯
-8º¿³çò-
-bsquid:UselessImportCheck">Remove this unused import 'android.location.LocationListener'.(æ‡ë 
-~squid:UselessImportCheck"TRemove this unused import 'com.google.android.gms.location.ActivityTransitionEvent'.(¼·ž8º¿³çò-
-asquid:UselessImportCheck"6Remove this unused import 'android.app.PendingIntent'.(šºÞ—8¨¨‰½Þ-
-lsquid:UselessImportCheck"<Remove this unused import 'android.app.NotificationManager'.(¸˜ùÑûÿÿÿÿ8¨¨‰½Þ-
-Qsquid:UselessImportCheck".Remove this unused import 'android.os.Looper'.(âå
-Tsquid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
-Wsquid:UselessImportCheck".Remove this unused import 'android.os.Bundle'.(°þÊóøÿÿÿÿ
-]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïŽúÿÿÿÿ8»Ÿ”æò-
-jsquid:S00101 "MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ý–µ—ùÿÿÿÿ
-hsquid:UselessImportCheck"8Remove this unused import 'android.net.wifi.ScanResult'.(º¨û€ûÿÿÿÿ8ž‰ÆÁð-
-lsquid:UselessImportCheck"ARemove this unused import 'androidx.core.app.NotificationCompat'.(œéÔã8¨¨‰½Þ-
-[squid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8»Ÿ”æò-
-asquid:UselessImportCheck"6Remove this unused import 'android.location.Criteria'.(ñÈ¬8¨¨‰½Þ-
-_squid:UselessImportCheck"5Remove this unused import 'android.app.Notification'.(¸Ó†98¨¨‰½Þ-
-isquid:UselessImportCheck"9Remove this unused import 'android.net.wifi.WifiManager'.(‰þéùÿÿÿÿ8ž‰ÆÁð-
-isquid:UselessImportCheck"9Remove this unused import 'android.content.IntentFilter'.(ò³ñ£ÿÿÿÿÿ8à”ÙÆð-
-isquid:CommentedOutCodeLine2"<This block of commented-out lines of code should be removed.(‹ä“å8øçüãò-
-hsquid:UselessImportCheck"=Remove this unused import 'android.location.LocationManager'.(Ü©ÎÎ8»Ÿ”æò-
-]squid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8º¿³çò-
-fsquid:UselessImportCheck"6Remove this unused import 'android.location.Location'.(›¡ì®øÿÿÿÿ8»Ÿ”æò-
-nsquid:UselessImportCheck">Remove this unused import 'android.content.pm.PackageManager'.(€®¥õÿÿÿÿÿ8»Ÿ”æò-
+jsquid:S00101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ý–µ—ùÿÿÿÿ
+dsquid:UselessImportCheck"4Remove this unused import 'android.app.AlertDialog'.(ª½øþüÿÿÿÿ8°ÇÛ„õ-
+lsquid:UselessImportCheck"<Remove this unused import 'android.content.DialogInterface'.(Š­›¨þÿÿÿÿ8°ÇÛ„õ-
+qsquid:UselessImportCheck
+"ARemove this unused import 'androidx.fragment.app.DialogFragment'.(ƒæ÷£ùÿÿÿÿ8°ÇÛ„õ-

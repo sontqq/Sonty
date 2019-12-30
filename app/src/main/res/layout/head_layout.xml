@@ -12,6 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></TextView>
 
+    <TextView
+        android:id="@+id/laytext2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
     <Button
         android:id="@+id/lay_btn1"
         android:layout_width="match_parent"

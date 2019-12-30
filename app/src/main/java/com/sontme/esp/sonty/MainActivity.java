@@ -1,6 +1,9 @@
 package com.sontme.esp.sonty;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -11,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -36,14 +40,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent i = new Intent(MainActivity.this, BackgroundService.class);
+        Intent i = new Intent(getApplicationContext(), BackgroundService.class);
         startForegroundService(i);
     }
 
     @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
+
+            SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
+            teu.setStartTime(System.currentTimeMillis());
+
             setContentView(R.layout.activity_main);
 
             Button btn = findViewById(R.id.button);
@@ -68,11 +80,22 @@ public class MainActivity extends AppCompatActivity {
             SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
             SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
 
-            Intent i = new Intent(MainActivity.this, BackgroundService.class);
-            startForegroundService(i);
+            String[] PERMISSIONS = {
+                    Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.READ_SMS,
+                    Manifest.permission.SEND_SMS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_PHONE_NUMBERS,
+                    Manifest.permission.READ_CALL_LOG,
+                    Manifest.permission.WRITE_CALL_LOG,
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.WRITE_CALENDAR,
+                    Manifest.permission.CAMERA
+            };
 
-            getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
-            getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+            if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
+                ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
+            }
 
             PowerManager powerManager = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
             String packageName = getPackageName();
@@ -81,14 +104,30 @@ public class MainActivity extends AppCompatActivity {
                 ii.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 ii.setData(Uri.parse("package:" + packageName));
                 startActivity(ii);
-                Log.d("POWER_OPT_", "lefutott");
-            } else {
-                Log.d("POWER_OPT_", "else!!!");
             }
+
+            Intent serviceIntent = new Intent(getApplicationContext(), BackgroundService.class);
+            startForegroundService(serviceIntent);
+
+            //getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
+            //getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+
+            Log.d("ACTIVITY_INITIALIZATION", "Elapsed time: " + teu.getElapsed());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PERMISSION_CHECK", "MISSING PERMISSION NOW GRANTED: " + permission);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void getChart_timer_updated(String path) {

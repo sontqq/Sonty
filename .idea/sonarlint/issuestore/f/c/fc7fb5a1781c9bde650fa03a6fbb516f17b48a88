@@ -1,141 +1,145 @@
 
-rsquid:UselessImportCheck>"BRemove this unused import 'com.androidnetworking.common.Priority'.(œ¤ú£üÿÿÿÿ8ÿĞÉäò-
-vsquid:S00117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é«Ààùÿÿÿÿ8Ñ÷óãò-
-hsquid:UselessImportCheck9"=Remove this unused import 'androidx.core.app.ActivityCompat'.(ş¤—²8’™ëãò-
-qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÔ‡¿8•‘»ùò-
-"squid:ClassVariableVisibilityCheckx"[Make locationManager a static final constant or non-public and provide accessors if needed.(³âÉ	8Éÿãò-
-esquid:S2142Ÿ"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8¬©Çùò-
-osquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(¢™Å€ıÿÿÿÿ8¦æÍòò-
-"squid:ClassVariableVisibilityCheckƒ"WMake not_touched a static final constant or non-public and provide accessors if needed.(²ÇèÈ8¡»ìò-
-nsquid:UselessImportCheckd"CRemove this unused import 'java.util.concurrent.ThreadLocalRandom'.(¨ÏÙî8Â•ŞÆğ-
-‡squid:UselessImportChecki"WRemove this unused import 'io.github.chronosx88.kademliadht.dht.JKademliaStorageEntry'.(¾œƒÿüÿÿÿÿ8ÜÜÅ°å-
-Xsquid:UselessImportCheck&".Remove this unused import 'android.os.Looper'.(âå8æàéòò-
-nsquid:UselessImportCheckC">Remove this unused import 'net.engio.mbassy.listener.Handler'.(ĞÁÿÿÿÿÿÿ8üîìòò-
-zsquid:UselessImportCheckc"JRemove this unused import 'java.util.concurrent.ScheduledExecutorService'.(Êßˆÿÿÿÿÿ8Íœïäò-
-†"squid:ClassVariableVisibilityCheck|"QMake count a static final constant or non-public and provide accessors if needed.(˜“ÿ±8ÜÜÅ°å-
-qsquid:UselessImportChecka"ARemove this unused import 'java.util.concurrent.ExecutorService'.(æ÷–£ùÿÿÿÿ8Â•ŞÆğ-
-]squid:S4973‘"9Use the "equals" method if value comparison was intended.(Ãí¿èüÿÿÿÿ8’™ëãò-
-asquid:UselessImportCheckR"6Remove this unused import 'java.io.InputStreamReader'.(ãˆÎÉ8ú®¿äò-
-qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¿ï8Â•ŞÆğ-
-ˆsquid:UselessImportCheckm"XRemove this unused import 'io.github.chronosx88.kademliadht.simulations.DHTContentImpl'.(¶¯ß¹üÿÿÿÿ8Â•ŞÆğ-
-^squid:UselessImportCheckJ"3Remove this unused import 'java.io.BufferedReader'.(€é²Å8ú®¿äò-
-usquid:S3008ƒ"VRename this field "not_touched" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ÇèÈ8ö§Åìò-
-:squid:S2386{"Make this member "protected".(åéŸ8Ã•ŞÆğ-
-‰"squid:ClassVariableVisibilityCheck"TMake capacity a static final constant or non-public and provide accessors if needed.(Ğ±˜à8Â•ŞÆğ-
-Wsquid:UselessImportCheckV",Remove this unused import 'java.net.Socket'.(­‡àú8ú®¿äò-
-Xsquid:S4973”"9Use the "equals" method if value comparison was intended.(÷ñà8Â•ŞÆğ-
-esquid:UselessImportCheck"<Remove this unused import 'android.net.ConnectivityManager'.(ŒñK8»ëÃçò-
-xsquid:UselessImportCheckk"MRemove this unused import 'io.github.chronosx88.kademliadht.dht.KademliaDHT'.(¸Ë¢8ÜÜÅ°å-
-Lsquid:S1125ä"(Remove the literal "true" boolean value.(±Œ½„ÿÿÿÿÿ8•‘»ùò-
-rsquid:S00116š"SRename this field "full_url" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±’	8•‘»ùò-
-Usquid:S2696¬"6Make the enclosing method "static" or remove this set.(Ë­…8•‘»ùò-
-jsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(Åœä8•‘»ùò-
-vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßŸÌûÿÿÿÿ8›æò-
-osquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(ÇŒ šıÿÿÿÿ8•‘»ùò-
-ksquid:UselessImportCheckq";Remove this unused import 'io.ipfs.multiaddr.MultiAddress'.(şşÄ¾ûÿÿÿÿ8ãŒÄäò-
-xsquid:S00116‰"SRename this field "lay_btn2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øæ¨¯úÿÿÿÿ8¤´‘µğ-
-"squid:ClassVariableVisibilityCheckv"VMake INSERT_URL a static final constant or non-public and provide accessors if needed.(«ËÚ©øÿÿÿÿ8Â•ŞÆğ-
-Usquid:S2696š"6Make the enclosing method "static" or remove this set.(Øô¸‹8›¬Êòò-
-qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( í¯î8¿›àèò-
-qsquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¡ğö8¿›àèò-
-[squid:UselessImportCheckA"0Remove this unused import 'com.dosse.upnp.UPnP'.(œ„‡”8ÿĞÉäò-
-]squid:UselessImportCheckK"3Remove this unused import 'java.io.BufferedWriter'.(¬õº/8Â•ŞÆğ-
-Isquid:S1444{",Make this "public static unique" field final(åéŸ8ÜÜÅ°å-
-‹"squid:ClassVariableVisibilityCheck‡"UMake mHeadView a static final constant or non-public and provide accessors if needed.(ŒøŸ‡8ºèÇîò-
-esquid:UselessImportChecke":Remove this unused import 'java.util.concurrent.TimeUnit'.(Æ™ş8Íœïäò-
-xsquid:S00116ˆ"SRename this field "lay_btn1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ§”Üüÿÿÿÿ8¤´‘µğ-
-ssquid:S00116Š"SRename this field "lay_txt1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ŞšÃ8Ã•ŞÆğ-
-"squid:ClassVariableVisibilityCheck}"UMake lastcolor a static final constant or non-public and provide accessors if needed.(¨“äÑøÿÿÿÿ8ÜÜÅ°å-
-esquid:UselessImportCheck5"5Remove this unused import 'android.widget.ImageView'.(ú¯ëàüÿÿÿÿ8Â•ŞÆğ-
-Usquid:S1444„"1Make this "public static retry_count" field final(¢™Å€ıÿÿÿÿ8÷ßÄìò-
-[squid:UselessImportCheckQ"0Remove this unused import 'java.io.InputStream'.(¹»º8ú®¿äò-
-Msquid:S1125¹")Remove the literal "false" boolean value.(ÑÚØéøÿÿÿÿ8•‘»ùò-
-Xsquid:UselessImportCheckn"-Remove this unused import 'io.ipfs.api.IPFS'.(ğÆŞÿ8ãŒÄäò-
-\squid:UselessImportCheck",Remove this unused import 'android.net.Uri'.(òêû‘ıÿÿÿÿ8’™ëãò-
-gsquid:UselessImportCheck"<Remove this unused import 'android.net.NetworkCapabilities'.(†ÉøÚ8»ëÃçò-
-Usquid:S2696“"6Make the enclosing method "static" or remove this set.(Úï›ï8’™ëãò-
-isquid:UselessImportCheck,"?Remove this unused import 'android.telephony.TelephonyManager'.(Ìâû18’™ëãò-
-Gsquid:S1148Å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
-Dsquid:S2386­"%Make member "scanresult" "protected".(ç˜€Ì8…ÉÏìò-
-isquid:CommentedOutCodeLine§"<This block of commented-out lines of code should be removed.(Á¹·$8Ëàèò-
-~squid:UselessImportCheckh"NRemove this unused import 'io.github.chronosx88.kademliadht.dht.GetParameter'.(¥ˆò¢ûÿÿÿÿ8ÜÜÅ°å-
-"squid:ClassVariableVisibilityCheck‚"SMake updated a static final constant or non-public and provide accessors if needed.(¿ë³†ÿÿÿÿÿ8¡»ìò-
-qsquid:S3776’"RRefactor this method to reduce its Cognitive Complexity from 55 to the 15 allowed.(Î¢È8›¬Êòò-
-Psquid:S1444ƒ"1Make this "public static not_touched" field final(²ÇèÈ8ö§Åìò-
-Rsquid:S1444}"/Make this "public static lastcolor" field final(¨“äÑøÿÿÿÿ8ÜÜÅ°å-
-Psquid:S1153„"1Directly append the argument of String.valueOf().(ÍıÉš8›¬Êòò-
-xsquid:UselessImportCheckl"MRemove this unused import 'io.github.chronosx88.kademliadht.node.KademliaId'.(¹ôÃï8ÜÜÅ°å-
-"squid:ClassVariableVisibilityCheck~"XMake started_time a static final constant or non-public and provide accessors if needed.(µ˜½¤8ÜÜÅ°å-
-Gsquid:S1148Í"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8œëêîò-
-bsquid:UselessImportCheckF"7Remove this unused import 'org.jibble.pircbot.PircBot'.(¯‘ÁÒ8ú®¿äò-
-gsquid:UselessImportCheckE"<Remove this unused import 'org.jibble.pircbot.IrcException'.(ÑÏãì8ãŒÄäò-
-Ssquid:EmptyStatementUsageCheckŞ"Remove this empty statement.(Åñ­õşÿÿÿÿ8•‘»ùò-
-"squid:ClassVariableVisibilityCheck"TMake recorded a static final constant or non-public and provide accessors if needed.(ª½µâûÿÿÿÿ8¡»ìò-
-Gsquid:S1148Ú"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
-Ssquid:S1444v"0Make this "public static INSERT_URL" field final(«ËÚ©øÿÿÿÿ8Â•ŞÆğ-
-Zsquid:S2696–"6Make the enclosing method "static" or remove this set.(Ô”ô¸ıÿÿÿÿ8Ã•ŞÆğ-
-Gsquid:S1148í"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
-Vsquid:S1481™"2Remove this unused "waitingThread" local variable.(ë‰ÜËşÿÿÿÿ8¬©Çùò-
-Zsquid:S2696±"6Make the enclosing method "static" or remove this set.(ëäöìşÿÿÿÿ8•‘»ùò-
-bsquid:UselessImportCheckT"7Remove this unused import 'java.io.OutputStreamWriter'.(Ÿ“¸8Â•ŞÆğ-
-zsquid:S3008„"VRename this field "retry_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢™Å€ıÿÿÿÿ8÷ßÄìò-
-asquid:UselessImportCheckU"1Remove this unused import 'java.net.InetAddress'.(ë³ƒÒÿÿÿÿÿ8ÿĞÉäò-
-Gsquid:S1148 "#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¬©Çùò-
-esquid:S1854™"ARemove this useless assignment to local variable "waitingThread".(ë‰ÜËşÿÿÿÿ8¬©Çùò-
-osquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(›¼ãÈúÿÿÿÿ8•‘»ùò-
-Osquid:S1481˜"+Remove this unused "target" local variable.(‰‘Ï»úÿÿÿÿ8¬©Çùò-
-_squid:UselessImportCheckO"5Remove this unused import 'java.io.FileOutputStream'.(˜«ªg8ÿĞÉäò-
-asquid:UselessImportCheckS"1Remove this unused import 'java.io.OutputStream'.(Ó ³ÿÿÿÿÿ8î¨³ˆì-
-Usquid:S2696­"6Make the enclosing method "static" or remove this set.(ç˜€Ì8…ÉÏìò-
-jsquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.( ”ĞÕ8•‘»ùò-
-Rsquid:S1444".Make this "public static recorded" field final(ª½µâûÿÿÿÿ8‚¸Åìò-
-Nsquid:S1444‡"/Make this "public static mHeadView" field final(ŒøŸ‡8ºèÇîò-
-’"squid:ClassVariableVisibilityCheck„"WMake retry_count a static final constant or non-public and provide accessors if needed.(¢™Å€ıÿÿÿÿ8¡»ìò-
-msquid:S1192Û"NDefine a constant instead of duplicating this literal "Sonty Service" 4 times.(¹ÓáÀ8ç‹Êòò-
-jsquid:UselessImportCheck"?Remove this unused import 'android.bluetooth.BluetoothManager'.(úä­8¦âÆğ-
-vsquid:UselessImportCheckg"KRemove this unused import 'io.github.chronosx88.kademliadht.JKademliaNode'.(¯ş’8ÜÜÅ°å-
-dsquid:UselessImportCheckL"4Remove this unused import 'java.io.DataInputStream'.(”•úºÿÿÿÿÿ8ú®¿äò-
-vsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıŒóşøÿÿÿÿ8ê«÷ãò-
-esquid:UselessImportCheckM"5Remove this unused import 'java.io.DataOutputStream'.(¸Îáíıÿÿÿÿ8ú®¿äò-
-‘"squid:ClassVariableVisibilityChecky"\Make locationListener a static final constant or non-public and provide accessors if needed.(Ö üš8Éÿãò-
-vsquid:UselessImportCheckj"LRemove this unused import 'io.github.chronosx88.kademliadht.dht.KadContent'.(Ö¦ÓD8ÜÜÅ°å-
-jsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(úŞÛš8•‘»ùò-
-Gsquid:S1125±"(Remove the literal "true" boolean value.(”â’Ï8ä’ùò-
-]"squid:SwitchLastCaseIsDefaultCheckö""Add a default case to this switch.(ãÁğ™øÿÿÿÿ8•‘»ùò-
-‘"squid:ClassVariableVisibilityCheckw"WMake wifiManager a static final constant or non-public and provide accessors if needed.(õÙÄøÿÿÿÿ8œíÿãò-
-xsquid:S3008v"URename this field "INSERT_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ËÚ©øÿÿÿÿ8Ã•ŞÆğ-
-Zsquid:S2696Ë"6Make the enclosing method "static" or remove this set.(öØŞ úÿÿÿÿ8•‘»ùò-
-csquid:UselessImportChecko"3Remove this unused import 'io.ipfs.api.MerkleNode'.(ğòÖ¦ıÿÿÿÿ8ãŒÄäò-
-hsquid:UselessImportCheckr"8Remove this unused import 'io.ipfs.multihash.Multihash'.(›àáÿÿÿÿÿ8ãŒÄäò-
-Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
-csquid:UselessImportCheck$"3Remove this unused import 'android.os.Environment'.(É¿‹Ãûÿÿÿÿ8Â•ŞÆğ-
-Tsquid:UselessImportCheckN")Remove this unused import 'java.io.File'.(†Ğ¥Å8ÿĞÉäò-
-_squid:UselessImportCheck'"4Remove this unused import 'android.os.PowerManager'.(Ï´ÇÑ8’™ëãò-
-usquid:S3008~"WRename this field "started_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ˜½¤8Ã•ŞÆğ-
-Usquid:S2696Ç"6Make the enclosing method "static" or remove this set.(¯ËÖ8•‘»ùò-
-Qsquid:S1444‚"-Make this "public static updated" field final(¿ë³†ÿÿÿÿÿ8ö§Åìò-
-`squid:UselessImportCheckP"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8ãŒÄäò-
-Lsquid:S1444".Make this "public static capacity" field final(Ğ±˜à8Â•ŞÆğ-
-‹"squid:ClassVariableVisibilityCheckz"VMake scanresult a static final constant or non-public and provide accessors if needed.(ñó×¡8ÜÜÅ°å-
-lsquid:UselessImportCheckG"ARemove this unused import 'org.kitteh.irc.client.library.Client'.(œù¾¾8“ Ø¤è-
-Usquid:S2696³"6Make the enclosing method "static" or remove this set.(ÙÄğ“8•‘»ùò-
-asquid:UselessImportCheck+"6Remove this unused import 'android.provider.Settings'.(Š¯„8ãŒÄäò-
-csquid:UselessImportCheckp"8Remove this unused import 'io.ipfs.api.NamedStreamable'.( •Ÿæ8ãŒÄäò-
-Gsquid:S1125¤"(Remove the literal "true" boolean value.(àËâ8¬©Çùò-
-Nsquid:S1444z"0Make this "public static scanresult" field final(ñó×¡8ÜÜÅ°å-
-„squid:UselessImportCheckH"YRemove this unused import 'org.kitteh.irc.client.library.event.channel.ChannelJoinEvent'.(¢çö‘8Â•ŞÆğ-
-msquid:S00101˜"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(†é„8•‘»ùò-
-nsquid:UselessImportCheck">Remove this unused import 'android.location.LocationProvider'.(¨ì»ıùÿÿÿÿ8Â•ŞÆğ-
-Usquid:S2696‹"6Make the enclosing method "static" or remove this set.(º•Óâ8•‘»ùò-
-psquid:UselessImportCheck;"@Remove this unused import 'androidx.core.content.ContextCompat'.(üäÂùÿÿÿÿ8’™ëãò-
-vsquid:S00117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¸Šİşÿÿÿÿ8Èßöãò-
-fsquid:S1192ğ"HDefine a constant instead of duplicating this literal "Found: " 3 times.(é£¢:8›¬Êòò-
-jsquid:S1192¯"FDefine a constant instead of duplicating this literal "sonty" 9 times.(ãÇ®Ğûÿÿÿÿ8…ÉÏìò-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ê°Ø8•‘»ùò-
-ksquid:UselessImportCheckb";Remove this unused import 'java.util.concurrent.Executors'.(äåÒÛÿÿÿÿÿ8Íœïäò-
-Isquid:S1444|"+Make this "public static count" field final(˜“ÿ±8ÜÜÅ°å-
-^squid:UselessImportCheck]".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Â•ŞÆğ-
-Psquid:S1444~"2Make this "public static started_time" field final(µ˜½¤8ÜÜÅ°å-
-†"squid:ClassVariableVisibilityCheck{"RMake unique a static final constant or non-public and provide accessors if needed.(åéŸ8ÜÜÅ°å-
-gsquid:UselessImportCheck4"7Remove this unused import 'android.widget.FrameLayout'.(ºÍ‹Ùúÿÿÿÿ8–ÄŠËğ-
-Zsquid:S2696¬"6Make the enclosing method "static" or remove this set.(ëæûÿÿÿÿÿ8•‘»ùò-
+™"squid:ClassVariableVisibilityCheckp"_Make inactivity_runnable a static final constant or non-public and provide accessors if needed.(à§º…ıÿÿÿÿ8­ÇÛ„õ-
+‹"squid:ClassVariableVisibilityCheckI"VMake scanresult a static final constant or non-public and provide accessors if needed.(ñó×¡8ÜÜÅ°å-
+–"squid:ClassVariableVisibilityCheckk"\Make CURRENT_LOCATION a static final constant or non-public and provide accessors if needed.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+Ÿsquid:S1186å"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦ıûF8­ÇÛ„õ-
+Zsquid:S1444T"<Make this "public static service_icon_lastColor" field final(ÍùÉ8­ÇÛ„õ-
+"squid:ClassVariableVisibilityCheckU"XMake started_time a static final constant or non-public and provide accessors if needed.(µ˜½¤8ÜÜÅ°å-
+‘"squid:ClassVariableVisibilityCheckH"\Make locationListener a static final constant or non-public and provide accessors if needed.(Ö üš8Éÿãò-
+usquid:S3008U"WRename this field "started_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ˜½¤8Ã•ŞÆğ-
+[squid:S1854˜"<Remove this useless assignment to local variable "pi_pause".(¸¡ğö8­ÇÛ„õ-
+jsquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(¬•§…8­ÇÛ„õ-
+qsquid:S00117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( í¯î8¿›àèò-
+;squid:S2386i"Make this member "protected".(ä¾§¹8­ÇÛ„õ-
+_squid:UselessImportCheck"/Remove this unused import 'android.app.Dialog'.(·‚Àúÿÿÿÿ8­ÇÛ„õ-
+jsquid:CommentedOutCodeLineõ"<This block of commented-out lines of code should be removed.(Åœä8•‘»ùò-
+Usquid:S2696£"6Make the enclosing method "static" or remove this set.(ç˜€Ì8…ÉÏìò-
+]"squid:SwitchLastCaseIsDefaultCheck«""Add a default case to this switch.(ãÁğ™øÿÿÿÿ8•‘»ùò-
+›"squid:ClassVariableVisibilityCheck]"aMake headoverlay_mHeadView a static final constant or non-public and provide accessors if needed.(öÔ‹¯ûÿÿÿÿ8­ÇÛ„õ-
+Usquid:S2696"6Make the enclosing method "static" or remove this set.(ãÕŞÑ8­ÇÛ„õ-
+†"squid:ClassVariableVisibilityCheckS"QMake count a static final constant or non-public and provide accessors if needed.(˜“ÿ±8ÜÜÅ°å-
+Rsquid:EmptyStatementUsageCheckr"Remove this empty statement.(ıŠëüüÿÿÿÿ8­ÇÛ„õ-
+msquid:UselessImportCheck#"BRemove this unused import 'android.telephony.SubscriptionManager'.(äã€8­ÇÛ„õ-
+rsquid:S1192¡"NDefine a constant instead of duplicating this literal "Sonty Service" 5 times.(ëªôıøÿÿÿÿ8­ÇÛ„õ-
+Gsquid:S1148ä"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8œëêîò-
+Gsquid:S1185à"(Remove this method to simply inherit it.(Úİ”ß8­ÇÛ„õ-
+}squid:S3008a"_Rename this field "headoverlay_lay_txt1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó³Å²8­ÇÛ„õ-
+Gsquid:S1148Ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
+vsquid:S00117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıŒóşøÿÿÿÿ8ê«÷ãò-
+†"squid:ClassVariableVisibilityCheckK"RMake unique a static final constant or non-public and provide accessors if needed.(åéŸ8ÜÜÅ°å-
+Gsquid:S1148¿"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
+Psquid:S1444X"-Make this "public static updated" field final(¿ë³†ÿÿÿÿÿ8ö§Åìò-
+lsquid:UselessImportCheck"<Remove this unused import 'android.content.DialogInterface'.(Š­›¨şÿÿÿÿ8­ÇÛ„õ-
+xsquid:S3008E"URename this field "INSERT_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ËÚ©øÿÿÿÿ8Ã•ŞÆğ-
+Xsquid:S4973ú"9Use the "equals" method if value comparison was intended.(Ùšªª8­ÇÛ„õ-
+vsquid:S00117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é«Ààùÿÿÿÿ8Ñ÷óãò-
+"squid:ClassVariableVisibilityCheckX"SMake updated a static final constant or non-public and provide accessors if needed.(¿ë³†ÿÿÿÿÿ8¡»ìò-
+Lsquid:S1604Ä"(Make this anonymous inner class a lambda(Æ’¯Šşÿÿÿÿ8­ÇÛ„õ-
+Psquid:S1444U"2Make this "public static started_time" field final(µ˜½¤8ÜÜÅ°å-
+`squid:S1854—"<Remove this useless assignment to local variable "pi_start".(µ¸Šİşÿÿÿÿ8­ÇÛ„õ-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(›¼ãÈúÿÿÿÿ8•‘»ùò-
+tsquid:S3008Y"VRename this field "not_touched" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ÇèÈ8ö§Åìò-
+Qsquid:S1444W".Make this "public static recorded" field final(ª½µâûÿÿÿÿ8‚¸Åìò-
+ssquid:UselessImportCheck"CRemove this unused import 'android.location.GnssMeasurementsEvent'.(×¸·Ùÿÿÿÿÿ8­ÇÛ„õ-
+Qsquid:S1481—"-Remove this unused "pi_start" local variable.(µ¸Šİşÿÿÿÿ8­ÇÛ„õ-
+Isquid:S1444S"+Make this "public static count" field final(˜“ÿ±8ÜÜÅ°å-
+Usquid:S2696î"6Make the enclosing method "static" or remove this set.(ÙÄğ“8•‘»ùò-
+|squid:S3008e"^Rename this field "elapsed_since_start" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈØ˜—8­ÇÛ„õ-
+‘"squid:ClassVariableVisibilityCheckF"WMake wifiManager a static final constant or non-public and provide accessors if needed.(õÙÄøÿÿÿÿ8œíÿãò-
+psquid:S3776u"RRefactor this method to reduce its Cognitive Complexity from 69 to the 15 allowed.(Î¢È8›¬Êòò-
+\squid:S1854Ç"8Remove this useless assignment to local variable "time".(ÓÙÁ³şÿÿÿÿ8­ÇÛ„õ-
+squid:S3008T"aRename this field "service_icon_lastColor" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍùÉ8­ÇÛ„õ-
+qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã“±®8­ÇÛ„õ-
+]"squid:SwitchLastCaseIsDefaultCheckÓ""Add a default case to this switch.(ãÁğ™øÿÿÿÿ8­ÇÛ„õ-
+Tsquid:S1444Z"1Make this "public static retry_count" field final(¢™Å€ıÿÿÿÿ8÷ßÄìò-
+msquid:S00101È"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(†é„8•‘»ùò-
+Nsquid:S1444i"0Make this "public static bl_devices" field final(ä¾§¹8­ÇÛ„õ-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ê°Ø8•‘»ùò-
+Usquid:S2696"6Make the enclosing method "static" or remove this set.(Ä¾Ä¶8­ÇÛ„õ-
+Usquid:S2696‚"6Make the enclosing method "static" or remove this set.(¯ËÖ8•‘»ùò-
+qsquid:UselessImportCheck0"ARemove this unused import 'androidx.fragment.app.DialogFragment'.(ƒæ÷£ùÿÿÿÿ8­ÇÛ„õ-
+Zsquid:S2696 "6Make the enclosing method "static" or remove this set.(½İ¤êûÿÿÿÿ8­ÇÛ„õ-
+Gsquid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8­ÇÛ„õ-
+‚squid:S3008b"_Rename this field "headoverlay_lay_txt2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎŒÈ‹ûÿÿÿÿ8­ÇÛ„õ-
+jsquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(¬ÿ‰ï8­ÇÛ„õ-
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£á­Œıÿÿÿÿ8­ÇÛ„õ-
+‹"squid:ClassVariableVisibilityChecki"VMake bl_devices a static final constant or non-public and provide accessors if needed.(ä¾§¹8­ÇÛ„õ-
+Lsquid:S1125¤"(Remove the literal "true" boolean value.(Å©è­ıÿÿÿÿ8­ÇÛ„õ-
+Zsquid:S2696ö"6Make the enclosing method "static" or remove this set.(Ó…ïµøÿÿÿÿ8­ÇÛ„õ-
+Gsquid:S1148î"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¬©Çùò-
+bsquid:UselessImportCheck;"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ8­ÇÛ„õ-
+psquid:S1192Ğ"QDefine a constant instead of duplicating this literal "sont16@gmail.com" 3 times.(çÅá«8­ÇÛ„õ-
+isquid:CommentedOutCodeLineL"<This block of commented-out lines of code should be removed.(âı†©8­ÇÛ„õ-
+Gsquid:S1148Ù"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
+qsquid:S00117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¡ğö8¿›àèò-
+|squid:S00116o"]Rename this field "inactivity_handler" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±”Ï8­ÇÛ„õ-
+ˆsquid:S3008\"eRename this field "headoverlay_mWindowManager" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÕ¤Ûüÿÿÿÿ8­ÇÛ„õ-
+~squid:S3008k"[Rename this field "CURRENT_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+rsquid:S00116Ê"SRename this field "full_url" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±’	8•‘»ùò-
+Hsquid:S1125Ù")Remove the literal "false" boolean value.(¤Ë»æ8­ÇÛ„õ-
+Zsquid:S2696ü"6Make the enclosing method "static" or remove this set.(úòú¹ıÿÿÿÿ8­ÇÛ„õ-
+osquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(úÑéÉùÿÿÿÿ8­ÇÛ„õ-
+—"squid:ClassVariableVisibilityCheckT"bMake service_icon_lastColor a static final constant or non-public and provide accessors if needed.(ÍùÉ8­ÇÛ„õ-
+‚squid:S00116p"^Rename this field "inactivity_runnable" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à§º…ıÿÿÿÿ8­ÇÛ„õ-
+Œ"squid:ClassVariableVisibilityCheckY"WMake not_touched a static final constant or non-public and provide accessors if needed.(²ÇèÈ8¡»ìò-
+qsquid:S00117ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¿ï8Â•ŞÆğ-
+Zsquid:S2696ì"6Make the enclosing method "static" or remove this set.(ëäöìşÿÿÿÿ8•‘»ùò-
+Nsquid:S1444I"0Make this "public static scanresult" field final(ñó×¡8ÜÜÅ°å-
+Lsquid:S1481˜"-Remove this unused "pi_pause" local variable.(¸¡ğö8­ÇÛ„õ-
+Osquid:S1444Y"1Make this "public static not_touched" field final(²ÇèÈ8ö§Åìò-
+jsquid:UselessImportCheck""?Remove this unused import 'android.telephony.SubscriptionInfo'.(€Øçû8­ÇÛ„õ-
+“"squid:ClassVariableVisibilityChecko"^Make inactivity_handler a static final constant or non-public and provide accessors if needed.(±”Ï8­ÇÛ„õ-
+^squid:S1444]";Make this "public static headoverlay_mHeadView" field final(öÔ‹¯ûÿÿÿÿ8­ÇÛ„õ-
+"squid:ClassVariableVisibilityCheckW"TMake recorded a static final constant or non-public and provide accessors if needed.(ª½µâûÿÿÿÿ8¡»ìò-
+Tsquid:UselessImportCheck8")Remove this unused import 'java.io.File'.(†Ğ¥Å8ÿĞÉäò-
+Usquid:S2696¶"6Make the enclosing method "static" or remove this set.(º•Óâ8•‘»ùò-
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßŸÌûÿÿÿÿ8›æò-
+jsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(ƒ¾‘Œ8­ÇÛ„õ-
+qsquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ç²ƒ8•‘»ùò-
+jsquid:S1192ˆ"FDefine a constant instead of duplicating this literal "29293" 4 times.(Ğ±¡úøÿÿÿÿ8­ÇÛ„õ-
+Lsquid:S1125‰"(Remove the literal "true" boolean value.(±Œ½„ÿÿÿÿÿ8•‘»ùò-
+ssquid:S3008i"URename this field "bl_devices" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä¾§¹8­ÇÛ„õ-
+Ssquid:S1444E"0Make this "public static INSERT_URL" field final(«ËÚ©øÿÿÿÿ8Â•ŞÆğ-
+Zsquid:S2696Ÿ"6Make the enclosing method "static" or remove this set.(ëæûÿÿÿÿÿ8•‘»ùò-
+Gsquid:S1148¼"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8•‘»ùò-
+Gsquid:S1125¤"(Remove the literal "true" boolean value.(”â’Ï8ä’ùò-
+isquid:S1192|"FDefine a constant instead of duplicating this literal "sonty" 9 times.(´®Ûÿÿÿÿÿ8­ÇÛ„õ-
+Usquid:S2696Û"6Make the enclosing method "static" or remove this set.(Ë­…8•‘»ùò-
+qsquid:S00117Í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÔ‡¿8­ÇÛ„õ-
+jsquid:CommentedOutCodeLineâ"<This block of commented-out lines of code should be removed.(ƒ¾‘Œ8­ÇÛ„õ-
+‘"squid:ClassVariableVisibilityCheckZ"WMake retry_count a static final constant or non-public and provide accessors if needed.(¢™Å€ıÿÿÿÿ8¡»ìò-
+Isquid:S1444K",Make this "public static unique" field final(åéŸ8ÜÜÅ°å-
+Ysquid:S1444k"6Make this "public static CURRENT_LOCATION" field final(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+‚squid:S3008_"_Rename this field "headoverlay_lay_btn1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öø¤‘ÿÿÿÿÿ8­ÇÛ„õ-
+csquid:S1444\"@Make this "public static headoverlay_mWindowManager" field final(ÔÕ¤Ûüÿÿÿÿ8­ÇÛ„õ-
+{squid:S3008f"]Rename this field "started_at_battery" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒŠÍÕ8­ÇÛ„õ-
+"squid:ClassVariableVisibilityCheckE"VMake INSERT_URL a static final constant or non-public and provide accessors if needed.(«ËÚ©øÿÿÿÿ8Â•ŞÆğ-
+nsquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(ã„ûÿÿÿÿ8­ÇÛ„õ-
+}squid:S3008`"_Rename this field "headoverlay_lay_btn2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å©™8­ÇÛ„õ-
+gsquid:S1192ä"HDefine a constant instead of duplicating this literal "Error: " 3 times.(‹ûõÛ8­ÇÛ„õ-
+Msquid:S1125è")Remove the literal "false" boolean value.(ÑÚØéøÿÿÿÿ8•‘»ùò-
+Ysquid:S2696{"6Make the enclosing method "static" or remove this set.(µóûøùÿÿÿÿ8­ÇÛ„õ-
+jsquid:CommentedOutCodeLineñ"<This block of commented-out lines of code should be removed.( ”ĞÕ8•‘»ùò-
+Fsquid:S1604á"(Make this anonymous inner class a lambda(£çñ98­ÇÛ„õ-
+vsquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¸Šİşÿÿÿÿ8Èßöãò-
+ƒsquid:S3008]"`Rename this field "headoverlay_mHeadView" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÔ‹¯ûÿÿÿÿ8­ÇÛ„õ-
+Usquid:S2696¹"6Make the enclosing method "static" or remove this set.(íóÄ‰8­ÇÛ„õ-
+"squid:ClassVariableVisibilityCheckG"[Make locationManager a static final constant or non-public and provide accessors if needed.(³âÉ	8Éÿãò-
+ysquid:S3008Z"VRename this field "retry_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢™Å€ıÿÿÿÿ8÷ßÄìò-
+qsquid:S00117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÕÊ¾8­ÇÛ„õ-
+wsquid:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(ä¾§¹8­ÇÛ„õ-
+Usquid:S2696"6Make the enclosing method "static" or remove this set.(Øô¸‹8›¬Êòò-
+Lsquid:S1125Á"(Remove the literal "true" boolean value.(Å©è­ıÿÿÿÿ8­ÇÛ„õ-
+:squid:S2386K"Make this member "protected".(åéŸ8Ã•ŞÆğ-
+ "squid:ClassVariableVisibilityCheck\"fMake headoverlay_mWindowManager a static final constant or non-public and provide accessors if needed.(ÔÕ¤Ûüÿÿÿÿ8­ÇÛ„õ-
+ssquid:UselessImportCheck"CRemove this unused import 'android.location.GnssNavigationMessage'.(ƒòŠ˜ùÿÿÿÿ8­ÇÛ„õ-
+Fsquid:S1604‚"(Make this anonymous inner class a lambda(¯‹¡c8­ÇÛ„õ-
+Zsquid:S2696ÿ"6Make the enclosing method "static" or remove this set.(ú’©ğÿÿÿÿÿ8­ÇÛ„õ-
+Msquid:S1481Ç")Remove this unused "time" local variable.(ÓÙÁ³şÿÿÿÿ8­ÇÛ„õ-
+]squid:S4973ı"9Use the "equals" method if value comparison was intended.(ÜâÜˆşÿÿÿÿ8­ÇÛ„õ-
+Lsquid:S1185š"(Remove this method to simply inherit it.(Ú°“¦ıÿÿÿÿ8­ÇÛ„õ-
+Dsquid:S2386£"%Make member "scanresult" "protected".(ç˜€Ì8…ÉÏìò-
+xsquid:S1192Ñ"YDefine a constant instead of duplicating this literal "egedzsolt@protonmail.com" 3 times.(Œ¯òÂ8­ÇÛ„õ-
+nsquid:CommentedOutCodeLineZ"<This block of commented-out lines of code should be removed.(¢™Å€ıÿÿÿÿ8¦æÍòò-
+dsquid:UselessImportCheck"4Remove this unused import 'android.app.AlertDialog'.(ª½øşüÿÿÿÿ8­ÇÛ„õ-
+osquid:CommentedOutCodeLineÙ"<This block of commented-out lines of code should be removed.(Ò€’ºüÿÿÿÿ8­ÇÛ„õ-
