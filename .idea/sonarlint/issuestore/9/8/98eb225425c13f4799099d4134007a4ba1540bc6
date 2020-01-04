@@ -1,277 +1,270 @@
 
-Gsquid:S1148£"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
-psquid:S3776İ"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Äéìw8í™Ÿ‡õ-
-Ssquid:S1066ä"/Merge this if statement with the enclosing one.(¼ Ìëÿÿÿÿÿ8í™Ÿ‡õ-
-ksquid:S00112ç
-"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8í™Ÿ‡õ-
-¥squid:S1186·"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8í™Ÿ‡õ-
-hsquid:S2095Ş"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(œµİ¯8í™Ÿ‡õ-
-Gsquid:S1148û"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148˜"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineà	"<This block of commented-out lines of code should be removed.(˜ ³úÿÿÿÿ8í™Ÿ‡õ-
-Lsquid:S1172¹"(Remove this unused method parameter "c".(¤ªÏ¶üÿÿÿÿ8í™Ÿ‡õ-
-asquid:UselessImportCheck?"6Remove this unused import 'android.os.CountDownTimer'.(Ğˆ“ë8¸ÇÛ„õ-
-Isquid:S00108–")Either remove or fill this block of code.(å¥‡8í™Ÿ‡õ-
-lsquid:S2095¼"HUse try-with-resources or close this "FileWriter" in a "finally" clause.(®èôøÿÿÿÿ8í™Ÿ‡õ-
-asquid:S1854‚"BRemove this useless assignment to local variable "flashAvailable".(¿§ó•8Ş»š‡õ-
-Gsquid:S1148 "#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-@squid:S1643†"Use a StringBuilder instead.(‹ƒ§şÿÿÿÿ8í™Ÿ‡õ-
-^squid:S1118˜":Add a private constructor to hide the implicit public one.(¥‘Ò»üÿÿÿÿ8í™Ÿ‡õ-
-qsquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ê–Ä8í™Ÿ‡õ-
-Gsquid:S1148Å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(ù’ÕÜ8í™Ÿ‡õ-
-qsquid:S00117©	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µÈî¥8í™Ÿ‡õ-
-nsquid:S00100ú"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¿ˆ×8í™Ÿ‡õ-
-gsquid:S2259Ä	"CA "NullPointerException" could be thrown; "track" is nullable here.(í­Œ™ÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148‹"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-\
-squid:S106õ"9Replace this use of System.out or System.err by a logger.(µïĞ“ıÿÿÿÿ8í™Ÿ‡õ-
-Bsquid:S1659Æ"#Declare "count" on a separate line.(»ÌÅó8í™Ÿ‡õ-
-jsquid:S1192Á"KDefine a constant instead of duplicating this literal "camera_api" 4 times.(ïµÕ‰8í™Ÿ‡õ-
-nsquid:S1192÷
-"JDefine a constant instead of duplicating this literal "Compress_" 3 times.(¹Å’íûÿÿÿÿ8í™Ÿ‡õ-
-qsquid:S00117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§®…†8í™Ÿ‡õ-
-psquid:UselessImportCheckX"@Remove this unused import 'androidx.core.content.ContextCompat'.(üäÂùÿÿÿÿ8¸ÇÛ„õ-
-Wsquid:S1854Ñ"8Remove this useless assignment to local variable "mMob".(¾ığÂ8í™Ÿ‡õ-
-…squid:S4165 "aRemove this useless assignment; "ctx" already holds the assigned value along all execution paths.(Ûå´Ğùÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(¹ÕíŒ8í™Ÿ‡õ-
-gsquid:S1192³"HDefine a constant instead of duplicating this literal "Unknown" 3 times.(ÂéÛà8í™Ÿ‡õ-
-Ysquid:S1118•	":Add a private constructor to hide the implicit public one.(²‡è¿8í™Ÿ‡õ-
-Gsquid:S1172¤"(Remove this unused method parameter "c".(¦éè–8í™Ÿ‡õ-
-¥squid:S1186’"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineº	"<This block of commented-out lines of code should be removed.(³ôÀ­úÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148§"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(ÖƒÂ¿8íÅ‡õ-
-{squid:S1488Ö"]Immediately return this expression instead of assigning it to the temporary variable "value".(¬¯¾x8í™Ÿ‡õ-
-xsquid:S2293·"YReplace the type specification in this constructor call with the diamond operator ("<>").(«’æ·8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(Ò¡ç˜8í™Ÿ‡õ-
-[squid:S1444·"7Make this "public static mBluetoothAdapter" field final(ñùÛÁÿÿÿÿÿ8í™Ÿ‡õ-
-@squid:S1643¶"Use a StringBuilder instead.(¢³İùÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148Ó"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Ysquid:S1118¦
-":Add a private constructor to hide the implicit public one.(×µâæ8í™Ÿ‡õ-
-^squid:S1118­":Add a private constructor to hide the implicit public one.(Ó¹Ì¹úÿÿÿÿ8¸ÇÛ„õ-
-Ysquid:S1161ô":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-
-Nsquid:S00108¸")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148À	"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(§ó¨¸şÿÿÿÿ8í™Ÿ‡õ-
-;squid:S1643Ü"Use a StringBuilder instead.(¨–È8í™Ÿ‡õ-
-Gsquid:S1148ƒ	"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Nsquid:S00108•")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148‘"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148İ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148´"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-csquid:S2095¦"DUse try-with-resources or close this "Socket" in a "finally" clause.(×Îø8í™Ÿ‡õ-
-asquid:S3252³"CUse static access with "javax.mail.Message$RecipientType" for "TO".(³ƒ&8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineŞ"<This block of commented-out lines of code should be removed.(ìğÕøÿÿÿÿ8í™Ÿ‡õ-
-xsquid:S1192ë"TUse already-defined constant 'transformation' instead of duplicating its value here.(·•¶·ıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148—"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-^squid:S4719±":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
-‡squid:S1488æ"cImmediately return this expression instead of assigning it to the temporary variable "imageToShow".(™»¶…ÿÿÿÿÿ8í™Ÿ‡õ-
-Osquid:S1481‰"+Remove this unused "device" local variable.(¤Î¢àøÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
-qsquid:S2095ù	"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
-Rsquid:S1481‚"3Remove this unused "flashAvailable" local variable.(¿§ó•8í™Ÿ‡õ-
-Gsquid:S1148‚
-"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:S1192İ"FDefine a constant instead of duplicating this literal "UTF-8" 4 times.(íçÿÿÿÿÿ8í™Ÿ‡õ-
-Ysquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
-Ysquid:S1161ş":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-
- squid:S1186Â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Û¸¾Ó8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(””Çî8í™Ÿ‡õ-
-squid:S1488ó"aImmediately return this expression instead of assigning it to the temporary variable "neighbors".(øì„8í™Ÿ‡õ-
-rsquid:ModifiersOrderCheck¨
-"EReorder the modifiers to comply with the Java Language Specification.(Ùï¥Â8í™Ÿ‡õ-
-"squid:ClassVariableVisibilityCheckè"UMake startTime a static final constant or non-public and provide accessors if needed.(¬ç¥±ùÿÿÿÿ8Ş»š‡õ-
-Gsquid:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-xsquid:S2293ç"YReplace the type specification in this constructor call with the diamond operator ("<>").(—Ğ„à8í™Ÿ‡õ-
- squid:S1186Ù"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8í™Ÿ‡õ-
-ksquid:S2095—"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(ÿñ—w8Ş»š‡õ-
-ssquid:S00100Ó"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™¡—Øøÿÿÿÿ8í™Ÿ‡õ-
-Jsquid:S1172Ü"&Remove these unused method parameters.(¶øÊ±ùÿÿÿÿ8í™Ÿ‡õ-
-}squid:S2293Ò"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãÊÖ»üÿÿÿÿ8í™Ÿ‡õ-
-ssquid:S00100ì
-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡½ÿŞúÿÿÿÿ8í™Ÿ‡õ-
-wsquid:S2293£"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÑŠ¬8í™Ÿ‡õ-
-Esquid:S1172¸"&Remove these unused method parameters.(¢Ÿ­â8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(Ù»Æ–8í™Ÿ‡õ-
-Esquid:S1168´"&Return an empty array instead of null.(¥¹ï8í™Ÿ‡õ-
-Gsquid:S1148Ü
-"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-¥squid:S1186©"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Úè»íşÿÿÿÿ8í™Ÿ‡õ-
-@squid:S1643õ
-"Use a StringBuilder instead.(‹ƒ§şÿÿÿÿ8í™Ÿ‡õ-
- squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(“ˆÔ8í™Ÿ‡õ-
-‘squid:S1319æ"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ÿ˜Ä¢şÿÿÿÿ8í™Ÿ‡õ-
-Isquid:S00108¿")Either remove or fill this block of code.(è… ÷8í™Ÿ‡õ-
-Gsquid:S1148ß"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(£óîÔıÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148º"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S00100Ò"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…î·8í™Ÿ‡õ-
-zsquid:S00115‰"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Šò¾Õ8í™Ÿ‡õ-
-qsquid:S00117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í–·8í™Ÿ‡õ-
-Nsquid:S2093Ü"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
-X"squid:SwitchLastCaseIsDefaultCheckĞ""Add a default case to this switch.(íªà8í™Ÿ‡õ-
-W
-squid:S106±"9Replace this use of System.out or System.err by a logger.(ìÍ¦‡8í™Ÿ‡õ-
-Gsquid:S1148´
-"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
- squid:S1186‹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ú‹´™8í™Ÿ‡õ-
-Esquid:S1168™"&Return an empty array instead of null.(¥¹ï8í™Ÿ‡õ-
-Nsquid:S00108Ô")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
-Isquid:S00108ñ")Either remove or fill this block of code.(Å®§ä8í™Ÿ‡õ-
-Isquid:S00108„")Either remove or fill this block of code.(”ı¾8í™Ÿ‡õ-
-:squid:S1643µ	"Use a StringBuilder instead.(ˆğÆn8í™Ÿ‡õ-
-¥squid:S1186»"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8í™Ÿ‡õ-
-Nsquid:S1481õ"/Remove this unused "tempCanvas" local variable.(Êä‰²8í™Ÿ‡õ-
-vsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥èğÿÿÿÿÿ8Ş»š‡õ-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(àÔŞ–8í™Ÿ‡õ-
-Š"squid:ClassVariableVisibilityChecké"OMake now a static final constant or non-public and provide accessors if needed.(‰«¨£şÿÿÿÿ8í™Ÿ‡õ-
- squid:S1186ó"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğ«Ôƒ8í™Ÿ‡õ-
-Gsquid:S1148å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-Ysquid:S1118Ò
-":Add a private constructor to hide the implicit public one.(ô¬Ñ±8í™Ÿ‡õ-
-Wsquid:S1854Œ"9Remove this useless assignment to local variable "uuids".(õ¸òV8í™Ÿ‡õ-
-Nsquid:S1172Ÿ	"*Remove this unused method parameter "ctx".(Ä¤şêşÿÿÿÿ8í™Ÿ‡õ-
-Xsquid:S1118¥":Add a private constructor to hide the implicit public one.(§¼Üi8í™Ÿ‡õ-
- squid:S1186Æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æ ÛÂ8í™Ÿ‡õ-
-¥squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8í™Ÿ‡õ-
-Lsquid:S1125Æ"(Remove the literal "true" boolean value.(øÛ‡üÿÿÿÿ8í™Ÿ‡õ-
-vsquid:S00117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Š¼Àÿÿÿÿÿ8Ş»š‡õ-
-Isquid:S1172˜"*Remove this unused method parameter "ctx".(ïı©â8í™Ÿ‡õ-
-\squid:S1854ï"8Remove this useless assignment to local variable "name".(ÃÙ‘äúÿÿÿÿ8í™Ÿ‡õ-
-\squid:S1854Ä"8Remove this useless assignment to local variable "list".(çâîÀıÿÿÿÿ8í™Ÿ‡õ-
-Tsquid:S4432®
-"0Use Galois/Counter Mode (GCM/NoPadding) instead.(ø¾¢çıÿÿÿÿ8í™Ÿ‡õ-
-`squid:S2259¢"AA "NullPointerException" could be thrown; "ctx" is nullable here.(€ëÖ8í™Ÿ‡õ-
-¥squid:S1186ş"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(úƒÚÓûÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S2095à"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(¡¹ºñùÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineó"<This block of commented-out lines of code should be removed.(Ìü®ê8í™Ÿ‡õ-
-;squid:S1643à"Use a StringBuilder instead.( °•8í™Ÿ‡õ-
- squid:S1186Ÿ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8í™Ÿ‡õ-
-`squid:S2259è"BA "NullPointerException" could be thrown; "file" is nullable here.(è£ât8í™Ÿ‡õ-
-Nsquid:S00108í")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
-ksquid:S1192™"GDefine a constant instead of duplicating this literal "Error_" 3 times.(Š¯ş¼øÿÿÿÿ8í™Ÿ‡õ-
-Ysquid:S1141ˆ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
-isquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(ÚÈŞf8í™Ÿ‡õ-
-^squid:S1118‹":Add a private constructor to hide the implicit public one.(¦îàòÿÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S00100ò"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ª«÷8í™Ÿ‡õ-
-Tsquid:S4432¿
-"0Use Galois/Counter Mode (GCM/NoPadding) instead.(ø¾¢çıÿÿÿÿ8í™Ÿ‡õ-
-Ssquid:S1656 "/Remove or correct this useless self-assignment.(Ûå´Ğùÿÿÿÿ8Ş»š‡õ-
-asquid:S1481¥"=Remove this unused "column_index_folder_name" local variable.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
-qsquid:S00117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù‚¯±8í™Ÿ‡õ-
-qsquid:S00117â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚”ı±8Ş»š‡õ-
-nsquid:S00100û
-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üõ—8í™Ÿ‡õ-
-jsquid:S2259Â	"FA "NullPointerException" could be thrown; "recorder" is nullable here.(µ‘õ¨şÿÿÿÿ8í™Ÿ‡õ-
-Zsquid:S1659¥"6Declare "column_index_folder_name" on a separate line.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(±Û·¸8í™Ÿ‡õ-
-Lsquid:S1604Ñ	"(Make this anonymous inner class a lambda(˜ûíÒúÿÿÿÿ8í™Ÿ‡õ-
-Hsquid:S1481Œ"*Remove this unused "uuids" local variable.(õ¸òV8í™Ÿ‡õ-
-Gsquid:S1148©"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-msquid:S2095ó	"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(¡Ö˜®8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineÖ
-"<This block of commented-out lines of code should be removed.(ˆ…ˆ¾úÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S3398¨"(Move this method into "VibratorPattern".(’ßØÀ8í™Ÿ‡õ-
-qsquid:S3776ş"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(»ÁØô8í™Ÿ‡õ-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±…ÜÒüÿÿÿÿ8í™Ÿ‡õ-
-;squid:S1643Ò"Use a StringBuilder instead.(‡¤¢í8í™Ÿ‡õ-
-msquid:S2095"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(Ã’Ä8Ş»š‡õ-
-vsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
-^squid:S4719ù":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1172ß"(Remove this unused method parameter "h".(Û¿ÿ8í™Ÿ‡õ-
-Hsquid:S1481Ñ")Remove this unused "mMob" local variable.(¾ığÂ8Ş»š‡õ-
-ƒsquid:S1488Ï"_Immediately return this expression instead of assigning it to the temporary variable "decoded".(Ó„ôéùÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S00100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïı©â8í™Ÿ‡õ-
-…squid:S3008¨"aRename this field "CAMERA_IMAGE_BUCKET_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…’ÔŞşÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S00100Œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’‡ôæ8í™Ÿ‡õ-
-Ysquid:S1161«":Add the "@Override" annotation above this method signature(‡èú×8í™Ÿ‡õ-
-squid:S1319¡"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(›—Áá8í™Ÿ‡õ-
-psquid:S2095˜"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(åœ«•8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(ùíªùÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineŞ
-"<This block of commented-out lines of code should be removed.(÷õÜÀøÿÿÿÿ8í™Ÿ‡õ-
- squid:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ĞŠß±8í™Ÿ‡õ-
-}squid:S2293Ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(çâîÀıÿÿÿÿ8í™Ÿ‡õ-
-esquid:S1126Æ"AReplace this if-then-else statement by a single return statement.(øÛ‡üÿÿÿÿ8í™Ÿ‡õ-
-^squid:S4719•":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-ssquid:S00100ú"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÕØ€úÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLineÿ
+gsquid:S1192¯"HDefine a constant instead of duplicating this literal "Unknown" 3 times.(ÂéÛà8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineû
 "<This block of commented-out lines of code should be removed.(¨ÃÊÒúÿÿÿÿ8í™Ÿ‡õ-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(Ò‚•úÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(òÛ´»8í™Ÿ‡õ-
-psquid:S2095»"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(åœ«•8í™Ÿ‡õ-
-osquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(Û¨¬‡üÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148•"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-gsquid:S1854·"CRemove this useless assignment to local variable "messageBodyPart".(ü»Ê şÿÿÿÿ8í™Ÿ‡õ-
-ssquid:S00100Í"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯íµúÿÿÿÿ8í™Ÿ‡õ-
-fsquid:S00112û
-"FDefine and throw a dedicated exception instead of using a generic one.(Üõ—8í™Ÿ‡õ-
-ssquid:S00100’
-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„…Üÿÿÿÿÿ8í™Ÿ‡õ-
-^squid:S1118Ï":Add a private constructor to hide the implicit public one.(üŠšéùÿÿÿÿ8í™Ÿ‡õ-
-xsquid:S1488Ô"YImmediately return this expression instead of assigning it to the temporary variable "a".(Ğ¥Îñ8í™Ÿ‡õ-
-Esquid:S1168"&Return an empty array instead of null.(¥¹ï8Ş»š‡õ-
-ksquid:S1854°"LRemove this useless assignment to local variable "column_index_folder_name".(Ø•ß°8í™Ÿ‡õ-
-qsquid:S2095‘"MUse try-with-resources or close this "ZipOutputStream" in a "finally" clause.(Ô¦öıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
-ksquid:S00112ì
-"FDefine and throw a dedicated exception instead of using a generic one.(¡½ÿŞúÿÿÿÿ8í™Ÿ‡õ-
-ˆsquid:S1488Ì"iImmediately return this expression instead of assigning it to the temporary variable "lastPathComponent".(ºÏª¸8í™Ÿ‡õ-
-Lsquid:S1481ù	"(Remove this unused "fis" local variable.(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
-Usquid:S1751î"6Remove this "return" statement or make it conditional.(•¤ªÒ8í™Ÿ‡õ-
-ssquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û—”åıÿÿÿÿ8í™Ÿ‡õ-
-Nsquid:S2093Â"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
-lsquid:S00101¥"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(§¼Üi8í™Ÿ‡õ-
-Ysquid:S1161§":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-
-Gsquid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLineğ"<This block of commented-out lines of code should be removed.(½‘Ñ³8í™Ÿ‡õ-
-nsquid:S00100›
-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒšĞ×8í™Ÿ‡õ-
-zsquid:S2068¡"V'password' detected in this expression, review this potentially hard-coded credential.(Ëï¦õùÿÿÿÿ8í™Ÿ‡õ-
-xsquid:S2293±"YReplace the type specification in this constructor call with the diamond operator ("<>").(â•¯î8í™Ÿ‡õ-
-vsquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼÷Ñµûÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148Æ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-fsquid:S2259œ"BA "NullPointerException" could be thrown; "mDPM" is nullable here.(Œ†Öşÿÿÿÿ8í™Ÿ‡õ-
-˜"squid:ClassVariableVisibilityCheck·"]Make mBluetoothAdapter a static final constant or non-public and provide accessors if needed.(ñùÛÁÿÿÿÿÿ8í™Ÿ‡õ-
-jsquid:CommentedOutCodeLine´	"<This block of commented-out lines of code should be removed.(×Å÷Ç8í™Ÿ‡õ-
-xsquid:S1192÷
-"TDefine a constant instead of duplicating this literal "output str length: " 3 times.(¹Å’íûÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148"#Use a logger to log this exception.(‰œ‰Õúÿÿÿÿ8í™Ÿ‡õ-
-W
-squid:S106ˆ"9Replace this use of System.out or System.err by a logger.(ìÍ¦‡8í™Ÿ‡õ-
-Msquid:S1481ï")Remove this unused "name" local variable.(ÃÙ‘äúÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148ö"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-nsquid:S00100â
+qsquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§®…†8í™Ÿ‡õ-
+;squid:S1643Ü"Use a StringBuilder instead.( °•8í™Ÿ‡õ-
+^squid:S4719‘":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
+ squid:S1186ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğ«Ôƒ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLine¶	"<This block of commented-out lines of code should be removed.(³ôÀ­úÿÿÿÿ8í™Ÿ‡õ-
+Fsquid:S1125¾"(Remove the literal "true" boolean value.(ëŞ8¶¬ ¹ö-
+csquid:S2095¢"DUse try-with-resources or close this "Socket" in a "finally" clause.(×Îø8í™Ÿ‡õ-
+Gsquid:S1172Ğ"(Remove this unused method parameter "c".(–Á¦ë8í™Ÿ‡õ-
+nsquid:S00100Ş
 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†³©8í™Ÿ‡õ-
-^squid:S1118‹
-":Add a private constructor to hide the implicit public one.(ï»õıÿÿÿÿ8í™Ÿ‡õ-
-ssquid:S00100Ê	"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´¥ã™üÿÿÿÿ8í™Ÿ‡õ-
-dsquid:UselessImportCheckr"4Remove this unused import 'java.net.DatagramSocket'.(¤¸äÍøÿÿÿÿ8¸ÇÛ„õ-
-Gsquid:S1172Ü"(Remove this unused method parameter "c".(–Á¦ë8í™Ÿ‡õ-
-[squid:S1854ù	"7Remove this useless assignment to local variable "fis".(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
-hsquid:S2259š"DA "NullPointerException" could be thrown; "socket" is nullable here.(Ûæ•øûÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148³"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-^squid:S4719İ":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148Ã
+^squid:S1118©":Add a private constructor to hide the implicit public one.(Ó¹Ì¹úÿÿÿÿ8¸ÇÛ„õ-
+nsquid:S00100”"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïı©â8í™Ÿ‡õ-
+Usquid:S1751â"6Remove this "return" statement or make it conditional.(•¤ªÒ8í™Ÿ‡õ-
+Isquid:S1172”"*Remove this unused method parameter "ctx".(ïı©â8í™Ÿ‡õ-
+Isquid:S00108í")Either remove or fill this block of code.(Å®§ä8í™Ÿ‡õ-
+¥squid:S1186Š"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8¶¬ ¹ö-
+Bsquid:S1659Â"#Declare "count" on a separate line.(»ÌÅó8í™Ÿ‡õ-
+Gsquid:S1148ş	"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100Æ	"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´¥ã™üÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148Á"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Isquid:S00108’")Either remove or fill this block of code.(å¥‡8í™Ÿ‡õ-
+ssquid:S00100ö"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÕØ€úÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148°"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(Ù»Æ–8í™Ÿ‡õ-
+nsquid:S00100î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¿ˆ×8í™Ÿ‡õ-
+¥squid:S1186³"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒÄ¾¾úÿÿÿÿ8¶¬ ¹ö-
+Gsquid:S1148¶"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Nsquid:S1481Î"/Remove this unused "connecting" local variable.(ŸöÉ¾8í™Ÿ‡õ-
+xsquid:S1192ó
+"TDefine a constant instead of duplicating this literal "output str length: " 3 times.(¹Å’íûÿÿÿÿ8í™Ÿ‡õ-
+Ysquid:S1161§":Add the "@Override" annotation above this method signature(‡èú×8í™Ÿ‡õ-
+rsquid:ModifiersOrderCheck¤
+"EReorder the modifiers to comply with the Java Language Specification.(Ùï¥Â8í™Ÿ‡õ-
+^squid:S4719­":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
+Tsquid:S4432»
+"0Use Galois/Counter Mode (GCM/NoPadding) instead.(ø¾¢çıÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(Ò¡ç˜8í™Ÿ‡õ-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÚÈŞf8í™Ÿ‡õ-
+Nsquid:S00108´")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ8í™Ÿ‡õ-
+psquid:S3776Ù"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Äéìw8í™Ÿ‡õ-
+:squid:S1643±	"Use a StringBuilder instead.(ˆğÆn8í™Ÿ‡õ-
+Gsquid:S1148”"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+gsquid:S1854³"CRemove this useless assignment to local variable "messageBodyPart".(ü»Ê şÿÿÿÿ8í™Ÿ‡õ-
+asquid:S1854ş"BRemove this useless assignment to local variable "flashAvailable".(¿§ó•8Ş»š‡õ-
+Wsquid:S1854Í"8Remove this useless assignment to local variable "mMob".(¾ığÂ8í™Ÿ‡õ-
+Gsquid:S1172 "(Remove this unused method parameter "c".(¦éè–8í™Ÿ‡õ-
+Ysquid:S1118Î
+":Add a private constructor to hide the implicit public one.(ô¬Ñ±8í™Ÿ‡õ-
+xsquid:S2293ã"YReplace the type specification in this constructor call with the diamond operator ("<>").(—Ğ„à8í™Ÿ‡õ-
+vsquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼÷Ñµûÿÿÿÿ8í™Ÿ‡õ-
+Ysquid:S1118¢
+":Add a private constructor to hide the implicit public one.(×µâæ8í™Ÿ‡õ-
+Esquid:S1168•"&Return an empty array instead of null.(¥¹ï8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(ùíªùÿÿÿÿ8í™Ÿ‡õ-
+qsquid:S2095õ	"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
+Esquid:S1168Œ"&Return an empty array instead of null.(¥¹ï8í™Ÿ‡õ-
+¥squid:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±Æ—óûÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148ë"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+qsquid:S00117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í–·8í™Ÿ‡õ-
+}squid:S2293Î"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãÊÖ»üÿÿÿÿ8í™Ÿ‡õ-
+¥squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100Ï"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™¡—Øøÿÿÿÿ8í™Ÿ‡õ-
+ squid:S1186‚"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ĞŠß±8í™Ÿ‡õ-
+ksquid:S2095“"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(ÿñ—w8Ş»š‡õ-
+Š"squid:ClassVariableVisibilityCheckİ"OMake now a static final constant or non-public and provide accessors if needed.(‰«¨£şÿÿÿÿ8í™Ÿ‡õ-
+Ysquid:S1161ğ":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-
+Lsquid:S1172­"(Remove this unused method parameter "c".(¤ªÏ¶üÿÿÿÿ8í™Ÿ‡õ-
+hsquid:S2095Ú"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(œµİ¯8í™Ÿ‡õ-
+zsquid:S2068"V'password' detected in this expression, review this potentially hard-coded credential.(Ëï¦õùÿÿÿÿ8í™Ÿ‡õ-
+nsquid:S00100ˆ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’‡ôæ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine»"<This block of commented-out lines of code should be removed.(±Û·¸8í™Ÿ‡õ-
+ˆsquid:S1488È"iImmediately return this expression instead of assigning it to the temporary variable "lastPathComponent".(ºÏª¸8í™Ÿ‡õ-
+Gsquid:S1148’"#Use a logger to log this exception.(‰œ‰Õúÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148ÿ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(Û¨¬‡üÿÿÿÿ8í™Ÿ‡õ-
+ksquid:S1854¬"LRemove this useless assignment to local variable "column_index_folder_name".(Ø•ß°8í™Ÿ‡õ-
+ksquid:S00112è
+"FDefine and throw a dedicated exception instead of using a generic one.(¡½ÿŞúÿÿÿÿ8í™Ÿ‡õ-
+W
+squid:S106„"9Replace this use of System.out or System.err by a logger.(ìÍ¦‡8í™Ÿ‡õ-
+Nsquid:S00108é")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100¹"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø‹Šèşÿÿÿÿ8í™Ÿ‡õ-
+fsquid:S2259˜"BA "NullPointerException" could be thrown; "mDPM" is nullable here.(Œ†Öşÿÿÿÿ8í™Ÿ‡õ-
+Esquid:S1452Î"&Remove usage of generic wildcard type.(–ƒëá8í™Ÿ‡õ-
+fsquid:S00112÷
+"FDefine and throw a dedicated exception instead of using a generic one.(Üõ—8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(£óîÔıÿÿÿÿ8í™Ÿ‡õ-
+qsquid:S2095"MUse try-with-resources or close this "ZipOutputStream" in a "finally" clause.(Ô¦öıÿÿÿÿ8í™Ÿ‡õ-
+vsquid:S00117â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Š¼Àÿÿÿÿÿ8Ş»š‡õ-
+Rsquid:S1481ş"3Remove this unused "flashAvailable" local variable.(¿§ó•8í™Ÿ‡õ-
+Gsquid:S1148£"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148—"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148ò"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ù’ÕÜ8í™Ÿ‡õ-
+Gsquid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+vsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
+\squid:S1854¸"8Remove this useless assignment to local variable "list".(çâîÀıÿÿÿÿ8í™Ÿ‡õ-
+msquid:S2095ï	"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(¡Ö˜®8í™Ÿ‡õ-
+…squid:S4165œ"aRemove this useless assignment; "ctx" already holds the assigned value along all execution paths.(Ûå´Ğùÿÿÿÿ8í™Ÿ‡õ-
+jsquid:S2259¾	"FA "NullPointerException" could be thrown; "recorder" is nullable here.(µ‘õ¨şÿÿÿÿ8í™Ÿ‡õ-
+;squid:S1643Ø"Use a StringBuilder instead.(¨–È8¶¬ ¹ö-
+^squid:S1118”":Add a private constructor to hide the implicit public one.(¥‘Ò»üÿÿÿÿ8í™Ÿ‡õ-
+{squid:S1488Ê"]Immediately return this expression instead of assigning it to the temporary variable "value".(¬¯¾x8í™Ÿ‡õ-
+ksquid:S1192•"GDefine a constant instead of duplicating this literal "Error_" 3 times.(Š¯ş¼øÿÿÿÿ8í™Ÿ‡õ-
+Osquid:S1481ı"+Remove this unused "device" local variable.(¤Î¢àøÿÿÿÿ8í™Ÿ‡õ-
+lsquid:S2095¸"HUse try-with-resources or close this "FileWriter" in a "finally" clause.(®èôøÿÿÿÿ8í™Ÿ‡õ-
+ squid:S1186Õ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8í™Ÿ‡õ-
+nsquid:S1192ó
+"JDefine a constant instead of duplicating this literal "Compress_" 3 times.(¹Å’íûÿÿÿÿ8í™Ÿ‡õ-
+gsquid:S2259À	"CA "NullPointerException" could be thrown; "track" is nullable here.(í­Œ™ÿÿÿÿÿ8í™Ÿ‡õ-
+Isquid:S00108ø")Either remove or fill this block of code.(”ı¾8í™Ÿ‡õ-
+ squid:S1186ƒ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(“ˆÔ8í™Ÿ‡õ-
+Gsquid:S1148Ø
 "#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-¥squid:S1186­"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±Æ—óûÿÿÿÿ8í™Ÿ‡õ-
-jsquid:S2184È"FCast one of the operands of this multiplication operation to a "long".(¦„ëÿÿÿÿÿ8í™Ÿ‡õ-
-]squid:S1854õ">Remove this useless assignment to local variable "tempCanvas".(Êä‰²8í™Ÿ‡õ-
-qsquid:S00117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§®…†8í™Ÿ‡õ-
-‚squid:S3008¦"cRename this field "CAMERA_IMAGE_BUCKET_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡Èô–8í™Ÿ‡õ-
-ssquid:S00100Ó
+osquid:CommentedOutCodeLineÁ"<This block of commented-out lines of code should be removed.(§ó¨¸şÿÿÿÿ8í™Ÿ‡õ-
+lsquid:S00101™"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(§¼Üi8í™Ÿ‡õ-
+‡squid:S1488â"cImmediately return this expression instead of assigning it to the temporary variable "imageToShow".(™»¶…ÿÿÿÿÿ8í™Ÿ‡õ-
+¥squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Úè»íşÿÿÿÿ8í™Ÿ‡õ-
+nsquid:S00100î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ª«÷8í™Ÿ‡õ-
+`squid:S2259ä"BA "NullPointerException" could be thrown; "file" is nullable here.(è£ât8í™Ÿ‡õ-
+Psquid:S1172Ğ",Remove this unused method parameter "title".(¶øÊ±ùÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(àÔŞ–8í™Ÿ‡õ-
+Wsquid:S1854€"9Remove this useless assignment to local variable "uuids".(õ¸òV8í™Ÿ‡õ-
+^squid:S4719õ":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
+¥squid:S1186·"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤‹Å¬úÿÿÿÿ8í™Ÿ‡õ-
+jsquid:S2184Ä"FCast one of the operands of this multiplication operation to a "long".(¦„ëÿÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148°
+"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineğ"<This block of commented-out lines of code should be removed.(òÛ´»8í™Ÿ‡õ-
+Ysquid:S1161ú":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-
+Gsquid:S1148Ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¹ÕíŒ8í™Ÿ‡õ-
+Gsquid:S1148‡"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+nsquid:S2095Ü"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(¡¹ºñùÿÿÿÿ8í™Ÿ‡õ-
+qsquid:S3776ú"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(»ÁØô8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
+squid:S1488ï"aImmediately return this expression instead of assigning it to the temporary variable "neighbors".(øì„8í™Ÿ‡õ-
+W
+squid:S106­"9Replace this use of System.out or System.err by a logger.(ìÍ¦‡8í™Ÿ‡õ-
+Nsquid:S00108Ğ")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(Ò‚•úÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100Ï
 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şı™îúÿÿÿÿ8í™Ÿ‡õ-
-dsquid:UselessImportCheck"4Remove this unused import 'android.app.AlertDialog'.(ª½øşüÿÿÿÿ8¸ÇÛ„õ-
-Fsquid:S2189®	""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148¤"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-rsquid:S00101­"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ó¹Ì¹úÿÿÿÿ8¸ÇÛ„õ-
-ssquid:S00100½"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø‹Šèşÿÿÿÿ8í™Ÿ‡õ-
-Gsquid:S1148Ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
-`squid:S1126½"AReplace this if-then-else statement by a single return statement.(¼ÙØı8í™Ÿ‡õ-
-Esquid:S1452Ú"&Remove usage of generic wildcard type.(–ƒëá8í™Ÿ‡õ-
-Nsquid:S1481Ò"/Remove this unused "connecting" local variable.(ŸöÉ¾8í™Ÿ‡õ-
+Gsquid:S1148á"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+squid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(›—Áá8í™Ÿ‡õ-
+Gsquid:S1148Ù"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Esquid:S1172´"&Remove these unused method parameters.(¢Ÿ­â8í™Ÿ‡õ-
+ squid:S1186›"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËĞƒ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(””Çî8¶¬ ¹ö-
+ squid:S1186ÿ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ú‹´™8í™Ÿ‡õ-
+Ysquid:S1141™"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
+Nsquid:S1172›	"*Remove this unused method parameter "ctx".(Ä¤şêşÿÿÿÿ8í™Ÿ‡õ-
+nsquid:S00100Î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…î·8í™Ÿ‡õ-
+@squid:S1643²"Use a StringBuilder instead.(¢³İùÿÿÿÿ8í™Ÿ‡õ-
+˜"squid:ClassVariableVisibilityCheck«"]Make mBluetoothAdapter a static final constant or non-public and provide accessors if needed.(ñùÛÁÿÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148 "#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+]squid:S1854ñ">Remove this useless assignment to local variable "tempCanvas".(Êä‰²8í™Ÿ‡õ-
+¥squid:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(úƒÚÓûÿÿÿÿ8í™Ÿ‡õ-
+psquid:S2095”"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(åœ«•8í™Ÿ‡õ-
+Gsquid:S1172Û"(Remove this unused method parameter "h".(Û¿ÿ8í™Ÿ‡õ-
+‘squid:S1319â"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ÿ˜Ä¢şÿÿÿÿ8í™Ÿ‡õ-
+zsquid:S00115…"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Šò¾Õ8í™Ÿ‡õ-
+Tsquid:S4432ª
+"0Use Galois/Counter Mode (GCM/NoPadding) instead.(ø¾¢çıÿÿÿÿ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÜ	"<This block of commented-out lines of code should be removed.(˜ ³úÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148¾"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÚ
+"<This block of commented-out lines of code should be removed.(÷õÜÀøÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100è
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡½ÿŞúÿÿÿÿ8í™Ÿ‡õ-
+\squid:S1854ë"8Remove this useless assignment to local variable "name".(ÃÙ‘äúÿÿÿÿ8í™Ÿ‡õ-
+‚squid:S3008š"cRename this field "CAMERA_IMAGE_BUCKET_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡Èô–8í™Ÿ‡õ-
+}squid:S2293¸"YReplace the type specification in this constructor call with the diamond operator ("<>").(çâîÀıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148”"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+;squid:S1643Î"Use a StringBuilder instead.(‡¤¢í8í™Ÿ‡õ-
+msquid:S2095Œ"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(Ã’Ä8Ş»š‡õ-
+Gsquid:S1148ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+xsquid:S2293«"YReplace the type specification in this constructor call with the diamond operator ("<>").(«’æ·8í™Ÿ‡õ-
+nsquid:S00100—
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒšĞ×8í™Ÿ‡õ-
+Gsquid:S1148¿
+"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Fsquid:S2189ª	""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8í™Ÿ‡õ-
+ƒsquid:S1488Ë"_Immediately return this expression instead of assigning it to the temporary variable "decoded".(Ó„ôéùÿÿÿÿ8í™Ÿ‡õ-
+Zsquid:S1659¡"6Declare "column_index_folder_name" on a separate line.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
+Nsquid:S1481ñ"/Remove this unused "tempCanvas" local variable.(Êä‰²8í™Ÿ‡õ-
+Lsquid:S1481õ	"(Remove this unused "fis" local variable.(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
+osquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(±…ÜÒüÿÿÿÿ8í™Ÿ‡õ-
+@squid:S1643‚"Use a StringBuilder instead.(‹ƒ§şÿÿÿÿ8í™Ÿ‡õ-
+asquid:S3252¯"CUse static access with "javax.mail.Message$RecipientType" for "TO".(³ƒ&8í™Ÿ‡õ-
+`squid:S2259"AA "NullPointerException" could be thrown; "ctx" is nullable here.(€ëÖ8í™Ÿ‡õ-
+hsquid:S2259"DA "NullPointerException" could be thrown; "socket" is nullable here.(Ûæ•øûÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148¼	"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148¥"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+xsquid:S1192ç"TUse already-defined constant 'transformation' instead of duplicating its value here.(·•¶·ıÿÿÿÿ8í™Ÿ‡õ-
+…squid:S3008œ"aRename this field "CAMERA_IMAGE_BUCKET_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…’ÔŞşÿÿÿÿ8í™Ÿ‡õ-
+Nsquid:S2093¾"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148Û"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+wsquid:S2293Ÿ"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÑŠ¬8í™Ÿ‡õ-
+ssquid:S00100‹"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û—”åıÿÿÿÿ8í™Ÿ‡õ-
+qsquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§®…†8í™Ÿ‡õ-
+Xsquid:S1118™":Add a private constructor to hide the implicit public one.(§¼Üi8í™Ÿ‡õ-
+Gsquid:S1148ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148¯"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148Ú"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+psquid:S2095·"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(åœ«•8í™Ÿ‡õ-
+Lsquid:S1604Í	"(Make this anonymous inner class a lambda(˜ûíÒúÿÿÿÿ8í™Ÿ‡õ-
+Nsquid:S2093Ø"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
+[squid:S1444«"7Make this "public static mBluetoothAdapter" field final(ñùÛÁÿÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(½‘Ñ³8í™Ÿ‡õ-
+"squid:ClassVariableVisibilityCheckÜ"UMake startTime a static final constant or non-public and provide accessors if needed.(¬ç¥±ùÿÿÿÿ8Ş»š‡õ-
+Msquid:S1481ë")Remove this unused "name" local variable.(ÃÙ‘äúÿÿÿÿ8í™Ÿ‡õ-
+^squid:S1118Ã":Add a private constructor to hide the implicit public one.(üŠšéùÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(Ìü®ê8í™Ÿ‡õ-
+^squid:S4719Ù":Replace Charset.forName() call with StandardCharsets.UTF_8(íçÿÿÿÿÿ8í™Ÿ‡õ-
+jsquid:S1192Ù"FDefine a constant instead of duplicating this literal "UTF-8" 4 times.(íçÿÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148÷"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+\
+squid:S106ñ"9Replace this use of System.out or System.err by a logger.(µïĞ“ıÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S3398œ"(Move this method into "VibratorPattern".(’ßØÀ8í™Ÿ‡õ-
+jsquid:S1192½"KDefine a constant instead of duplicating this literal "camera_api" 4 times.(ïµÕ‰8í™Ÿ‡õ-
+Ysquid:S1141„"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8í™Ÿ‡õ-
+vsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥èğÿÿÿÿÿ8Ş»š‡õ-
+Gsquid:S1148“"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+Nsquid:S00108‘")Either remove or fill this block of code.(Æ¸Û‚øÿÿÿÿ8í™Ÿ‡õ-
+Isquid:S00108»")Either remove or fill this block of code.(è… ÷8í™Ÿ‡õ-
+[squid:S1854õ	"7Remove this useless assignment to local variable "fis".(ÓÆ€ûúÿÿÿÿ8í™Ÿ‡õ-
+ksquid:S00112ã
+"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8í™Ÿ‡õ-
+@squid:S1643ñ
+"Use a StringBuilder instead.(‹ƒ§şÿÿÿÿ8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine°	"<This block of commented-out lines of code should be removed.(×Å÷Ç8í™Ÿ‡õ-
+X"squid:SwitchLastCaseIsDefaultCheckÌ""Add a default case to this switch.(íªà8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ìğÕøÿÿÿÿ8í™Ÿ‡õ-
+Gsquid:S1148‘"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í™Ÿ‡õ-
+xsquid:S1488Ğ"YImmediately return this expression instead of assigning it to the temporary variable "a".(Ğ¥Îñ8í™Ÿ‡õ-
+ssquid:S00100É"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯íµúÿÿÿÿ8í™Ÿ‡õ-
+^squid:S1118ÿ":Add a private constructor to hide the implicit public one.(¦îàòÿÿÿÿÿ8í™Ÿ‡õ-
+ssquid:S00100
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„…Üÿÿÿÿÿ8í™Ÿ‡õ-
+asquid:S1481¡"=Remove this unused "column_index_folder_name" local variable.(ë¥èğÿÿÿÿÿ8í™Ÿ‡õ-
+Ysquid:S1118‘	":Add a private constructor to hide the implicit public one.(²‡è¿8í™Ÿ‡õ-
+qsquid:S00117ß"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù‚¯±8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(ÖƒÂ¿8íÅ‡õ-
+Hsquid:S1481Í")Remove this unused "mMob" local variable.(¾ığÂ8Ş»š‡õ-
+ squid:S1186¾"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Û¸¾Ó8¶¬ ¹ö-
+rsquid:S00101©"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ó¹Ì¹úÿÿÿÿ8¸ÇÛ„õ-
+Ssquid:S1656œ"/Remove or correct this useless self-assignment.(Ûå´Ğùÿÿÿÿ8Ş»š‡õ-
+Esquid:S1168°"&Return an empty array instead of null.(¥¹ï8Ş»š‡õ-
+Hsquid:S1481€"*Remove this unused "uuids" local variable.(õ¸òV8í™Ÿ‡õ-
+ squid:S1186Â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æ ÛÂ8í™Ÿ‡õ-
+qsquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ê–Ä8í™Ÿ‡õ-
+xsquid:S2293¥"YReplace the type specification in this constructor call with the diamond operator ("<>").(â•¯î8í™Ÿ‡õ-
+Ssquid:S1066à"/Merge this if statement with the enclosing one.(¼ Ìëÿÿÿÿÿ8í™Ÿ‡õ-
+^squid:S1118‡
+":Add a private constructor to hide the implicit public one.(ï»õıÿÿÿÿ8í™Ÿ‡õ-
+nsquid:S00100÷
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üõ—8í™Ÿ‡õ-
+jsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(†€éˆ8í™Ÿ‡õ-
+qsquid:S00117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚”ı±8Ş»š‡õ-
+qsquid:S00117¥	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µÈî¥8í™Ÿ‡õ-
+osquid:CommentedOutCodeLineÒ
+"<This block of commented-out lines of code should be removed.(ˆ…ˆ¾úÿÿÿÿ8í™Ÿ‡õ-
+Ysquid:S1161£":Add the "@Override" annotation above this method signature(“–ış8í™Ÿ‡õ-

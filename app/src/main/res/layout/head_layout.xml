@@ -7,15 +7,23 @@
     android:background="@color/headOverlayTextBackgroundColor"
     android:orientation="vertical">
 
+    <ListView
+        android:id="@+id/bllist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="false" />
+
     <TextView
         android:id="@+id/laytext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:textAlignment="center"></TextView>
 
     <TextView
         android:id="@+id/laytext2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:textAlignment="center"></TextView>
 
     <Button
         android:id="@+id/lay_btn1"

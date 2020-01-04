@@ -734,7 +734,7 @@ public class SontHelper {
 
             txt.setText(text);
             txt.setTextSize(textSize);
-            int duration = 1000;
+            int duration = 500;
             Animation animation_show = new AlphaAnimation(0.0f, 1.0f);
             Animation animation_hide = new AlphaAnimation(1.0f, 0.0f);
             animation_show.setDuration(duration);
@@ -796,6 +796,14 @@ public class SontHelper {
         SimpleDateFormat sdf = new SimpleDateFormat(
                 "yyyy.MM.dd HH:mm:ss",
                 Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    public static String getCurrentOnlyTimeHumanReadable() {
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "HH:mm:ss",
+                Locale.getDefault());
+
         return sdf.format(new Date());
     }
 

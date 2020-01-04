@@ -1,6 +1,4 @@
 
-jsquid:S00101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ý–µ—ùÿÿÿÿ
-dsquid:UselessImportCheck"4Remove this unused import 'android.app.AlertDialog'.(ª½øþüÿÿÿÿ8°ÇÛ„õ-
-lsquid:UselessImportCheck"<Remove this unused import 'android.content.DialogInterface'.(Š­›¨þÿÿÿÿ8°ÇÛ„õ-
-qsquid:UselessImportCheck
-"ARemove this unused import 'androidx.fragment.app.DialogFragment'.(ƒæ÷£ùÿÿÿÿ8°ÇÛ„õ-
+jsquid:S00101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ý–µ—ùÿÿÿÿ
+Fsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8§¬ ¹ö-
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(’ßòÀýÿÿÿÿ8ŠÐïáö-

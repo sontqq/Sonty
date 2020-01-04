@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
 import android.location.GnssStatus;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -26,15 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -48,10 +39,8 @@ import com.github.anrwatchdog.ANRWatchDog;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class BackgroundService extends Service {
@@ -79,20 +68,24 @@ public class BackgroundService extends Service {
     public static int not_touched; // not_recorded
     public static int retry_count; // http retry;
 
-    public static WindowManager headoverlay_mWindowManager;
-    public static View headoverlay_mHeadView;
+    //public static WindowManager headoverlay_mWindowManager;
+    //public static View headoverlay_mHeadView;
 
-    static Button headoverlay_lay_btn1;
+    /*static Button headoverlay_lay_btn1;
     static Button headoverlay_lay_btn2;
     static TextView headoverlay_lay_txt1;
     static TextView headoverlay_lay_txt2;
+    static ListView bllistview;
+    */
+    static ArrayList<String> listItems = new ArrayList<String>();
+    //static ArrayAdapter<String> adapter;
 
     static SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
     static SontHelper.TimeElapsedUtil elapsed_since_start = new SontHelper.TimeElapsedUtil();
     static int started_at_battery;
     static String gns;
 
-    public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
+    //public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
 
     public static Location CURRENT_LOCATION;
 
@@ -194,7 +187,7 @@ public class BackgroundService extends Service {
                                                     save.execute();
                                                 } catch (Exception e) {
                                                     Log.d("HTTP_", "ERROR: " + e.getMessage());
-                                                    headoverlay_lay_txt1.setText("HTTP ERROR");
+                                                    //headoverlay_lay_txt1.setText("HTTP ERROR");
                                                     e.printStackTrace();
                                                 }
                                             }
@@ -238,7 +231,8 @@ public class BackgroundService extends Service {
                 }
             };
 
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getApplicationContext(), "PERMISSION ERROR", Toast.LENGTH_LONG).show();
             }
             locationManager.requestSingleUpdate(
@@ -385,89 +379,160 @@ public class BackgroundService extends Service {
                     );
                 }
             };
+
             startInactivityHandler();
 
-            bl = new SontHelper.BluetoothThings();
-            SontHelper.BluetoothThings.BluetoothDeviceListener listener =
-                    new SontHelper.BluetoothThings.BluetoothDeviceListener() {
-                        @Override
-                        public void found(BluetoothDevice device) {
-                            try {
-                                SontHelper.showAlertDialog(getApplicationContext(),
-                                        "Bluetooth Classic device found",
-                                        device.getName() + " -> " + device.getAddress(),
-                                        22
-                                );
-                                if (CURRENT_LOCATION != null)
-                                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
-                                            "bluetoothlist.txt",
-                                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() +
-                                                    "\n" + CURRENT_LOCATION.toString() + "\n" +
-                                                    device.getName() + "\n" +
-                                                    device.getAddress(),
-                                            true
-                                    );
+            /*adapter = new ArrayAdapter<String>(getApplicationContext(),
+                    android.R.layout.simple_list_item_1,
+                    listItems);
 
-                                if (bl_devices.containsValue(device) != true) {
-                                    if (bl_devices.size() >= 1) {
-                                        headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() + "\n");
-                                    }
-                                    bl_devices.put(CURRENT_LOCATION, device);
-                                    headoverlay_lay_txt2.setVisibility(View.VISIBLE);
-                                    headoverlay_lay_txt2.setText(
-                                            headoverlay_lay_txt2.getText() +
-                                                    device.getName() + " -> " +
-                                                    device.getAddress() + "\n"
-                                    );
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+            bllistview.setAdapter(adapter);
+
+            final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = 700;
+*/
+            /*
+            bllistview.setOnTouchListener(new View.OnTouchListener() {
+                private int lastAction;
+                private int initialX;
+                private int initialY;
+                private float initialTouchX;
+                private float initialTouchY;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            initialX = params.x;
+                            initialY = params.y;
+                            initialTouchX = event.getRawX();
+                            initialTouchY = event.getRawY();
+
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            if (lastAction == MotionEvent.ACTION_DOWN) {
+                                //OPEN MAIN ACTIVITY
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                getApplicationContext().startActivity(intent);
+                                //stopSelf();
                             }
-                        }
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
+                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
 
-                        @Override
-                        public void found(BluetoothDevice device, int rssi) {
-                            try {
-                                SontHelper.showAlertDialog(getApplicationContext(),
-                                        "Bluetooth LE device found",
-                                        device.getName() + "\n" + device.getAddress(),
-                                        22
-                                );
-                                if (CURRENT_LOCATION != null)
-                                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
-                                            "bluetoothlist.txt",
-                                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() + "\n" +
-                                                    CURRENT_LOCATION.toString() + "\n" +
-                                                    device.getName() + "_LE -> " +
-                                                    device.getAddress(),
-                                            true
-                                    );
-                                if (bl_devices.containsValue(device) != true) {
-                                    if (bl_devices.size() >= 1) {
-                                        headoverlay_lay_txt2.setText(
-                                                headoverlay_lay_txt2.getText() + "\n");
-                                    }
-                                    bl_devices.put(CURRENT_LOCATION, device);
-                                    String time = SontHelper.getCurrentTimeHumanReadable();
-                                    headoverlay_lay_txt2.setVisibility(View.VISIBLE);
-                                    if (headoverlay_lay_txt2.getText().length() > 500)
-                                        headoverlay_lay_txt2.setText("");
-                                    headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() +
-                                            time + " @LE_" + device.getName() +
-                                            " -> " + device.getAddress() +
-                                            " -> RSSI: " + rssi
-                                    );
+                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
+                            lastAction = event.getAction();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+            */
+            //bl = new SontHelper.BluetoothThings();
+            SontHelper.BluetoothThings.BluetoothDeviceListener listener = new SontHelper.BluetoothThings.BluetoothDeviceListener() {
+                @Override
+                public void found(BluetoothDevice device) {
+                    try {
+                        SontHelper.showAlertDialog(getApplicationContext(),
+                                "Bluetooth Classic device found",
+                                device.getName() + " -> " + device.getAddress(),
+                                22
+                        );
+                        if (CURRENT_LOCATION != null)
+                            SontHelper.fileIO.writeExperimental(getApplicationContext(),
+                                    "bluetoothlist.txt",
+                                    "\n\n" + SontHelper.getCurrentTimeHumanReadable() +
+                                            "\n" + CURRENT_LOCATION.toString() + "\n" +
+                                            device.getName() + "\n" +
+                                            device.getAddress(),
+                                    true
+                            );
 
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
-            bl.addListener(listener);
+                        //if (bl_devices.containsValue(device) != true) {
+                        //   if (bl_devices.size() >= 1) {
+                        // headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() + "\n");
+                        //}
+                        //   bl_devices.put(CURRENT_LOCATION, device);
+                        //   if (headoverlay_lay_txt2 != null) {
+                        //if (adapter.getCount() > 10) {
+                        //adapter.clear();
+                        //adapter.notifyDataSetChanged();
+                        //}
+                        //adapter.add(device.getName() + " -> " + device.getAddress());
+                        //headoverlay_lay_txt2.setVisibility(View.VISIBLE);
+                        //if (headoverlay_lay_txt2.getText().length() > 250)
+                        //   headoverlay_lay_txt2.setText("");
+                                /*headoverlay_lay_txt2.setText(
+                                        headoverlay_lay_txt2.getText() + SontHelper.getCurrentOnlyTimeHumanReadable() +
+                                                " " + device.getName() + " -> " +
+                                                device.getAddress() + "\n"
+                                );*/
+                        //}
+                        //}
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
-            startBLscanFromService(getApplicationContext());
-            startBLLEscanFromService(getApplicationContext());
+                @Override
+                public void found(BluetoothDevice device, int rssi) {
+                    try {
+                        SontHelper.showAlertDialog(getApplicationContext(),
+                                "Bluetooth LE device found",
+                                device.getName() + "\n" + device.getAddress(),
+                                22
+                        );
+                        if (CURRENT_LOCATION != null)
+                            SontHelper.fileIO.writeExperimental(getApplicationContext(),
+                                    "bluetoothlist.txt",
+                                    "\n\n" + SontHelper.getCurrentTimeHumanReadable() + "\n" +
+                                            CURRENT_LOCATION.toString() + "\n" +
+                                            device.getName() + "_LE -> " +
+                                            device.getAddress(),
+                                    true
+                            );
+                        //if (bl_devices.containsValue(device) != true) {
+                        //  if (bl_devices.size() >= 1) {
+                        //    headoverlay_lay_txt2.setText(
+                        //          headoverlay_lay_txt2.getText() + "\n");
+                        // }
+                        //bl_devices.put(CURRENT_LOCATION, device);
+                        //if (headoverlay_lay_txt2 != null) {
+                        //  if (adapter.getCount() > 10) {
+                        //    adapter.clear();
+                        //  adapter.notifyDataSetChanged();
+                        //}
+                        //adapter.add(device.getName() + " -> " + device.getAddress());
+                        //headoverlay_lay_txt2.setVisibility(View.VISIBLE);
+                        //if (headoverlay_lay_txt2.getText().length() > 250)
+                        //   headoverlay_lay_txt2.setText("");
+                                /*headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() +
+                                        SontHelper.getCurrentOnlyTimeHumanReadable() + " @LE_" + device.getName() +
+                                        " -> " + device.getAddress() +
+                                        " -> RSSI: " + rssi + "\n"
+                                );*/
+                        //}
+                        //}
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            //bl.addListener(listener);
+
+            //startBLscanFromService(getApplicationContext());
+            //startBLLEscanFromService(getApplicationContext());
 
             Log.d("SERVICE_INITIALIZATION", "Elapsed time: " + elapsed_since_start.getElapsed());
         } catch (Exception e) {
@@ -475,20 +540,20 @@ public class BackgroundService extends Service {
         }
     }
 
-    public void startBLLEscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.startBLLEscan(getApplicationContext());
+    public static void startBLLEscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.startBLLEscan(ctx);
     }
 
-    public void startBLscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.startBLscan(getApplicationContext());
+    public static void startBLscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.startBLscan(ctx);
     }
 
-    public void stopBLLEscanFromService(Context ctx) {
+    public static void stopBLLEscanFromService(Context ctx) {
 
     }
 
-    public void stopBLscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.stopBLscan(getApplicationContext());
+    public static void stopBLscanFromService(Context ctx) {
+        SontHelper.BluetoothThings.stopBLscan(ctx);
     }
 
     public void resetInactivityHandler() {
@@ -504,125 +569,131 @@ public class BackgroundService extends Service {
         inactivity_handler.postDelayed(inactivity_runnable, 3600000); // 1h minutes
     }
 
-    public static void initHeadOverlay(Context c) {
-        if (headoverlay_mHeadView != null) {
-            headoverlay_mHeadView.setVisibility(View.GONE);
-            headoverlay_mHeadView = null;
-        }
-        headoverlay_mHeadView = LayoutInflater.from(c).inflate(R.layout.head_layout, null);
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = 700;
-        headoverlay_mWindowManager = (WindowManager) c.getSystemService(WINDOW_SERVICE);
-        headoverlay_mWindowManager.addView(headoverlay_mHeadView, params);
-
-        headoverlay_lay_txt1 = headoverlay_mHeadView.findViewById(R.id.laytext);
-        headoverlay_lay_txt2 = headoverlay_mHeadView.findViewById(R.id.laytext2);
-        headoverlay_lay_btn1 = headoverlay_mHeadView.findViewById(R.id.lay_btn1);
-        headoverlay_lay_btn2 = headoverlay_mHeadView.findViewById(R.id.lay_btn2);
-
-        headoverlay_lay_btn1.setText("Ping");
-        headoverlay_lay_btn2.setText("Hide");
-        headoverlay_lay_btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                headoverlay_lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
-            }
-        });
-        headoverlay_lay_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public static void initHeadOverlay(Context c) {/*
+        try {
+            if (headoverlay_mHeadView != null) {
                 headoverlay_mHeadView.setVisibility(View.GONE);
                 headoverlay_mHeadView = null;
             }
-        });
+            headoverlay_mHeadView = LayoutInflater.from(c).inflate(R.layout.head_layout, null);
+            final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = 700;
+            headoverlay_mWindowManager = (WindowManager) c.getSystemService(WINDOW_SERVICE);
+            headoverlay_mWindowManager.addView(headoverlay_mHeadView, params);
 
-        headoverlay_lay_txt1.setText("SERVICE STARTED");
-        headoverlay_lay_txt1.setOnTouchListener(new View.OnTouchListener() {
-            private int lastAction;
-            private int initialX;
-            private int initialY;
-            private float initialTouchX;
-            private float initialTouchY;
+            headoverlay_lay_txt1 = headoverlay_mHeadView.findViewById(R.id.laytext);
+            headoverlay_lay_txt2 = headoverlay_mHeadView.findViewById(R.id.laytext2);
+            headoverlay_lay_btn1 = headoverlay_mHeadView.findViewById(R.id.lay_btn1);
+            headoverlay_lay_btn2 = headoverlay_mHeadView.findViewById(R.id.lay_btn2);
+            bllistview = headoverlay_mHeadView.findViewById(R.id.bllist);
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = params.x;
-                        initialY = params.y;
-                        initialTouchX = event.getRawX();
-                        initialTouchY = event.getRawY();
-
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        if (lastAction == MotionEvent.ACTION_DOWN) {
-                            //OPEN MAIN ACTIVITY
-                            Intent intent = new Intent(c, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            c.startActivity(intent);
-                            //stopSelf();
-                        }
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                        headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
-                        lastAction = event.getAction();
-                        return true;
+            headoverlay_lay_btn1.setText("Ping");
+            headoverlay_lay_btn2.setText("Hide");
+            headoverlay_lay_btn1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    headoverlay_lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
                 }
-                return false;
-            }
-        });
-        headoverlay_lay_txt2.setVisibility(View.GONE);
-        headoverlay_lay_txt2.setOnTouchListener(new View.OnTouchListener() {
-            private int lastAction;
-            private int initialX;
-            private int initialY;
-            private float initialTouchX;
-            private float initialTouchY;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = params.x;
-                        initialY = params.y;
-                        initialTouchX = event.getRawX();
-                        initialTouchY = event.getRawY();
-
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        if (lastAction == MotionEvent.ACTION_DOWN) {
-                            //OPEN MAIN ACTIVITY
-                            Intent intent = new Intent(c, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            c.startActivity(intent);
-                            //stopSelf();
-                        }
-                        lastAction = event.getAction();
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                        headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
-                        lastAction = event.getAction();
-                        return true;
+            });
+            headoverlay_lay_btn2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    headoverlay_mHeadView.setVisibility(View.GONE);
+                    headoverlay_mHeadView = null;
                 }
-                return false;
-            }
-        });
+            });
+
+            headoverlay_lay_txt1.setText("SERVICE STARTED");
+            headoverlay_lay_txt1.setOnTouchListener(new View.OnTouchListener() {
+                private int lastAction;
+                private int initialX;
+                private int initialY;
+                private float initialTouchX;
+                private float initialTouchY;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            initialX = params.x;
+                            initialY = params.y;
+                            initialTouchX = event.getRawX();
+                            initialTouchY = event.getRawY();
+
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            if (lastAction == MotionEvent.ACTION_DOWN) {
+                                //OPEN MAIN ACTIVITY
+                                Intent intent = new Intent(c, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                c.startActivity(intent);
+                                //stopSelf();
+                            }
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
+                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
+
+                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
+                            lastAction = event.getAction();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+            headoverlay_lay_txt2.setVisibility(View.GONE);
+            headoverlay_lay_txt2.setOnTouchListener(new View.OnTouchListener() {
+                private int lastAction;
+                private int initialX;
+                private int initialY;
+                private float initialTouchX;
+                private float initialTouchY;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            initialX = params.x;
+                            initialY = params.y;
+                            initialTouchX = event.getRawX();
+                            initialTouchY = event.getRawY();
+
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            if (lastAction == MotionEvent.ACTION_DOWN) {
+                                //OPEN MAIN ACTIVITY
+                                Intent intent = new Intent(c, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                c.startActivity(intent);
+                                //stopSelf();
+                            }
+                            lastAction = event.getAction();
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
+                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
+
+                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
+                            lastAction = event.getAction();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     public void updateCurrent(String title, String text) {
@@ -706,32 +777,37 @@ public class BackgroundService extends Service {
     }
 
     public void showOngoing() {
-        Intent notificationIntent = new Intent(getApplicationContext(), receiver.class);
-        notificationIntent.putExtra("29293", "29293");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getApplicationContext(),
-                29293,
-                notificationIntent,
-                PendingIntent.FLAG_IMMUTABLE
-        );
+        try {
+            Intent notificationIntent = new Intent(getApplicationContext(), receiver.class);
+            notificationIntent.putExtra("29293", "29293");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                    getApplicationContext(),
+                    29293,
+                    notificationIntent,
+                    PendingIntent.FLAG_IMMUTABLE
+            );
 
-        Intent intent = new Intent(getApplicationContext(), receiver.class);
-        intent.setAction("exit");
-        PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
+            Intent intent = new Intent(getApplicationContext(), receiver.class);
+            intent.setAction("exit");
+            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        Notification notification = new NotificationCompat.Builder(getApplicationContext(), "sonty")
-                .setContentTitle("Sonty Service" + " | Started: " + started_time)
-                .setContentText("Waiting for GPS")
-                .setCategory(Notification.CATEGORY_SERVICE)
-                .setSmallIcon(R.drawable.service)
-                .setContentIntent(pendingIntent)
-                .setChannelId("sonty")
-                .addAction(R.drawable.service, "EXIT",
-                        pi)
-                .build();
+            Notification notification = new NotificationCompat.Builder(getApplicationContext(), "sonty")
+                    .setContentTitle("Sonty Service" + " | Started: " + started_time)
+                    .setContentText("Waiting for GPS")
+                    .setCategory(Notification.CATEGORY_SERVICE)
+                    .setSmallIcon(R.drawable.service)
+                    .setContentIntent(pendingIntent)
+                    .setChannelId("sonty")
+                    .addAction(R.drawable.service, "EXIT",
+                            pi)
+                    .build();
 
-        startForeground(55, notification);
+            startForeground(55, notification);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -805,7 +881,7 @@ public class BackgroundService extends Service {
         public void onReceive(Context context, Intent intent) {
             // make a bit delay to test out power consumption
             try {
-                TextView headtext = headoverlay_mHeadView.findViewById(R.id.laytext);
+                /*TextView headtext = headoverlay_mHeadView.findViewById(R.id.laytext);
                 headtext.setText(Html.fromHtml(
                         "New: <b>" + recorded + "</b> | " +
                                 "Updated: <b>" + updated + "</b><br>" +
@@ -831,6 +907,7 @@ public class BackgroundService extends Service {
                     }
                 };
                 scanThread.start();
+                */
             } catch (Exception e) {
                 e.printStackTrace();
             }

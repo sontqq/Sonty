@@ -10,9 +10,9 @@ public class receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.hasExtra("29293")) {
             try {
-                if (BackgroundService.headoverlay_mHeadView == null) {
+                /*if (BackgroundService.headoverlay_mHeadView == null) {
                     BackgroundService.initHeadOverlay(context);
-                }
+                }*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -31,18 +31,24 @@ public class receiver extends BroadcastReceiver {
         }
         if (intent.getAction() == "start") {
             Toast.makeText(context, "STARTED!", Toast.LENGTH_SHORT).show();
+            //BackgroundService.startBLscanFromService(context);
+            //BackgroundService.startBLLEscanFromService(context);
         }
         if (intent.getAction() == "pause") {
             Toast.makeText(context, "PAUSE!", Toast.LENGTH_SHORT).show();
         }
         if (intent.getAction() == "start_bl") {
             Toast.makeText(context, "START!", Toast.LENGTH_SHORT).show();
+            //BackgroundService.startBLscanFromService(context);
+            //BackgroundService.startBLLEscanFromService(context);
 
         }
         if (intent.getAction() == "stop_bl") {
             Toast.makeText(context, "STOP!!", Toast.LENGTH_SHORT).show();
-            BackgroundService b = new BackgroundService();
-            b.stopBLscanFromService(context);
+            //BackgroundService b = new BackgroundService();
+            //b.stopBLscanFromService(context);
+            //BackgroundService.stopBLscanFromService(context);
+            //BackgroundService.stopBLLEscanFromService(context);
         }
     }
 }
