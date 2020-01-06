@@ -54,12 +54,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
 import android.net.Uri;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.net.wifi.p2p.WifiP2pConfig;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.ParcelUuid;
 import android.os.VibrationEffect;
@@ -114,6 +120,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -702,6 +709,268 @@ public class SontHelper {
             }
             return list;
         }
+    }
+
+    static class NsdHelper {
+
+        private static final String TAG = "NsdHelper";
+        private static final String SERVICE_NAME = "NsdService";
+        private static final String SERVICE_TYPE = "_http._tcp.";
+
+
+        private boolean discovering = false;
+        private boolean registered = false;
+
+        private final Context mContext;
+        private NsdServiceInfo mServiceInfo = null;
+        private NsdManager mNsdManager;
+        private MyRegistrationListener myRegistrationListener;
+        private MyDiscoveryListener myDiscoveryListener;
+        private MyResolveListener myResolveListener;
+        private String mServiceName;
+
+        NsdHelper(Context context) {
+            mContext = context;
+            mNsdManager = (NsdManager) mContext.getSystemService(Context.NSD_SERVICE);
+        }
+
+        void registerService(int port) {
+            NsdServiceInfo serviceInfo = new NsdServiceInfo();
+            serviceInfo.setServiceName(SERVICE_NAME);
+            serviceInfo.setServiceType(SERVICE_TYPE);
+            serviceInfo.setPort(port);
+
+            mNsdManager = (NsdManager) mContext.getSystemService(Context.NSD_SERVICE);
+
+            mNsdManager.registerService(
+                    serviceInfo, NsdManager.PROTOCOL_DNS_SD, myRegistrationListener);
+
+            mServiceInfo = serviceInfo;
+        }
+
+        void initListeners() {
+            initRegistrationListener();
+            initDiscoveryListener();
+            initResolveListener();
+
+        }
+
+        private void initResolveListener() {
+            myResolveListener = new MyResolveListener();
+        }
+
+        private void initRegistrationListener() {
+            myRegistrationListener = new MyRegistrationListener();
+        }
+
+        private void initDiscoveryListener() {
+            myDiscoveryListener = new MyDiscoveryListener();
+        }
+
+        NsdServiceInfo getChosenServiceInfo() {
+            return mServiceInfo;
+        }
+
+        void discoverServices() {
+            if (!isDiscovering() && mNsdManager != null) {
+                Log.i(TAG, "Starting Discovery");
+                mNsdManager.discoverServices(
+                        SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, myDiscoveryListener);
+                discovering = true;
+            }
+        }
+
+        void stopDiscovery() {
+            if (isDiscovering()) {
+                Log.i(TAG, "Stopping Discovery");
+                mNsdManager.stopServiceDiscovery(myDiscoveryListener);
+                discovering = false;
+            }
+        }
+
+        boolean isDiscovering() {
+            return discovering;
+        }
+
+        public void tearDown() {
+            mNsdManager.unregisterService(myRegistrationListener);
+        }
+
+        boolean isRegistered() {
+            return registered;
+        }
+
+        private class MyRegistrationListener implements NsdManager.RegistrationListener {
+            @Override
+            public void onRegistrationFailed(NsdServiceInfo nsdServiceInfo, int i) {
+                Log.e(TAG, "Registration Failed");
+            }
+
+            @Override
+            public void onUnregistrationFailed(NsdServiceInfo nsdServiceInfo, int i) {
+                Log.e(TAG, "unregistration Failed");
+            }
+
+            @Override
+            public void onServiceRegistered(NsdServiceInfo nsdServiceInfo) {
+                mServiceInfo = nsdServiceInfo;
+                mServiceName = nsdServiceInfo.getServiceName();
+                registered = true;
+                Log.i(TAG, "Registration Success");
+                // Toast.makeText(mContext, "Registered : " + nsdServiceInfo.getServiceName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServiceUnregistered(NsdServiceInfo nsdServiceInfo) {
+                registered = false;
+                Log.i(TAG, "Unregistered");
+            }
+        }
+
+        private class MyDiscoveryListener implements NsdManager.DiscoveryListener {
+            @Override
+            public void onStartDiscoveryFailed(String s, int i) {
+                Log.i(TAG, "Start Discovery Failed");
+            }
+
+            @Override
+            public void onStopDiscoveryFailed(String s, int i) {
+                Log.i(TAG, "Stop Discovery Failed");
+            }
+
+            @Override
+            public void onDiscoveryStarted(String s) {
+                // Toast.makeText(mContext, "Discovery Started", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "Discovery Started");
+            }
+
+            @Override
+            public void onDiscoveryStopped(String s) {
+                Log.i(TAG, "Discovery Stopped");
+                // Toast.makeText(mContext, "Discovery Stopped", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServiceFound(NsdServiceInfo nsdServiceInfo) {
+                Log.i(TAG, "Service Discovered " + nsdServiceInfo.getServiceName());
+                // Toast.makeText(mContext, "Discovery Found " + nsdServiceInfo.getServiceName(), Toast.LENGTH_SHORT).show();
+
+                if (!nsdServiceInfo.getServiceType().equals(SERVICE_TYPE)) {
+                    // Service type is the string containing the protocol and
+                    // transport layer for this service.
+                    Log.d(TAG, "Unknown Service Type: " + nsdServiceInfo.getServiceType());
+                } else if (nsdServiceInfo.getServiceName().equals(mServiceName)) {
+                    // The name of the service tells the user what they'd be
+                    // connecting to. It could be "Bob's Chat App".
+                    Log.d(TAG, "Same machine: " + mServiceName);
+                    myResolveListener = new MyResolveListener();
+                    mNsdManager.resolveService(nsdServiceInfo, myResolveListener);
+                } else if (nsdServiceInfo.getServiceName().contains("NsdChat")) {
+                    myResolveListener = new MyResolveListener();
+                    mNsdManager.resolveService(nsdServiceInfo, myResolveListener);
+                }
+            }
+
+            @Override
+            public void onServiceLost(NsdServiceInfo nsdServiceInfo) {
+                Log.i(TAG, "Service Lost");
+            }
+        }
+
+        private class MyResolveListener implements NsdManager.ResolveListener {
+            @Override
+            public void onResolveFailed(NsdServiceInfo nsdServiceInfo, int i) {
+                Log.i(TAG, "Service Resolution Failed");
+            }
+
+            @Override
+            public void onServiceResolved(NsdServiceInfo nsdServiceInfo) {
+                Log.i(TAG, "Service Resolved");
+                mServiceInfo = nsdServiceInfo;
+                if (nsdServiceInfo.getServiceName().equals(mServiceName)) {
+                    Log.d(TAG, "Same IP.");
+                    // Toast.makeText(mContext, "LocalHost : " + nsdServiceInfo.getPort(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Toast.makeText(mContext, "Service Resolved : " + nsdServiceInfo.getHost() + " : " + nsdServiceInfo.getPort(), Toast.LENGTH_SHORT).show();
+                mServiceInfo = nsdServiceInfo;
+                int port = mServiceInfo.getPort();
+                InetAddress host = mServiceInfo.getHost();
+                Log.i(TAG, host + " " + port);
+            }
+        }
+    }
+
+    static class WiFip2p {
+        IntentFilter _wifip2p_intentFilter = new IntentFilter();
+        BroadcastReceiver _wifip2p_broadcastReceiver;
+        WifiP2pManager _wifip2p_manager;
+        WifiP2pManager.Channel _wifip2p_channel;
+        List _wifip2p_peers = new ArrayList();
+        WifiP2pManager.PeerListListener _wifip2p_peerListListener;
+
+        void init(Context c) {
+            _wifip2p_intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+            _wifip2p_intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+            _wifip2p_intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+            _wifip2p_intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+
+            _wifip2p_manager = (WifiP2pManager) c.getSystemService(Context.WIFI_P2P_SERVICE);
+            _wifip2p_channel = _wifip2p_manager.initialize(c, Looper.getMainLooper(), new WifiP2pManager.ChannelListener() {
+                @Override
+                public void onChannelDisconnected() {
+                    Log.d("WIFI_P2P_", "channel disconnected");
+                }
+            });
+            c.registerReceiver(_wifip2p_broadcastReceiver, _wifip2p_intentFilter);
+
+            _wifip2p_manager.discoverPeers(_wifip2p_channel, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d("WIFI_P2P_", "success");
+                }
+
+                @Override
+                public void onFailure(int reason) {
+                    Log.d("WIFI_P2P_", "fail " + reason);
+                }
+            });
+        }
+
+        private void connectTo(WifiP2pDevice peerDevice, WifiP2pManager.Channel channel) {
+            WifiP2pConfig config = new WifiP2pConfig();
+
+            config.deviceAddress = peerDevice.deviceAddress;
+
+            _wifip2p_manager.connect(channel, config, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d("WIFI_P2P_", "success");
+                }
+
+                @Override
+                public void onFailure(int reason) {
+                    Log.d("WIFI_P2P_", "fail " + reason);
+                }
+            });
+        }
+
+    }
+
+    private void shareFile(Context c, File file, String title) {
+
+        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+
+        intentShareFile.setType(URLConnection.guessContentTypeFromName(file.getName()));
+        intentShareFile.putExtra(Intent.EXTRA_STREAM,
+                Uri.parse("file://" + file.getAbsolutePath()));
+
+        //if you need
+        //intentShareFile.putExtra(Intent.EXTRA_SUBJECT,"Sharing File Subject);
+        //intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File Description");
+
+        c.startActivity(Intent.createChooser(intentShareFile, title));
+
     }
 
     public static class RandomString {

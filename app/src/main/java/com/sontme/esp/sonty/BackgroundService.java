@@ -19,7 +19,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,9 +29,6 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.StringRequestListener;
 import com.github.anrwatchdog.ANRError;
 import com.github.anrwatchdog.ANRWatchDog;
 
@@ -52,12 +48,14 @@ public class BackgroundService extends Service {
     public static List<ScanResult> scanresult;
 
     public static Set<String> unique = new LinkedHashSet<>();
-    //public static HashMap<String, Integer> uniqueness = new HashMap<>();
+
+    //region Uniqueness check
     /*
     public static HashSet<String> unique2 = new HashSet<>();
     public static LinkedHashSet<String> unique3 = new LinkedHashSet<>();
     public static TreeSet<String> unique4 = new TreeSet<>();
     */
+    //endregion
 
     public static int count = 0;
     public static String service_icon_lastColor = "red";
@@ -68,28 +66,29 @@ public class BackgroundService extends Service {
     public static int not_touched; // not_recorded
     public static int retry_count; // http retry;
 
-    //public static WindowManager headoverlay_mWindowManager;
-    //public static View headoverlay_mHeadView;
+    /*
+    public static WindowManager headoverlay_mWindowManager;
+    public static View headoverlay_mHeadView;
 
-    /*static Button headoverlay_lay_btn1;
+    static Button headoverlay_lay_btn1;
     static Button headoverlay_lay_btn2;
     static TextView headoverlay_lay_txt1;
     static TextView headoverlay_lay_txt2;
     static ListView bllistview;
-    */
     static ArrayList<String> listItems = new ArrayList<String>();
-    //static ArrayAdapter<String> adapter;
+    static ArrayAdapter<String> adapter;
+    //boolean reallyexit = false;
+    //public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
+    */
 
     static SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
     static SontHelper.TimeElapsedUtil elapsed_since_start = new SontHelper.TimeElapsedUtil();
     static int started_at_battery;
-    static String gns;
+    static String gnss_count;
 
-    //public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
 
     public static Location CURRENT_LOCATION;
 
-    boolean reallyexit = false;
 
     public Handler inactivity_handler;
     public Runnable inactivity_runnable;
@@ -121,11 +120,13 @@ public class BackgroundService extends Service {
                 }
             };
             vibroThread.start();
+            //region HOME CHECK
             /*
             if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
                 SontHelper.blinkLed(getApplicationContext(), 5);
             }
             */
+            //endregion
             registerReceiver(wifiReceiver, new IntentFilter(
                     WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
             ));
@@ -270,7 +271,7 @@ public class BackgroundService extends Service {
 
                 @Override
                 public void onSatelliteStatusChanged(GnssStatus status) {
-                    gns = String.valueOf(status.getSatelliteCount());
+                    gnss_count = String.valueOf(status.getSatelliteCount());
                     for (int i = 0; i < status.getSatelliteCount(); i++) {
                         //int type = status.getConstellationType(i);
                         //satellite_types.put(i, convert(type));
@@ -534,6 +535,7 @@ public class BackgroundService extends Service {
             //startBLscanFromService(getApplicationContext());
             //startBLLEscanFromService(getApplicationContext());
 
+
             Log.d("SERVICE_INITIALIZATION", "Elapsed time: " + elapsed_since_start.getElapsed());
         } catch (Exception e) {
             e.printStackTrace();
@@ -698,8 +700,8 @@ public class BackgroundService extends Service {
 
     public void updateCurrent(String title, String text) {
         try {
-            if (gns == null) {
-                gns = "0";
+            if (gnss_count == null) {
+                gnss_count = "0";
             }
 
             int color_drawable = R.drawable.service;
@@ -755,7 +757,7 @@ public class BackgroundService extends Service {
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(finalText)
                             .setSummaryText("IP: " + ip)
-                            .setBigContentTitle("Satellites: " + gns)
+                            .setBigContentTitle("Satellites: " + gnss_count)
                     )
                     .setCategory(Notification.CATEGORY_SERVICE)
                     .setSmallIcon(color_drawable)
@@ -851,11 +853,7 @@ public class BackgroundService extends Service {
 
     @Override
     public void onDestroy() {
-        if (reallyexit != true) {
-            Intent i = new Intent(getApplicationContext(), BackgroundService.class);
-            startForegroundService(i);
-        }
-        //super.onDestroy();
+        super.onDestroy();
     }
 
     @Override
@@ -891,7 +889,7 @@ public class BackgroundService extends Service {
                 ));
                 headtext.setTextSize(15f);
                 headtext.setBackgroundResource(R.color.headOverlayTextBackgroundColor);
-
+*/
                 Thread scanThread = new Thread() {
                     @Override
                     public void run() {
@@ -907,7 +905,7 @@ public class BackgroundService extends Service {
                     }
                 };
                 scanThread.start();
-                */
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -915,69 +913,3 @@ public class BackgroundService extends Service {
     };
 }
 
-class SAVE_HTTP extends AsyncTask<String, String, String> {
-
-    String full_url;
-    Context c;
-
-    public SAVE_HTTP(String full_url, Context c) {
-        this.full_url = full_url;
-        this.c = c;
-    }
-
-    @Override
-    protected String doInBackground(String... strings) {
-        AndroidNetworking.get(full_url)
-                .build()
-                .getAsString(new StringRequestListener() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Log.d("HTTP_RESPONSE_DEBUG_", "'" + response + "'" + "_" + response.length());
-                        if (response.contains("new")) {
-                            BackgroundService.recorded++;
-                            SontHelper.vibrate(c);
-                            if (SontHelper.getSSID(c).contains("UPCAEDB2C3")) {
-                                SontHelper.blinkLed(c, 50);
-                            } else {
-                                SontHelper.vibrate(c);
-                                Thread vibroThread = new Thread() {
-                                    @Override
-                                    public void run() {
-                                        SontHelper.Vibratoor.init(c);
-                                        SontHelper.Vibratoor.makePattern().beat(40).rest(50).beat(40).playPattern(2);
-                                    }
-                                };
-                                vibroThread.start();
-                            }
-                        } else if (response.contains("regi_old")) {
-                            SontHelper.vibrate(c);
-                            BackgroundService.updated++;
-                        } else if (response.contains("not_recorded")) {
-                            BackgroundService.not_touched++;
-                        }
-                        /*
-                        if (response.equalsIgnoreCase("new") == true ||
-                                response.equalsIgnoreCase("regi_str") == true ||
-                                response.equalsIgnoreCase("regi_old")) {
-                            // or .contains?
-                            try {
-                                if (c != null) {
-                                    BackgroundService.vibrate(c);
-                                    SontHelper.blinkLed(c, 50);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }*/
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        BackgroundService.retry_count++;
-                        Log.d("HTTP_ERROR_", anError.toString());
-                    }
-                });
-
-        return null;
-    }
-}
