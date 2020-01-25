@@ -1,26 +1,29 @@
 
-}squid:S2293ï"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
-}squid:S2293•"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8œÅªµğ-
-squid:CallToDeprecatedMethodÅ"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ø™ñŒşÿÿÿÿ8œÅªµğ-
-isquid:CommentedOutCodeLinep"<This block of commented-out lines of code should be removed.(ìË¨»8¡ÇÛ„õ-
-osquid:CommentedOutCodeLineÈ"<This block of commented-out lines of code should be removed.(§œ÷±úÿÿÿÿ8œÅªµğ-
-Fsquid:S1148u"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8…™ëãò-
-}squid:S2293”"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
-Isquid:S00108ÿ")Either remove or fill this block of code.(”ı¾8œÅªµğ-
-jsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(µöšÂ8œÅªµğ-
-jsquid:CommentedOutCodeLineÙ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
-osquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(ÖˆÑëıÿÿÿÿ8¡ÇÛ„õ-
-jsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(†€éˆ8œÅªµğ-
-vsquid:S2293è"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
-csquid:CommentedOutCodeLine«"<This block of commented-out lines of code should be removed.(°Û¦€
-xsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8¦¬ ¹ö-
-isquid:S1192P"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8œÅªµğ-
-Fsquid:S11850"(Remove this method to simply inherit it.(Û£Ì…8¡ÇÛ„õ-
-}squid:S2293î"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8œÅªµğ-
-jsquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8œÅªµğ-
-osquid:CommentedOutCodeLineÀ"<This block of commented-out lines of code should be removed.(şè»€ùÿÿÿÿ8œÅªµğ-
-Fsquid:S1148J"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8©şÕçò-
-xsquid:S2293ê"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8¦¬ ¹ö-
-lsquid:MaximumInheritanceDepth'"<This class has 6 parents which is greater than 5 authorized.(²Ú±8Ÿ¨‰½Ş-
-usquid:S00117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÛ®Ñûÿÿÿÿ8¡ÇÛ„õ-
-vsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ
+usquid:S00117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÛ®Ñûÿÿÿÿ8Õ¥ã¤ü-
+Fsquid:S11857"(Remove this method to simply inherit it.(Û£Ì…8¡ÇÛ„õ-
+}squid:S2293’"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8Õ¥ã¤ü-
+jsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(°Û¦€8Õ¥ã¤ü-
+osquid:CommentedOutCodeLineã"<This block of commented-out lines of code should be removed.(şè»€ùÿÿÿÿ8Õ¥ã¤ü-
+xsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8Õ¥ã¤ü-
+Isquid:S00108¢")Either remove or fill this block of code.(”ı¾8Õ¥ã¤ü-
+}squid:S2293±"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8İ¿€£ü-
+}squid:S2293¸"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8Õ¥ã¤ü-
+isquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(ÙÊh8æ×Ë¥ü-
+Gsquid:S1148˜"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Õ¥ã¤ü-
+isquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.( ¶«a8æ×Ë¥ü-
+bsquid:UselessImportCheck"7Remove this unused import 'android.webkit.WebSettings'.(íäå8Ğ¸Êü-
+jsquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8Õ¥ã¤ü-
+isquid:S1192c"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8Õ¥ã¤ü-
+}squid:S2293‘"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8Õ¥ã¤ü-
+jsquid:CommentedOutCodeLineõ"<This block of commented-out lines of code should be removed.(µöšÂ8Õ¥ã¤ü-
+Fsquid:S1148^"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Õ¥ã¤ü-
+jsquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8Õ¥ã¤ü-
+squid:CallToDeprecatedMethodè"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ø™ñŒşÿÿÿÿ8Õ¥ã¤ü-
+xsquid:S2293³"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8Õ¥ã¤ü-
+}squid:S2293‹"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8İ¿€£ü-
+jsquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(†€éˆ8Õ¥ã¤ü-
+osquid:CommentedOutCodeLineá"<This block of commented-out lines of code should be removed.(ÖˆÑëıÿÿÿÿ8Û‚£ü-
+}squid:S2293·"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8Õ¥ã¤ü-
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(ìË¨»8Õ¥ã¤ü-
+osquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(§œ÷±úÿÿÿÿ8Õ¥ã¤ü-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÙÀã¼ûÿÿÿÿ8Ò·¸Êü-

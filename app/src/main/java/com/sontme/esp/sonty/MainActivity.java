@@ -10,6 +10,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -37,6 +38,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    WebView web1;
+    WebView web2;
+    WebView web3;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public void onUserInteraction() {
         super.onUserInteraction();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -67,13 +74,24 @@ public class MainActivity extends AppCompatActivity {
                         if (BackgroundService.scanresult != null || BackgroundService.unique != null) {
                             textview.setText("Near: " + BackgroundService.scanresult.size() + " Unique: " + BackgroundService.unique.size());
                         }
-                        SontHelper.vibrate(getApplicationContext());
-                        getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
-                        getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+
+                        Thread netThread = new Thread() {
+                            @Override
+                            public void run() {
+                                SontHelper.vibrate(getApplicationContext());
+                                getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
+                                getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+                            }
+                        };
+                        netThread.start();
+
+                        web1.loadUrl("https://sont.sytes.net/wifilocator/stat_1_week.php");
+                        web2.loadUrl("https://sont.sytes.net/wifilocator/stat_1_month.php");
+                        web3.loadUrl("https://sont.sytes.net/wifilocator/stat_3_month.php");
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             });
 
@@ -111,6 +129,21 @@ public class MainActivity extends AppCompatActivity {
 
             //getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
             //getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+
+            web1 = findViewById(R.id.web1);
+            web2 = findViewById(R.id.web2);
+            web3 = findViewById(R.id.web3);
+
+            web1.getSettings().setJavaScriptEnabled(true);
+            web2.getSettings().setJavaScriptEnabled(true);
+            web3.getSettings().setJavaScriptEnabled(true);
+
+            web1.getSettings().setLoadWithOverviewMode(true);
+            //web1.getSettings().setUseWideViewPort(true);
+            web2.getSettings().setLoadWithOverviewMode(true);
+            //web2.getSettings().setUseWideViewPort(true);
+            web3.getSettings().setLoadWithOverviewMode(true);
+            //web3.getSettings().setUseWideViewPort(true);
 
             Log.d("ACTIVITY_INITIALIZATION", "Elapsed time: " + teu.getElapsed());
         } catch (Exception e) {

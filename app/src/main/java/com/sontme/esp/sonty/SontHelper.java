@@ -92,7 +92,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.common.io.Files;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
@@ -169,9 +168,36 @@ import static android.content.Context.BATTERY_SERVICE;
 import static android.util.Base64.NO_WRAP;
 import static android.util.Base64.decode;
 import static android.util.Base64.encodeToString;
-import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class SontHelper {
+    static class ExceptionHandler {
+
+        public void appendException(Exception ex, Context context) {
+
+            // Make human readable exception format:
+            // DateTime - class - linenumber - message
+            /*
+                thread.getClass().getName(),
+                throwable.getMessage()
+                e.getStackTrace()[0].getLineNumber()
+            */
+            String readableFormat = "Datetime: " + SontHelper.getCurrentTimeHumanReadable() + " _ Class: " +
+                    ex.getClass() + " _ Line number: " +
+                    ex.getStackTrace()[0].getLineNumber() + " _ Message: " +
+                    ex.getMessage();
+            SontHelper.fileIO.saveSharedPref(context,
+                    "exception", readableFormat
+            );
+        }
+
+        public void emailException(Exception exception, String email) {
+        }
+
+        public String readException(Context context) {
+            // line/exception count?
+            return SontHelper.fileIO.getSharedPref(context, "exception");
+        }
+    }
 
     static class fileIO {
 
@@ -1670,7 +1696,7 @@ public class SontHelper {
                 return null;
             }
             //byte[] strr = str.getBytes();
-            byte[] strr = Base64.decodeBase64(str);
+            byte[] strr = str.getBytes(StandardCharsets.UTF_8);
             GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(strr));
             BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
             String outStr = "";
@@ -1738,7 +1764,13 @@ public class SontHelper {
     }
 
     public static String byteArrayToString(byte[] barr) {
-        return encodeBase64String(barr);
+        String str = null;
+        try {
+            str = new String(barr, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
         //return new String(barr);
     }
 

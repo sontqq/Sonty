@@ -6,31 +6,67 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Status info"
-        android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/button"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="REFRESH" />
+        android:layout_height="match_parent"
+        android:layout_weight="0">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/newchart"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_weight="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/newchart2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_weight="0" />
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Status info"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="REFRESH" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/newchart2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="0" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/newchart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="0">
+
+
+            </com.github.mikephil.charting.charts.LineChart>
+
+            <WebView
+                android:id="@+id/web1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="0" />
+
+            <WebView
+                android:id="@+id/web2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="0" />
+
+            <WebView
+                android:id="@+id/web3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="0" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
