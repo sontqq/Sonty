@@ -4,6 +4,7 @@ package com.sontme.esp.sonty;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,8 +19,8 @@ import java.nio.charset.StandardCharsets;
 public class SAVE_HTTP_CUSTOM {
 
     public static String GET_PAGE(String host, int port, String URL) {
+        Socket socket = null;
         try {
-            Socket socket;
             boolean USE_PROXY = false;
 
             if (USE_PROXY == true) {
@@ -36,13 +37,6 @@ public class SAVE_HTTP_CUSTOM {
             }
             socket.setSoTimeout(1000);
             socket.setTcpNoDelay(true);
-            //socket.setKeepAlive(true);
-            //socket.setReuseAddress(true);
-
-            Log.d("SOCKET_", "reuseaddress: " + socket.getReuseAddress());
-            Log.d("SOCKET_", "timeout: " + socket.getSoTimeout());
-            Log.d("SOCKET_", "tcpdelay: " + socket.getTcpNoDelay());
-            Log.d("SOCKET_", "keepalive: " + socket.getKeepAlive());
 
             // URL
             String header = createGetHeader(
@@ -67,17 +61,28 @@ public class SAVE_HTTP_CUSTOM {
             while ((str = br.readLine()) != null) {
                 full_str += str;
             }
-            //System.out.println("HTTP _ URL: " + host + URL);
-            //System.out.println("HTTP _ RECEIVED: " + full_str);
 
             return full_str;
+            //region EXCEPTION HANDLING
         } catch (Exception e) {
             System.out.println("HTTP _ ERROR " + e.getMessage());
             e.printStackTrace();
             BackgroundService.retry_count++;
             Log.d("HTTP_ERROR_", e.toString());
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             return "HTTP ERROR " + e.getMessage();
+        } finally {
+            try {
+                //socket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        //endregion
     }
 
     public static String createGetHeader(String host, String connection, String userAgent) {

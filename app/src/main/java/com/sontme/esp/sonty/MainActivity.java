@@ -1,7 +1,9 @@
 package com.sontme.esp.sonty;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -30,6 +32,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     WebView web1;
     WebView web2;
     WebView web3;
+    Gson gson;
 
     @Override
     protected void onResume() {
@@ -57,98 +61,164 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            super.onCreate(savedInstanceState);
 
-            SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
-            teu.setStartTime(System.currentTimeMillis());
+        super.onCreate(savedInstanceState);
 
-            setContentView(R.layout.activity_main);
+        SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
+        teu.setStartTime(System.currentTimeMillis());
 
-            Button btn = findViewById(R.id.button);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        TextView textview = findViewById(R.id.textview);
-                        if (BackgroundService.scanresult != null || BackgroundService.unique != null) {
-                            textview.setText("Near: " + BackgroundService.scanresult.size() + " Unique: " + BackgroundService.unique.size());
-                        }
-
-                        Thread netThread = new Thread() {
-                            @Override
-                            public void run() {
-                                SontHelper.vibrate(getApplicationContext());
-                                getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
-                                getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+        setContentView(R.layout.activity_main);
+        gson = new Gson();
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
+                try {
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            String all_error = "";
+                            for (StackTraceElement s : paramThrowable.getStackTrace()) {
+                                all_error += s + "\n\n";
                             }
-                        };
-                        netThread.start();
 
-                        web1.loadUrl("https://sont.sytes.net/wifilocator/stat_1_week.php");
-                        web2.loadUrl("https://sont.sytes.net/wifilocator/stat_1_month.php");
-                        web3.loadUrl("https://sont.sytes.net/wifilocator/stat_3_month.php");
+                            String thread = gson.toJson(paramThread);
+                            String throwable = gson.toJson(paramThrowable);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                            //String finalAll_error = all_error;
+                            String finalAll_error = thread + "\n\n" + throwable;
+
+                            SontHelper.ExceptionHandler.appendException(
+                                    "UNCAUGHT ERROR\n\n" +
+                                            finalAll_error,
+                                    getApplicationContext()
+                            );
+
+                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                    "UNCAUGHT ERROR\n\n" +
+                                            finalAll_error
+                            );
+
+                        }
+                    };
+                    t.start();
+                    uncaughtException(paramThread, paramThrowable);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
 
-            SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
-            SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
-
-            String[] PERMISSIONS = {
-                    Manifest.permission.READ_CONTACTS,
-                    Manifest.permission.READ_SMS,
-                    Manifest.permission.SEND_SMS,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.READ_PHONE_NUMBERS,
-                    Manifest.permission.READ_CALL_LOG,
-                    Manifest.permission.WRITE_CALL_LOG,
-                    Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.WRITE_CALENDAR,
-                    Manifest.permission.CAMERA
-            };
-
-            if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
             }
+        });
 
-            PowerManager powerManager = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
-            String packageName = getPackageName();
-            Intent ii = new Intent();
-            if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
-                ii.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                ii.setData(Uri.parse("package:" + packageName));
-                startActivity(ii);
+        Button btn = findViewById(R.id.button_refresh);
+        Button btn_geterror = findViewById(R.id.button_geterror);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView textview = findViewById(R.id.textview);
+                    if (BackgroundService.scanresult != null || BackgroundService.unique != null) {
+                        textview.setText("Near: " + BackgroundService.scanresult.size() + " Unique: " + BackgroundService.unique.size());
+                    }
+
+                    Thread netThread = new Thread() {
+                        @Override
+                        public void run() {
+                            SontHelper.vibrate(getApplicationContext());
+                            getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
+                            getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+                        }
+                    };
+                    netThread.start();
+
+                    web1.loadUrl("https://sont.sytes.net/wifilocator/stat_1_week.php");
+                    web2.loadUrl("https://sont.sytes.net/wifilocator/stat_1_month.php");
+                    web3.loadUrl("https://sont.sytes.net/wifilocator/stat_3_month.php");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
+        });
+        btn_geterror.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread logthread = new Thread() {
+                    @Override
+                    public void run() {
+                        SontHelper.ExceptionHandler.sendToRemoteLogServer("APP STARTED");
+                    }
+                };
+                // logthread.start();
 
-            Intent serviceIntent = new Intent(getApplicationContext(), BackgroundService.class);
-            startForegroundService(serviceIntent);
+                String errors = SontHelper.ExceptionHandler.readExceptionAll(getApplicationContext());
 
-            //getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
-            //getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+                try {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("EXCEPTION LOG\nLength: " + errors.length())
+                            .setCancelable(true)
+                            .setMessage(errors)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-            web1 = findViewById(R.id.web1);
-            web2 = findViewById(R.id.web2);
-            web3 = findViewById(R.id.web3);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
+        SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
 
-            web1.getSettings().setJavaScriptEnabled(true);
-            web2.getSettings().setJavaScriptEnabled(true);
-            web3.getSettings().setJavaScriptEnabled(true);
+        String[] PERMISSIONS = {
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.READ_SMS,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_PHONE_NUMBERS,
+                Manifest.permission.READ_CALL_LOG,
+                Manifest.permission.WRITE_CALL_LOG,
+                Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR,
+                Manifest.permission.CAMERA
+        };
 
-            web1.getSettings().setLoadWithOverviewMode(true);
-            //web1.getSettings().setUseWideViewPort(true);
-            web2.getSettings().setLoadWithOverviewMode(true);
-            //web2.getSettings().setUseWideViewPort(true);
-            web3.getSettings().setLoadWithOverviewMode(true);
-            //web3.getSettings().setUseWideViewPort(true);
-
-            Log.d("ACTIVITY_INITIALIZATION", "Elapsed time: " + teu.getElapsed());
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
         }
+
+        PowerManager powerManager = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
+        String packageName = getPackageName();
+        Intent ii = new Intent();
+        if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+            ii.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            ii.setData(Uri.parse("package:" + packageName));
+            startActivity(ii);
+        }
+
+        Intent serviceIntent = new Intent(getApplicationContext(), BackgroundService.class);
+        startForegroundService(serviceIntent);
+
+        //getChart_timer_updated("https://sont.sytes.net/wifilocator/wifis_chart_updated.php");
+        //getChart_timer_new("https://sont.sytes.net/wifilocator/wifis_chart_new.php");
+
+        web1 = findViewById(R.id.web1);
+        web2 = findViewById(R.id.web2);
+        web3 = findViewById(R.id.web3);
+
+        web1.getSettings().setJavaScriptEnabled(true);
+        web2.getSettings().setJavaScriptEnabled(true);
+        web3.getSettings().setJavaScriptEnabled(true);
+
+        web1.getSettings().setLoadWithOverviewMode(true);
+        web2.getSettings().setLoadWithOverviewMode(true);
+        web3.getSettings().setLoadWithOverviewMode(true);
+
+
+        Log.d("ACTIVITY_INITIALIZATION", "Elapsed time: " + teu.getElapsed());
+
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {
@@ -164,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getChart_timer_updated(String path) {
+
         AndroidNetworking.get(path)
                 .setTag("chart_auto")
                 .setPriority(Priority.LOW)
@@ -171,76 +242,78 @@ public class MainActivity extends AppCompatActivity {
                 .getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        LineChart newchart = findViewById(R.id.newchart);
-                        List<Entry> entries = new ArrayList<Entry>();
-
-                        Map<Integer, Integer> hours = new HashMap<Integer, Integer>();
-                        for (int i = 0; i < 24; i++) {
-                            hours.put(i, 0);
-                        }
-                        Map<Integer, Integer> values = new HashMap<Integer, Integer>();
-                        Map<Integer, Integer> combined = new HashMap<Integer, Integer>(hours);
-
-                        String str = response;
-                        String[] lines = str.trim().split("\\r?\\n");
                         try {
-                            for (String line : lines) {
-                                String[] words = line.trim().split("\\s+");
-                                values.put(Integer.valueOf(words[0]), Integer.valueOf(words[1]));
+                            LineChart newchart = findViewById(R.id.newchart);
+                            List<Entry> entries = new ArrayList<Entry>();
+
+                            Map<Integer, Integer> hours = new HashMap<Integer, Integer>();
+                            for (int i = 0; i < 24; i++) {
+                                hours.put(i, 0);
                             }
-                            combined.putAll(values);
-                            for (Map.Entry<Integer, Integer> entry : combined.entrySet()) {
-                                int key = entry.getKey();
-                                int value = entry.getValue();
-                                entries.add(new Entry(key, value));
+                            Map<Integer, Integer> values = new HashMap<Integer, Integer>();
+                            Map<Integer, Integer> combined = new HashMap<Integer, Integer>(hours);
+
+                            String str = response;
+                            String[] lines = str.trim().split("\\r?\\n");
+                            try {
+                                for (String line : lines) {
+                                    String[] words = line.trim().split("\\s+");
+                                    values.put(Integer.valueOf(words[0]), Integer.valueOf(words[1]));
+                                }
+                                combined.putAll(values);
+                                for (Map.Entry<Integer, Integer> entry : combined.entrySet()) {
+                                    int key = entry.getKey();
+                                    int value = entry.getValue();
+                                    entries.add(new Entry(key, value));
+                                }
+                            } catch (Exception e) {
                             }
+
+                            LineDataSet dataSet = new LineDataSet(entries, "Stats");
+
+                            dataSet.setDrawFilled(true);
+                            dataSet.setDrawHighlightIndicators(true);
+                            dataSet.setHighlightLineWidth(3f);
+                            dataSet.setDrawValues(true);
+                            dataSet.setValueTextSize(13);
+                            dataSet.setHighlightEnabled(false);
+                            dataSet.setDrawHighlightIndicators(false);
+                            dataSet.setLineWidth(1);
+
+                            dataSet.setValueFormatter(new CustomFormatter());
+                            LineData lineData = new LineData(dataSet);
+                            lineData.setValueFormatter(new CustomFormatter());
+
+                            dataSet.setDrawCircles(false);
+                            newchart.setDrawGridBackground(false);
+                            newchart.setDrawBorders(false);
+                            YAxis leftAxis = newchart.getAxisLeft();
+                            leftAxis.setEnabled(false);
+                            YAxis rightAxis = newchart.getAxisRight();
+                            rightAxis.setEnabled(false);
+                            XAxis xAxis = newchart.getXAxis();
+                            xAxis.setEnabled(false);
+                            Legend legend = newchart.getLegend();
+                            legend.setEnabled(false);
+
+
+                            newchart.setData(lineData);
+                            newchart.setDrawBorders(false);
+                            newchart.getAxisRight().setDrawGridLines(false);
+                            newchart.getAxisLeft().setDrawGridLines(false);
+
+                            newchart.getXAxis().setDrawGridLines(false);
+                            newchart.getXAxis().setDrawLabels(false);
+
+                            newchart.getDescription().setEnabled(false);
+                            newchart.getLegend().setEnabled(false);
+                            newchart.setScaleEnabled(false);
+                            newchart.setPinchZoom(false);
+                            newchart.invalidate();
+                            //newchart.animateX(1000);
                         } catch (Exception e) {
-                            Log.d("Error_", e.getMessage());
-                            //e.printStackTrace();
+                            e.printStackTrace();
                         }
-
-                        LineDataSet dataSet = new LineDataSet(entries, "Stats");
-
-                        dataSet.setDrawFilled(true);
-                        dataSet.setDrawHighlightIndicators(true);
-                        dataSet.setHighlightLineWidth(3f);
-                        dataSet.setDrawValues(true);
-                        dataSet.setValueTextSize(13);
-                        dataSet.setHighlightEnabled(false);
-                        dataSet.setDrawHighlightIndicators(false);
-                        dataSet.setLineWidth(1);
-
-                        dataSet.setValueFormatter(new CustomFormatter());
-                        LineData lineData = new LineData(dataSet);
-                        lineData.setValueFormatter(new CustomFormatter());
-
-                        dataSet.setDrawCircles(false);
-                        newchart.setDrawGridBackground(false);
-                        newchart.setDrawBorders(false);
-                        YAxis leftAxis = newchart.getAxisLeft();
-                        leftAxis.setEnabled(false);
-                        YAxis rightAxis = newchart.getAxisRight();
-                        rightAxis.setEnabled(false);
-                        XAxis xAxis = newchart.getXAxis();
-                        xAxis.setEnabled(false);
-                        Legend legend = newchart.getLegend();
-                        legend.setEnabled(false);
-
-
-                        newchart.setData(lineData);
-                        newchart.setDrawBorders(false);
-                        newchart.getAxisRight().setDrawGridLines(false);
-                        newchart.getAxisLeft().setDrawGridLines(false);
-
-                        newchart.getXAxis().setDrawGridLines(false);
-                        newchart.getXAxis().setDrawLabels(false);
-
-                        newchart.getDescription().setEnabled(false);
-                        newchart.getLegend().setEnabled(false);
-                        newchart.setScaleEnabled(false);
-                        newchart.setPinchZoom(false);
-                        newchart.invalidate();
-                        //newchart.animateX(1000);
                     }
 
                     @Override
@@ -251,9 +324,11 @@ public class MainActivity extends AppCompatActivity {
                         SontHelper.vibrate(getApplicationContext());
                     }
                 });
+
     }
 
     public void getChart_timer_new(String path) {
+
         AndroidNetworking.get(path)
                 .setTag("chart_auto")
                 .setPriority(Priority.LOW)
@@ -261,75 +336,80 @@ public class MainActivity extends AppCompatActivity {
                 .getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        LineChart newchart = findViewById(R.id.newchart2);
-                        List<Entry> entries = new ArrayList<Entry>();
-
-                        Map<Integer, Integer> hours = new HashMap<Integer, Integer>();
-                        for (int i = 0; i <= 24; i++) {
-                            hours.put(i, 0);
-                        }
-                        Map<Integer, Integer> values = new HashMap<Integer, Integer>();
-                        Map<Integer, Integer> combined = new HashMap<Integer, Integer>(hours);
-
-                        String str = response;
-
-                        String[] lines = str.trim().split("\\r?\\n");
                         try {
-                            for (String line : lines) {
-                                String[] words = line.trim().split("\\s+");
-                                values.put(Integer.valueOf(words[0]), Integer.valueOf(words[1]));
+                            LineChart newchart = findViewById(R.id.newchart2);
+                            List<Entry> entries = new ArrayList<Entry>();
+
+                            Map<Integer, Integer> hours = new HashMap<Integer, Integer>();
+                            for (int i = 0; i <= 24; i++) {
+                                hours.put(i, 0);
                             }
-                            combined.putAll(values);
-                            for (Map.Entry<Integer, Integer> entry : combined.entrySet()) {
-                                int key = entry.getKey();
-                                int value = entry.getValue();
-                                entries.add(new Entry(key, value));
+                            Map<Integer, Integer> values = new HashMap<Integer, Integer>();
+                            Map<Integer, Integer> combined = new HashMap<Integer, Integer>(hours);
+
+                            String str = response;
+
+                            String[] lines = str.trim().split("\\r?\\n");
+                            try {
+                                for (String line : lines) {
+                                    String[] words = line.trim().split("\\s+");
+                                    values.put(Integer.valueOf(words[0]), Integer.valueOf(words[1]));
+                                }
+                                combined.putAll(values);
+                                for (Map.Entry<Integer, Integer> entry : combined.entrySet()) {
+                                    int key = entry.getKey();
+                                    int value = entry.getValue();
+                                    entries.add(new Entry(key, value));
+                                }
+                            } catch (Exception e) {
                             }
+
+
+                            LineDataSet dataSet = new LineDataSet(entries, "Stats");
+
+                            dataSet.setDrawFilled(true);
+                            dataSet.setDrawHighlightIndicators(true);
+                            dataSet.setHighlightLineWidth(3f);
+                            dataSet.setDrawValues(true);
+                            dataSet.setLineWidth(1);
+                            dataSet.setValueTextSize(13);
+                            dataSet.setHighlightEnabled(false);
+                            dataSet.setDrawHighlightIndicators(false);
+
+                            dataSet.setDrawCircles(false);
+                            newchart.setDrawGridBackground(false);
+                            newchart.setDrawBorders(false);
+                            YAxis leftAxis = newchart.getAxisLeft();
+                            leftAxis.setEnabled(false);
+                            YAxis rightAxis = newchart.getAxisRight();
+                            rightAxis.setEnabled(false);
+                            XAxis xAxis = newchart.getXAxis();
+                            xAxis.setEnabled(false);
+                            Legend legend = newchart.getLegend();
+                            legend.setEnabled(false);
+
+
+                            dataSet.setValueFormatter(new CustomFormatter());
+                            LineData lineData = new LineData(dataSet);
+                            lineData.setValueFormatter(new CustomFormatter());
+
+                            newchart.setData(lineData);
+                            newchart.setDrawBorders(false);
+                            newchart.getAxisRight().setDrawGridLines(false);
+                            newchart.getAxisLeft().setDrawGridLines(false);
+
+                            newchart.getXAxis().setDrawGridLines(false);
+                            newchart.getXAxis().setDrawLabels(false);
+
+                            newchart.getDescription().setEnabled(false);
+                            newchart.getLegend().setEnabled(false);
+                            newchart.setScaleEnabled(false);
+                            newchart.setPinchZoom(false);
+                            newchart.invalidate();
+                            //newchart.animateX(500);
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
-
-                        LineDataSet dataSet = new LineDataSet(entries, "Stats");
-
-                        dataSet.setDrawFilled(true);
-                        dataSet.setDrawHighlightIndicators(true);
-                        dataSet.setHighlightLineWidth(3f);
-                        dataSet.setDrawValues(true);
-                        dataSet.setLineWidth(1);
-                        dataSet.setValueTextSize(13);
-                        dataSet.setHighlightEnabled(false);
-                        dataSet.setDrawHighlightIndicators(false);
-
-                        dataSet.setDrawCircles(false);
-                        newchart.setDrawGridBackground(false);
-                        newchart.setDrawBorders(false);
-                        YAxis leftAxis = newchart.getAxisLeft();
-                        leftAxis.setEnabled(false);
-                        YAxis rightAxis = newchart.getAxisRight();
-                        rightAxis.setEnabled(false);
-                        XAxis xAxis = newchart.getXAxis();
-                        xAxis.setEnabled(false);
-                        Legend legend = newchart.getLegend();
-                        legend.setEnabled(false);
-
-
-                        dataSet.setValueFormatter(new CustomFormatter());
-                        LineData lineData = new LineData(dataSet);
-                        lineData.setValueFormatter(new CustomFormatter());
-
-                        newchart.setData(lineData);
-                        newchart.setDrawBorders(false);
-                        newchart.getAxisRight().setDrawGridLines(false);
-                        newchart.getAxisLeft().setDrawGridLines(false);
-
-                        newchart.getXAxis().setDrawGridLines(false);
-                        newchart.getXAxis().setDrawLabels(false);
-
-                        newchart.getDescription().setEnabled(false);
-                        newchart.getLegend().setEnabled(false);
-                        newchart.setScaleEnabled(false);
-                        newchart.setPinchZoom(false);
-                        newchart.invalidate();
-                        //newchart.animateX(500);
                     }
 
                     @Override
@@ -340,7 +420,9 @@ public class MainActivity extends AppCompatActivity {
                         SontHelper.vibrate(getApplicationContext());
                     }
                 });
+
     }
+
 }
 
 class CustomFormatter extends ValueFormatter {

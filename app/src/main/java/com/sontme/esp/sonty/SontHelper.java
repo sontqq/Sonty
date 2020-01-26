@@ -113,6 +113,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -142,6 +144,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -170,10 +173,63 @@ import static android.util.Base64.decode;
 import static android.util.Base64.encodeToString;
 
 public class SontHelper {
+
     static class ExceptionHandler {
+        /*
+        public boolean readIniLogFile() {
+            //ini4j
+            Ini ini = new Ini(new File(filename));
+            java.util.prefs.Preferences prefs = new IniPreferences(ini);
+            System.out.println("grumpy/homePage: " + prefs.node("grumpy").get("homePage", null));
+            return true;
+        }*/
 
-        public void appendException(Exception ex, Context context) {
+        /*public boolean saveIniLogFile(String key, String value) {
+            Ini ini = new Ini(new File(filename));
+            java.util.prefs.Preferences prefs = new IniPreferences(ini);
+            ini.put("block_name", key, value);
+            try {
+                ini.store();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }*/
+        static class Logger {
+            static java.util.logging.Logger logger;
 
+            public Logger(String className) {
+                logger = java.util.logging.Logger.getLogger(className);
+            }
+
+            public static void logException(Exception e) {
+                logger.log(Level.ALL, "exception", e);
+            }
+
+            public static void logString(String str) {
+                logger.log(Level.ALL, "exception", str);
+            }
+        }
+
+        public static boolean sendToRemoteLogServer(String text) {
+            try {
+                DatagramSocket clientSocket = new DatagramSocket();
+                InetAddress IPAddress = InetAddress.getByName("172.245.185.119");
+                byte[] sendData = text.getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(
+                        sendData, sendData.length, IPAddress, 5050
+                );
+                clientSocket.send(sendPacket);
+                clientSocket.close();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            // UDP VPS
+        }
+
+        public static void appendException(Exception ex, Context context) {
             // Make human readable exception format:
             // DateTime - class - linenumber - message
             /*
@@ -190,12 +246,46 @@ public class SontHelper {
             );
         }
 
+        public static void appendException(String ex, Context context) {
+            // Make human readable exception format:
+            // DateTime - class - linenumber - message
+            /*
+                thread.getClass().getName(),
+                throwable.getMessage()
+                e.getStackTrace()[0].getLineNumber()
+            */
+            String readableFormat = "Datetime: " + SontHelper.getCurrentTimeHumanReadable() + " _ Class: " + ex;
+            Map<String, ?> keys = SontHelper.fileIO.getAllKeysOfSharedPreferences(context);
+
+            int count = keys.size();
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                String key = entry.getKey();
+                //String value = (String) entry.getValue();
+            }
+
+            SontHelper.fileIO.saveSharedPref(context,
+                    "exception_" + (count + 1), readableFormat
+            );
+        }
+
         public void emailException(Exception exception, String email) {
         }
 
-        public String readException(Context context) {
-            // line/exception count?
-            return SontHelper.fileIO.getSharedPref(context, "exception");
+        public static String readExceptionSpecific(Context context, int number) {
+            return SontHelper.fileIO.getSharedPref(context, "exception_" + number);
+        }
+
+        public static String readExceptionAll(Context context) {
+            String all_exception = "";
+            Map<String, ?> keys = SontHelper.fileIO.getAllKeysOfSharedPreferences(context);
+
+            int count = keys.size();
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                String key = entry.getKey();
+                String value_exception = SontHelper.fileIO.getSharedPref(context, key);
+                all_exception = all_exception + value_exception + "\n\n";
+            }
+            return all_exception;
         }
     }
 

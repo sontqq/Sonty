@@ -26,11 +26,18 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="REFRESH" />
+
+            <Button
+                android:id="@+id/button_geterror"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="READ EXCEPTIONS" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/newchart2"

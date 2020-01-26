@@ -29,6 +29,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.github.anrwatchdog.ANRError;
 import com.github.anrwatchdog.ANRWatchDog;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class BackgroundService extends Service {
 
     /*public static String INSERT_URL =
             "https://sont.sytes.net/wifilocator/wifi_insert.php";*/
+    Gson gson;
     public WifiManager wifiManager;
     public LocationManager locationManager;
     public LocationListener locationListener;
@@ -48,59 +51,30 @@ public class BackgroundService extends Service {
 
     public static Set<String> unique = new LinkedHashSet<>();
 
-    //region Uniqueness check
-    /*
-    public static HashSet<String> unique2 = new HashSet<>();
-    public static LinkedHashSet<String> unique3 = new LinkedHashSet<>();
-    public static TreeSet<String> unique4 = new TreeSet<>();
-    */
-    //endregion
-
     public static int count = 0;
     public static String service_icon_lastColor = "red";
     public static String started_time;
 
-    public static int recorded; // new
-    public static int updated; // regi_old, regi_str
-    public static int not_touched; // not_recorded
-    public static int retry_count; // http retry;
+    public static int recorded;
+    public static int updated;
+    public static int not_touched;
+    public static int retry_count;
 
-    /*
-    public static WindowManager headoverlay_mWindowManager;
-    public static View headoverlay_mHeadView;
-
-    static Button headoverlay_lay_btn1;
-    static Button headoverlay_lay_btn2;
-    static TextView headoverlay_lay_txt1;
-    static TextView headoverlay_lay_txt2;
-    static ListView bllistview;
-    static ArrayList<String> listItems = new ArrayList<String>();
-    static ArrayAdapter<String> adapter;
-    //boolean reallyexit = false;
-    //public static Map<Location, BluetoothDevice> bl_devices = new HashMap<Location, BluetoothDevice>();
-    */
-
-    //static SontHelper.TimeElapsedUtil teu = new SontHelper.TimeElapsedUtil();
-    //static SontHelper.TimeElapsedUtil elapsed_since_start = new SontHelper.TimeElapsedUtil();
     static int started_at_battery;
     static String gnss_count;
+
+    boolean developerDevice;
 
     public static Location CURRENT_LOCATION;
 
     static SAVE_HTTP_CUSTOM save_custom;
 
-    //public Handler inactivity_handler;
-    //public Runnable inactivity_runnable;
-
-    //public static SontHelper.BluetoothThings bl = new SontHelper.BluetoothThings();
-
     @Override
     public void onCreate() {
-
         super.onCreate();
-
-        //elapsed_since_start.setStartTime(System.currentTimeMillis());
+        gson = new GsonBuilder().setPrettyPrinting().create();
         exitOnTooLowBattery();
+
         started_at_battery = SontHelper.getBatteryLevel(getApplicationContext());
         SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
         SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
@@ -120,29 +94,26 @@ public class BackgroundService extends Service {
                 Thread anrThread = new Thread() {
                     @Override
                     public void run() {
-                        SontHelper.sendEmail(
-                                "[SONTY][ANR] ERROR",
-                                "SERVICE THREAD NOT RESPONDING\n\n" +
-                                        error.getMessage() + "\n\n" +
-                                        error.toString() + "\n\n" +
-                                        error.getCause().getStackTrace()[0].toString() + "\n\n" +
-                                        error.getStackTrace()[0].toString(),
-                                "sont16@gmail.com",
-                                "egedzsolt@protonmail.com"
+                        SontHelper.ExceptionHandler.appendException(
+                                "NOT RESPONDING ERROR\n\n" +
+                                        "TIMEOUT",
+                                getApplicationContext()
+                        );
+
+                        SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                "NOT RESPONDING ERROR\n\n" +
+                                        "TIMEOUT"
                         );
                     }
                 };
                 anrThread.start();
-                Toast.makeText(getApplicationContext(), "APP NOT RESPONDING", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "APP NOT RESPONDING", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Log.d("DEVICE_", "Name: " + SontHelper.getDeviceName());
+        developerDevice = !SontHelper.getDeviceName().contains("Samsung SM-A530F");
 
-        boolean anyatelefon;
-        anyatelefon = !SontHelper.getDeviceName().contains("Samsung SM-A530F");
-
-        if (anyatelefon == false) {
+        if (developerDevice == false) {
             Thread vibroThread = new Thread() {
                 @Override
                 public void run() {
@@ -170,8 +141,6 @@ public class BackgroundService extends Service {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
-                //resetInactivityHandler();
                 CURRENT_LOCATION = location;
                 Log.d("WIFI_LOCATION", "Location Changed: " + location.toString());
                 count++;
@@ -216,66 +185,45 @@ public class BackgroundService extends Service {
                                 Thread saveHttpThread = new Thread() {
                                     @Override
                                     public void run() {
+                                        String response = "";
                                         try {
-                                            //SAVE_HTTP save = new SAVE_HTTP(INSERT_URL + reqBody, getApplicationContext());
-                                            //save.execute();
-
-                                            String response = SAVE_HTTP_CUSTOM.GET_PAGE(
+                                            response = SAVE_HTTP_CUSTOM.GET_PAGE(
                                                     "sont.sytes.net",
                                                     80,
                                                     "/wifilocator/wifi_insert.php" + reqBody
                                             );
-
-                                            if (response.contains("new")) {
-                                                BackgroundService.recorded++;
-                                                SontHelper.vibrate(getApplicationContext());
-                                                if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
-                                                    SontHelper.blinkLed(getApplicationContext(), 50);
-                                                } else {
-                                                    SontHelper.vibrate(getApplicationContext());
-                                                    Thread vibroThread = new Thread() {
-                                                        @Override
-                                                        public void run() {
-                                                            SontHelper.Vibratoor.init(getApplicationContext());
-                                                            SontHelper.Vibratoor.makePattern().beat(40).rest(50).beat(40).playPattern(2);
-                                                        }
-                                                    };
-                                                    vibroThread.start();
-                                                }
-                                            } else if (response.contains("regi_old")) {
-                                                SontHelper.vibrate(getApplicationContext());
-                                                BackgroundService.updated++;
-                                            } else if (response.contains("not_recorded")) {
-                                                BackgroundService.not_touched++;
-                                            }
-
                                         } catch (Exception e) {
-                                            Log.d("HTTP_", "ERROR: " + e.getMessage());
-                                            //headoverlay_lay_txt1.setText("HTTP ERROR");
-                                            Thread http_error_Thread = new Thread() {
-                                                @Override
-                                                public void run() {
-                                                    SontHelper.sendEmail(
-                                                            "[SONTY][HTTP] ERROR",
-                                                            "HTTP SAVE ERROR\n\n" +
-                                                                    e.getMessage() + "\n\n" +
-                                                                    e.toString() + "\n\n" +
-                                                                    e.getCause().getStackTrace()[0].toString() + "\n\n" +
-                                                                    e.getStackTrace()[0].toString(),
-                                                            "sont16@gmail.com",
-                                                            "egedzsolt@protonmail.com"
-                                                    );
-                                                }
-                                            };
-                                            http_error_Thread.start();
-                                            e.printStackTrace();
+
                                         }
+                                        if (response.contains("new")) {
+                                            BackgroundService.recorded++;
+                                            SontHelper.vibrate(getApplicationContext());
+                                            if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
+                                                SontHelper.blinkLed(getApplicationContext(), 50);
+                                            } else {
+                                                SontHelper.vibrate(getApplicationContext());
+                                                /*Thread vibroThread = new Thread() {
+                                                    @Override
+                                                    public void run() {
+                                                        SontHelper.Vibratoor.init(getApplicationContext());
+                                                        SontHelper.Vibratoor.makePattern().beat(40).rest(50).beat(40).playPattern(2);
+                                                    }
+                                                };
+                                                vibroThread.start();*/
+                                            }
+                                        } else if (response.contains("regi_old")) {
+                                            SontHelper.vibrate(getApplicationContext());
+                                            BackgroundService.updated++;
+                                        } else if (response.contains("not_recorded")) {
+                                            BackgroundService.not_touched++;
+                                        }
+
+
                                     }
 
                                 };
                                 saveHttpThread.start();
 
-                                //Log.d("ELAPSED_TIME_SINCE_WIFI_SCAN", "TIME: " + teu.getElapsed());
                             }
                         }
                         scanresult.clear();
@@ -305,7 +253,7 @@ public class BackgroundService extends Service {
 
             @Override
             public void onProviderDisabled(String provider) {
-                //locationManager.removeUpdates(locationListener);
+                locationManager.removeUpdates(locationListener);
                 Toast.makeText(getApplicationContext(), "Provider disabled", Toast.LENGTH_SHORT).show();
             }
         };
@@ -371,396 +319,121 @@ public class BackgroundService extends Service {
                 }
             }
         });
-        if (anyatelefon == false) { /* SAJAT */
+        if (developerDevice == false) { /* SAJAT */
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
                     3, /* 3 */
                     5, /* 5 */
                     locationListener
             );
-        } else {
+        } else { /*ANYAFON*/
             //region SINGLE LOCATION REQUEST
             android.os.Handler handler = new android.os.Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    try {
-                        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        }
-                        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     }
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                    "PING_location_" +
+                                            SontHelper.getBatteryLevel(getApplicationContext()) + "_" +
+                                            SontHelper.getCurrentWifiName(getApplicationContext()) + "_" +
+                                            SontHelper.getLocalIpAddress()
+                            );
+                        }
+                    };
+                    t.start();
                     handler.postDelayed(this, 60000 * 30);
                 }
             }, 10000);
             //endregion
         }
-        //initHeadOverlay(getApplicationContext());
+
 
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
-                Log.d("!!!!!!!!_UNHANDLED EXCEPTION CAUGHT_!!!!!!!!_1", "Error: " + paramThread.toString());
-                Log.d("!!!!!!!!_UNHANDLED EXCEPTION CAUGHT_!!!!!!!!_2", "Error: " + paramThrowable.toString());
-                Toast.makeText(getApplicationContext(), "UNHANDLED EX: " + paramThread.getName() + " _ " + paramThrowable.getMessage(), Toast.LENGTH_LONG).show();
+                try {
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            String all_error = "";
+                            for (StackTraceElement s : paramThrowable.getStackTrace()) {
+                                all_error += s + "\n\n";
+                            }
 
-                Thread uncaught_error_Thread = new Thread() {
-                    @Override
-                    public void run() {
-                        SontHelper.sendEmail(
-                                "[SONTY][HTTP] ERROR",
-                                "HTTP SAVE ERROR\n\n" +
-                                        paramThread.toString() + "\n\n" +
-                                        paramThread.getStackTrace().toString() + "\n\n" +
-                                        paramThrowable.toString() + "\n\n" +
-                                        paramThrowable.getCause().getStackTrace()[0].toString() + "\n\n" +
-                                        paramThrowable.getStackTrace()[0].toString(),
-                                "sont16@gmail.com",
-                                "egedzsolt@protonmail.com"
-                        );
-                    }
-                };
-                uncaught_error_Thread.start();
-                uncaughtException(paramThread, paramThrowable);
+                            String thread = gson.toJson(paramThread);
+                            String throwable = gson.toJson(paramThrowable);
+
+                            //String finalAll_error = all_error;
+                            String finalAll_error = thread + "\n\n" + throwable;
+
+                            SontHelper.ExceptionHandler.appendException(
+                                    "UNCAUGHT ERROR\n\n" +
+                                            finalAll_error,
+                                    getApplicationContext()
+                            );
+
+                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                    "UNCAUGHT ERROR\n\n" +
+                                            finalAll_error
+                            );
+
+                        }
+                    };
+                    t.start();
+
+                    uncaughtException(paramThread, paramThrowable);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+        final String[] last = {""};
 
         //region BATTERY POWER CHECKER TIMER
         android.os.Handler handler = new android.os.Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 exitOnTooLowBattery();
-
+                if (developerDevice == true) {
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            String new_update = "PING_battery_" +
+                                    SontHelper.getBatteryLevel(getApplicationContext()) + "_" +
+                                    SontHelper.getCurrentWifiName(getApplicationContext()) + "_" +
+                                    SontHelper.getLocalIpAddress();
+                            if (last[0].equals(new_update) == false) {
+                                SontHelper.ExceptionHandler.sendToRemoteLogServer(new_update);
+                                last[0] = new_update;
+                            }
+                        }
+                    };
+                    t.start();
+                }
                 handler.postDelayed(this, 10000);
             }
         }, 10000);
         //endregion
 
-        //inactivity_handler = new Handler();
-        //inactivity_runnable = new Runnable() {
-        //@Override
-        //public void run() {
-        //    Toast.makeText(getApplicationContext(), "INACTIVE", Toast.LENGTH_SHORT).show();
-        // }
-        //};
-
-        //startInactivityHandler();
-
-        /*adapter = new ArrayAdapter<String>(getApplicationContext(),
-                    android.R.layout.simple_list_item_1,
-                    listItems);
-
-            bllistview.setAdapter(adapter);
-
-            final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.TRANSLUCENT);
-            params.gravity = Gravity.CENTER;
-            params.x = 0;
-            params.y = 700;
-*/
-        /*
-            bllistview.setOnTouchListener(new View.OnTouchListener() {
-                private int lastAction;
-                private int initialX;
-                private int initialY;
-                private float initialTouchX;
-                private float initialTouchY;
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            initialX = params.x;
-                            initialY = params.y;
-                            initialTouchX = event.getRawX();
-                            initialTouchY = event.getRawY();
-
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_UP:
-                            if (lastAction == MotionEvent.ACTION_DOWN) {
-                                //OPEN MAIN ACTIVITY
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                getApplicationContext().startActivity(intent);
-                                //stopSelf();
-                            }
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_MOVE:
-                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
-                            lastAction = event.getAction();
-                            return true;
-                    }
-                    return false;
-                }
-            });
-            */
-        //bl = new SontHelper.BluetoothThings();
-        /*
-        SontHelper.BluetoothThings.BluetoothDeviceListener listener = new SontHelper.BluetoothThings.BluetoothDeviceListener() {
+        Thread logthread = new Thread() {
             @Override
-            public void found(BluetoothDevice device) {
-
-                SontHelper.showAlertDialog(getApplicationContext(),
-                        "Bluetooth Classic device found",
-                        device.getName() + " -> " + device.getAddress(),
-                        22
+            public void run() {
+                SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                        "APP STARTED " + SontHelper.getDeviceName()
                 );
-                if (CURRENT_LOCATION != null)
-                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
-                            "bluetoothlist.txt",
-                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() +
-                                    "\n" + CURRENT_LOCATION.toString() + "\n" +
-                                    device.getName() + "\n" +
-                                    device.getAddress(),
-                            true
-                    );
-
-                //if (bl_devices.containsValue(device) != true) {
-                //   if (bl_devices.size() >= 1) {
-                // headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() + "\n");
-                //}
-                //   bl_devices.put(CURRENT_LOCATION, device);
-                //   if (headoverlay_lay_txt2 != null) {
-                //if (adapter.getCount() > 10) {
-                //adapter.clear();
-                //adapter.notifyDataSetChanged();
-                //}
-                //adapter.add(device.getName() + " -> " + device.getAddress());
-                //headoverlay_lay_txt2.setVisibility(View.VISIBLE);
-                //if (headoverlay_lay_txt2.getText().length() > 250)
-                //   headoverlay_lay_txt2.setText("");
-                                //headoverlay_lay_txt2.setText(
-                                      //  headoverlay_lay_txt2.getText() + SontHelper.getCurrentOnlyTimeHumanReadable() +
-                                    //            " " + device.getName() + " -> " +
-                                  //              device.getAddress() + "\n"
-                                //);
-                //}
-                //}
-
-            }
-
-            @Override
-            public void found(BluetoothDevice device, int rssi) {
-                SontHelper.showAlertDialog(getApplicationContext(),
-                        "Bluetooth LE device found",
-                        device.getName() + "\n" + device.getAddress(),
-                        22
-                );
-                if (CURRENT_LOCATION != null)
-                    SontHelper.fileIO.writeExperimental(getApplicationContext(),
-                            "bluetoothlist.txt",
-                            "\n\n" + SontHelper.getCurrentTimeHumanReadable() + "\n" +
-                                    CURRENT_LOCATION.toString() + "\n" +
-                                    device.getName() + "_LE -> " +
-                                    device.getAddress(),
-                            true
-                    );
-                //if (bl_devices.containsValue(device) != true) {
-                //  if (bl_devices.size() >= 1) {
-                //    headoverlay_lay_txt2.setText(
-                //          headoverlay_lay_txt2.getText() + "\n");
-                // }
-                //bl_devices.put(CURRENT_LOCATION, device);
-                //if (headoverlay_lay_txt2 != null) {
-                //  if (adapter.getCount() > 10) {
-                //    adapter.clear();
-                //  adapter.notifyDataSetChanged();
-                //}
-                //adapter.add(device.getName() + " -> " + device.getAddress());
-                //headoverlay_lay_txt2.setVisibility(View.VISIBLE);
-                //if (headoverlay_lay_txt2.getText().length() > 250)
-                //   headoverlay_lay_txt2.setText("");
-                                //headoverlay_lay_txt2.setText(headoverlay_lay_txt2.getText() +
-                                  //      SontHelper.getCurrentOnlyTimeHumanReadable() + " @LE_" + device.getName() +
-                                    //    " -> " + device.getAddress() +
-                                      //  " -> RSSI: " + rssi + "\n"
-                                //);
-                //}
-                //}
             }
         };
-        */
-        //bl.addListener(listener);
+        logthread.start();
 
-        //startBLscanFromService(getApplicationContext());
-        //startBLLEscanFromService(getApplicationContext());
-
-
-        Log.d("SERVICE_INITIALIZATION", "Elapsed time: " /*+ elapsed_since_start.getElapsed()*/);
     }
-
-    /*
-    public static void startBLLEscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.startBLLEscan(ctx);
-    }
-    */
-    /*
-    public static void startBLscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.startBLscan(ctx);
-    }
-    */
-    /*
-    public static void stopBLLEscanFromService(Context ctx) {
-    }
-    */
-    /*
-    public static void stopBLscanFromService(Context ctx) {
-        SontHelper.BluetoothThings.stopBLscan(ctx);
-    }
-    */
-    /*
-    public void resetInactivityHandler() {
-        stopInactivityHandler();
-        startInactivityHandler();
-    }
-    */
-    /*
-    public void stopInactivityHandler() {
-        inactivity_handler.removeCallbacks(inactivity_runnable);
-    }
-    */
-    /*
-    public void startInactivityHandler() {
-        inactivity_handler.postDelayed(inactivity_runnable, 3600000); // 1h minutes
-    }
-    */
-    /*public static void initHeadOverlay(Context c) {/*
-        try {
-            if (headoverlay_mHeadView != null) {
-                headoverlay_mHeadView.setVisibility(View.GONE);
-                headoverlay_mHeadView = null;
-            }
-            headoverlay_mHeadView = LayoutInflater.from(c).inflate(R.layout.head_layout, null);
-            final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.TRANSLUCENT);
-            params.gravity = Gravity.CENTER;
-            params.x = 0;
-            params.y = 700;
-            headoverlay_mWindowManager = (WindowManager) c.getSystemService(WINDOW_SERVICE);
-            headoverlay_mWindowManager.addView(headoverlay_mHeadView, params);
-
-            headoverlay_lay_txt1 = headoverlay_mHeadView.findViewById(R.id.laytext);
-            headoverlay_lay_txt2 = headoverlay_mHeadView.findViewById(R.id.laytext2);
-            headoverlay_lay_btn1 = headoverlay_mHeadView.findViewById(R.id.lay_btn1);
-            headoverlay_lay_btn2 = headoverlay_mHeadView.findViewById(R.id.lay_btn2);
-            bllistview = headoverlay_mHeadView.findViewById(R.id.bllist);
-
-            headoverlay_lay_btn1.setText("Ping");
-            headoverlay_lay_btn2.setText("Hide");
-            headoverlay_lay_btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    headoverlay_lay_txt1.setText(String.valueOf(System.currentTimeMillis()));
-                }
-            });
-            headoverlay_lay_btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    headoverlay_mHeadView.setVisibility(View.GONE);
-                    headoverlay_mHeadView = null;
-                }
-            });
-
-            headoverlay_lay_txt1.setText("SERVICE STARTED");
-            headoverlay_lay_txt1.setOnTouchListener(new View.OnTouchListener() {
-                private int lastAction;
-                private int initialX;
-                private int initialY;
-                private float initialTouchX;
-                private float initialTouchY;
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            initialX = params.x;
-                            initialY = params.y;
-                            initialTouchX = event.getRawX();
-                            initialTouchY = event.getRawY();
-
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_UP:
-                            if (lastAction == MotionEvent.ACTION_DOWN) {
-                                //OPEN MAIN ACTIVITY
-                                Intent intent = new Intent(c, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                c.startActivity(intent);
-                                //stopSelf();
-                            }
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_MOVE:
-                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
-                            lastAction = event.getAction();
-                            return true;
-                    }
-                    return false;
-                }
-            });
-            headoverlay_lay_txt2.setVisibility(View.GONE);
-            headoverlay_lay_txt2.setOnTouchListener(new View.OnTouchListener() {
-                private int lastAction;
-                private int initialX;
-                private int initialY;
-                private float initialTouchX;
-                private float initialTouchY;
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            initialX = params.x;
-                            initialY = params.y;
-                            initialTouchX = event.getRawX();
-                            initialTouchY = event.getRawY();
-
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_UP:
-                            if (lastAction == MotionEvent.ACTION_DOWN) {
-                                //OPEN MAIN ACTIVITY
-                                Intent intent = new Intent(c, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                c.startActivity(intent);
-                                //stopSelf();
-                            }
-                            lastAction = event.getAction();
-                            return true;
-                        case MotionEvent.ACTION_MOVE:
-                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                            headoverlay_mWindowManager.updateViewLayout(headoverlay_mHeadView, params);
-                            lastAction = event.getAction();
-                            return true;
-                    }
-                    return false;
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
 
     public void updateCurrent(String title, String text) {
-
         if (gnss_count == null) {
             gnss_count = "0";
         }
@@ -773,7 +446,7 @@ public class BackgroundService extends Service {
             color_drawable = R.drawable.service;
             service_icon_lastColor = "red";
         }
-            /*
+            /* // OPEN MAIN ACTIVITY ON CLICK
             Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                     0, notificationIntent, 0);
@@ -783,28 +456,12 @@ public class BackgroundService extends Service {
         notificationIntent.putExtra("29293", "29293");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 29293, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        Intent intent_start = new Intent(getApplicationContext(), receiver.class);
-        Intent intent_pause = new Intent(getApplicationContext(), receiver.class);
         Intent intent_exit = new Intent(getApplicationContext(), receiver.class);
-        Intent start_bl = new Intent(getApplicationContext(), receiver.class);
-        Intent stop_bl = new Intent(getApplicationContext(), receiver.class);
-
         intent_exit.setAction("exit");
-        intent_start.setAction("start");
-        intent_pause.setAction("pause");
-        start_bl.setAction("start_bl");
-        stop_bl.setAction("stop_bl");
-
-        PendingIntent pi_start = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_start, PendingIntent.FLAG_IMMUTABLE);
-        PendingIntent pi_pause = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_pause, PendingIntent.FLAG_IMMUTABLE);
         PendingIntent pi_exit = PendingIntent.getBroadcast(getApplicationContext(), 1, intent_exit, PendingIntent.FLAG_IMMUTABLE);
-        PendingIntent pi_start_bl = PendingIntent.getBroadcast(getApplicationContext(), 1, start_bl, PendingIntent.FLAG_IMMUTABLE);
-        PendingIntent pi_stop_bl = PendingIntent.getBroadcast(getApplicationContext(), 1, stop_bl, PendingIntent.FLAG_IMMUTABLE);
 
         String ip = NetworkUtils.getIPAddress(true);
-
-        //String elapsed = elapsed_since_start.getElapsed();
-        String finalText = "Elapsed: " + /*elapsed */ " @ " + started_at_battery + "%";
+        String finalText = "Started at BATTERY: " + started_at_battery + "%";
 
         if (scanresult == null) {
             scanresult = new ArrayList<>();
@@ -824,21 +481,14 @@ public class BackgroundService extends Service {
                 .setSmallIcon(color_drawable)
                 .setContentIntent(pendingIntent)
                 .setChannelId("sonty")
-                //.addAction(R.drawable.service, "BL START", pi_start_bl)
-                //.addAction(R.drawable.service, "BL STOP", pi_stop_bl)
-                //.addAction(R.drawable.service, "START", pi_start)
-                //.addAction(R.drawable.service, "PAUSE", pi_pause)
                 .addAction(R.drawable.service, "EXIT", pi_exit)
                 .build();
 
         NotificationManager nm = getSystemService(NotificationManager.class);
         nm.notify(55, notification);
-
-
     }
 
     public void showOngoing() {
-
         Intent notificationIntent = new Intent(getApplicationContext(), receiver.class);
         notificationIntent.putExtra("29293", "29293");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -866,7 +516,6 @@ public class BackgroundService extends Service {
         startForeground(55, notification);
 
     }
-
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -933,17 +582,6 @@ public class BackgroundService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             // make a bit delay to test out power consumption
-            /*TextView headtext = headoverlay_mHeadView.findViewById(R.id.laytext);
-                headtext.setText(Html.fromHtml(
-                        "New: <b>" + recorded + "</b> | " +
-                                "Updated: <b>" + updated + "</b><br>" +
-                                "Not updated: <b>" + not_touched + "</b> | " +
-                                "Retry: <b>" + retry_count + "</b>",
-                        Html.FROM_HTML_MODE_COMPACT
-                ));
-                headtext.setTextSize(15f);
-                headtext.setBackgroundResource(R.color.headOverlayTextBackgroundColor);
-            */
             Thread scanThread = new Thread() {
                 @Override
                 public void run() {
@@ -951,8 +589,6 @@ public class BackgroundService extends Service {
                         scanresult = wifiManager.getScanResults();
                         Thread.sleep(3000);
                         wifiManager.startScan();
-                        //teu = new SontHelper.TimeElapsedUtil();
-                        //teu.setStartTime(System.currentTimeMillis());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
