@@ -4,7 +4,6 @@ package com.sontme.esp.sonty;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 
 public class SAVE_HTTP_CUSTOM {
 
-    public static String GET_PAGE(String host, int port, String URL) {
+    public static String GET_PAGE(String host, int port, String URL, boolean METHOD_POST, String postData) {
         Socket socket = null;
         try {
             boolean USE_PROXY = false;
@@ -38,20 +37,25 @@ public class SAVE_HTTP_CUSTOM {
             socket.setSoTimeout(1000);
             socket.setTcpNoDelay(true);
 
-            // URL
             String header = createGetHeader(
                     host,
                     "close",
                     "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:99.0) Gecko/20200101 Firefox/99.0"
             );
-            String GET_String = "GET " + URL + "HTTP/1.1 " + "" + header;
-
-            String s = "GET " + URL + " HTTP/1.1" + "\n";
 
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            pw.println("GET " + URL + " HTTP/1.1");
+            if (METHOD_POST == true) {
+                String postCommand = "POST " + URL + "HTTP/1.1\n" +
+                        "Content-Length: " + postData.length() +
+                        "Content-Type: application/x-www-form-urlencoded";
+                pw.println(postCommand);
+            } else {
+                String getCommand = "GET " + URL + " HTTP/1.1";
+                pw.println((getCommand));
+            }
             pw.println(header);
             pw.println("");
+            pw.println(postData);
             pw.flush();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -69,11 +73,11 @@ public class SAVE_HTTP_CUSTOM {
             e.printStackTrace();
             BackgroundService.retry_count++;
             Log.d("HTTP_ERROR_", e.toString());
-            try {
+            /*try {
                 socket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }
+            }*/
             return "HTTP ERROR " + e.getMessage();
         } finally {
             try {

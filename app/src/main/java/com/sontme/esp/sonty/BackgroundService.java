@@ -20,6 +20,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
@@ -29,6 +30,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.github.anrwatchdog.ANRError;
 import com.github.anrwatchdog.ANRWatchDog;
+import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -63,66 +65,26 @@ public class BackgroundService extends Service {
     static int started_at_battery;
     static String gnss_count;
 
+    ANRWatchDog watchdog;
+
     boolean developerDevice;
 
     public static Location CURRENT_LOCATION;
 
-    static SAVE_HTTP_CUSTOM save_custom;
+    public static int meterInterval = 5;
+    public static int timeInterval = 3;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        gson = new GsonBuilder().setPrettyPrinting().create();
-        exitOnTooLowBattery();
 
-        started_at_battery = SontHelper.getBatteryLevel(getApplicationContext());
+        exitOnTooLowBattery(15);
         SontHelper.createNotifGroup(getApplicationContext(), "sonty", "sonty");
         SontHelper.createNotificationChannel(getApplicationContext(), "sonty", "sonty");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        Date resultdate = new Date(System.currentTimeMillis());
-        started_time = sdf.format(resultdate);
+        showOngoing("Standby");
 
-        showOngoing();
-
-        ANRWatchDog watchdog = new ANRWatchDog();
-        watchdog.setName("service_main_thread");
-        watchdog.start();
-        watchdog.setANRListener(new ANRWatchDog.ANRListener() {
-            @Override
-            public void onAppNotResponding(ANRError error) {
-                Thread anrThread = new Thread() {
-                    @Override
-                    public void run() {
-                        SontHelper.ExceptionHandler.appendException(
-                                "NOT RESPONDING ERROR\n\n" +
-                                        "TIMEOUT",
-                                getApplicationContext()
-                        );
-
-                        SontHelper.ExceptionHandler.sendToRemoteLogServer(
-                                "NOT RESPONDING ERROR\n\n" +
-                                        "TIMEOUT"
-                        );
-                    }
-                };
-                anrThread.start();
-                //Toast.makeText(getApplicationContext(), "APP NOT RESPONDING", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        developerDevice = !SontHelper.getDeviceName().contains("Samsung SM-A530F");
-
-        if (developerDevice == false) {
-            Thread vibroThread = new Thread() {
-                @Override
-                public void run() {
-                    SontHelper.Vibratoor.init(getApplicationContext());
-                    SontHelper.Vibratoor.makePattern().beat(500).rest(80).beat(100).rest(80).beat(500).playPattern(1);
-                }
-            };
-            vibroThread.start();
-        }
+        developerDevice = SontHelper.getDeviceName().contains("Samsung SM-A530F");
         //region HOME CHECK
             /*
             if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
@@ -131,267 +93,340 @@ public class BackgroundService extends Service {
             */
         //endregion
 
-        registerReceiver(wifiReceiver, new IntentFilter(
-                WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
-        ));
+        if (developerDevice == true) { /* SAJAT */
+            started_at_battery = SontHelper.getBatteryLevel(getApplicationContext());
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date resultdate = new Date(System.currentTimeMillis());
+            started_time = sdf.format(resultdate);
 
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            registerReceiver(wifiReceiver, new IntentFilter(
+                    WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
+            ));
 
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                CURRENT_LOCATION = location;
-                Log.d("WIFI_LOCATION", "Location Changed: " + location.toString());
-                count++;
-                String notificationText;
-                String title = "Sonty Service";
-                /* !!! IMPORTANT !! LOGIC !!! */
-                if (wifiManager.getScanResults() != null) { // scanResult
-                    if (wifiManager.getScanResults().isEmpty() != true) {
+            watchdog = new ANRWatchDog();
+            watchdog.setName("service_main_thread");
+            watchdog.setReportAllThreads();
+            ANRWatchDog.ANRListener listener = new ANRWatchDog.ANRListener() {
+                @Override
+                public void onAppNotResponding(ANRError error) {
+                    Thread anrThread = new Thread() {
+                        @Override
+                        public void run() {
+                            SontHelper.ExceptionHandler.appendException(
+                                    "NOT RESPONDING ERROR\n\n" +
+                                            "TIMEOUT",
+                                    getApplicationContext()
+                            );
 
-                        String addr = SontHelper.locationToStringAddress(getApplicationContext(), location);
-
-                        if (addr != null) {
-                            notificationText = "Count: " + count + " @ " + addr;
-                        } else {
-                            notificationText = "Count: " + count + " @ Unknown";
+                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                    "NOT RESPONDING ERROR\n\n" +
+                                            "TIMEOUT"
+                            );
                         }
+                    };
+                    anrThread.start();
+                }
+            };
+            watchdog.setANRListener(listener);
+            watchdog.setInterruptionListener(new ANRWatchDog.InterruptionListener() {
+                @Override
+                public void onInterrupted(InterruptedException exception) {
+                    Thread anrThread = new Thread() {
+                        @Override
+                        public void run() {
+                            SontHelper.ExceptionHandler.appendException(
+                                    "NOT RESPONDING ERROR\n\n" +
+                                            "TIMEOUT" + "\n\n" + exception.getCause().getStackTrace()[0].toString(),
+                                    getApplicationContext()
+                            );
 
-                        for (ScanResult result : wifiManager.getScanResults()) {
-                            unique.add(result.BSSID);
+                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                    "NOT RESPONDING ERROR\n\n" +
+                                            "TIMEOUT" + SontHelper.getDeviceName() + "\n\n" + exception.getCause().getStackTrace()[0].toString()
+                            );
+                        }
+                    };
+                    anrThread.start();
+                }
+            });
+            watchdog.start();
 
-                            String enc = "notavailable";
-                            if (!result.capabilities.contains("WEP") ||
-                                    !result.capabilities.contains("WPA")) {
-                                enc = "NONE";
-                            } else if (result.capabilities.contains("WEP")) {
-                                enc = "WEP";
-                            } else if (result.capabilities.contains("WPA")) {
-                                enc = "WPA";
-                            } else if (result.capabilities.contains("WPA2")) {
-                                enc = "WPA2";
+            Thread vibroThread = new Thread() {
+                @Override
+                public void run() {
+                    SontHelper.Vibratoor.init(getApplicationContext());
+                    SontHelper.Vibratoor.makePattern().beat(500).rest(80).beat(100).rest(80).beat(500).rest(80).beat(80).playPattern(1);
+                }
+            };
+            vibroThread.start();
+
+            wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    CURRENT_LOCATION = location;
+                    Log.d("WIFI_LOCATION", "Location Changed: " + location.toString());
+                    count++;
+                    String notificationText;
+                    String title = "Sonty Service";
+                    /* !!! IMPORTANT !! LOGIC !!! */
+                    if (wifiManager.getScanResults() != null) { // scanResult
+                        if (wifiManager.getScanResults().isEmpty() != true) {
+
+                            String addr = SontHelper.locationToStringAddress(getApplicationContext(), location);
+
+                            if (addr != null) {
+                                notificationText = "Count: " + count + " @ " + addr;
+                            } else {
+                                notificationText = "Count: " + count + " @ Unknown";
                             }
 
-                            if ((result.BSSID != null) && (result.BSSID.length() >= 1)) {
-                                String reqBody = "?id=0&ssid=" +
-                                        result.SSID + "&add=service" + "&bssid=" +
-                                        result.BSSID + "&source=" + "sonty" + "_v" + "1" + "&enc=" +
-                                        enc + "&rssi=" +
-                                        convertDBM(result.level) + "&long=" +
-                                        location.getLongitude() + "&lat=" +
-                                        location.getLatitude() + "&channel=" +
-                                        result.frequency;
-                                Thread saveHttpThread = new Thread() {
-                                    @Override
-                                    public void run() {
-                                        String response = "";
-                                        try {
-                                            response = SAVE_HTTP_CUSTOM.GET_PAGE(
-                                                    "sont.sytes.net",
-                                                    80,
-                                                    "/wifilocator/wifi_insert.php" + reqBody
-                                            );
-                                        } catch (Exception e) {
+                            for (ScanResult result : wifiManager.getScanResults()) {
+                                unique.add(result.BSSID);
 
-                                        }
-                                        if (response.contains("new")) {
-                                            BackgroundService.recorded++;
-                                            SontHelper.vibrate(getApplicationContext());
-                                            if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
-                                                SontHelper.blinkLed(getApplicationContext(), 50);
-                                            } else {
-                                                SontHelper.vibrate(getApplicationContext());
-                                                /*Thread vibroThread = new Thread() {
-                                                    @Override
-                                                    public void run() {
-                                                        SontHelper.Vibratoor.init(getApplicationContext());
-                                                        SontHelper.Vibratoor.makePattern().beat(40).rest(50).beat(40).playPattern(2);
-                                                    }
-                                                };
-                                                vibroThread.start();*/
+                                String enc = "notavailable";
+                                if (!result.capabilities.contains("WEP") ||
+                                        !result.capabilities.contains("WPA")) {
+                                    enc = "NONE";
+                                } else if (result.capabilities.contains("WEP")) {
+                                    enc = "WEP";
+                                } else if (result.capabilities.contains("WPA")) {
+                                    enc = "WPA";
+                                } else if (result.capabilities.contains("WPA2")) {
+                                    enc = "WPA2";
+                                }
+
+                                if ((result.BSSID != null) && (result.BSSID.length() >= 1)) {
+                                    String reqBody = "?id=0&ssid=" +
+                                            result.SSID + "&add=service" + "&bssid=" +
+                                            result.BSSID + "&source=" + "sonty" + "_v" + "1" + "&enc=" +
+                                            enc + "&rssi=" +
+                                            convertDBM(result.level) + "&long=" +
+                                            location.getLongitude() + "&lat=" +
+                                            location.getLatitude() + "&channel=" +
+                                            result.frequency;
+                                    Thread saveHttpThread = new Thread() {
+                                        @Override
+                                        public void run() {
+                                            String response = "";
+                                            try {
+                                                response = SAVE_HTTP_CUSTOM.GET_PAGE(
+                                                        "sont.sytes.net",
+                                                        80,
+                                                        "/wifilocator/wifi_insert.php" + reqBody,
+                                                        false, ""
+                                                );
+
+                                            } catch (NullPointerException e) {
+                                                /*SontHelper.sendEmail("HTTP EXCEPTION",
+                                                        SontHelper.ExceptionHandler.convertExceptionHumanReadable(e),
+                                                        "sont16@gmail.com",
+                                                        "egedzsolt@protonmail.com"
+                                                );*/
                                             }
-                                        } else if (response.contains("regi_old")) {
-                                            SontHelper.vibrate(getApplicationContext());
-                                            BackgroundService.updated++;
-                                        } else if (response.contains("not_recorded")) {
-                                            BackgroundService.not_touched++;
+                                            if (response.contains("new")) {
+                                                try {
+                                                    BackgroundService.recorded++;
+                                                    SontHelper.vibrate(getApplicationContext());
+                                                    if (SontHelper.getSSID(getApplicationContext()).contains("UPCAEDB2C3")) {
+                                                        SontHelper.blinkLed(getApplicationContext(), 50);
+                                                    } else {
+                                                        SontHelper.vibrate(getApplicationContext());
+                                                    }
+                                                } catch (Exception e) {
+
+                                                }
+                                            } else if (response.contains("regi_old")) {
+                                                SontHelper.vibrate(getApplicationContext());
+                                                BackgroundService.updated++;
+                                            } else if (response.contains("not_recorded")) {
+                                                BackgroundService.not_touched++;
+                                            }
+
+
                                         }
 
+                                    };
+                                    saveHttpThread.start();
 
-                                    }
-
-                                };
-                                saveHttpThread.start();
-
+                                }
                             }
+                            scanresult.clear();
+                        } else {
+                            notificationText = "NO WIFI NEARBY";
                         }
-                        scanresult.clear();
                     } else {
-                        notificationText = "NO WIFI NEARBY";
+                        notificationText = "WIFI SCANRESULT ERROR: NULL";
                     }
-                } else {
-                    notificationText = "WIFI SCANRESULT ERROR: NULL";
+
+                    updateCurrent(title, notificationText);
+
+                    //save_custom = new SAVE_HTTP_CUSTOM();
+
                 }
 
-                updateCurrent(title, notificationText);
-
-                save_custom = new SAVE_HTTP_CUSTOM();
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.d("LOCATION_PROVIDER", "CHANGED: " + provider + "_" + status + "_" + extras.toString());
-                Toast.makeText(getApplicationContext(), "Provider changed: " + provider + " Status: " + status, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-                Toast.makeText(getApplicationContext(), "Provider enabled", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                locationManager.removeUpdates(locationListener);
-                Toast.makeText(getApplicationContext(), "Provider disabled", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "PERMISSION ERROR", Toast.LENGTH_LONG).show();
-        }
-
-        locationManager.addGpsStatusListener(new GpsStatus.Listener() {
-            @Override
-            public void onGpsStatusChanged(int event) {
-                if (event == GpsStatus.GPS_EVENT_STOPPED) {
-                    updateCurrent("Sonty Service", "[GPSS] Signal Lost");
-                    //Toast.makeText(getApplicationContext(),"GPS SIGNAL LOST",Toast.LENGTH_LONG).show();
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                    Log.d("LOCATION_PROVIDER", "CHANGED: " + provider + "_" + status + "_" + extras.toString());
+                    Toast.makeText(getApplicationContext(), "Provider changed: " + provider + " Status: " + status, Toast.LENGTH_SHORT).show();
                 }
-                if (event == GpsStatus.GPS_EVENT_STARTED) {
-                    //Waiting for
-                    updateCurrent("Sonty Service", "[GPS] Connecting..");
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                    Toast.makeText(getApplicationContext(), "Provider enabled", Toast.LENGTH_SHORT).show();
                 }
-                if (event == GpsStatus.GPS_EVENT_FIRST_FIX) {
-                    //updateCurrent("Sonty Service", "[GPS] Connected");
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                    locationManager.removeUpdates(locationListener);
+                    Toast.makeText(getApplicationContext(), "Provider disabled", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        locationManager.registerGnssStatusCallback(new GnssStatus.Callback() {
-            @Override
-            public void onFirstFix(int ttffMillis) {
-                super.onFirstFix(ttffMillis);
+            };
+
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "PERMISSION ERROR", Toast.LENGTH_LONG).show();
             }
 
-            @Override
-            public void onSatelliteStatusChanged(GnssStatus status) {
-                gnss_count = String.valueOf(status.getSatelliteCount());
+            locationManager.addGpsStatusListener(new GpsStatus.Listener() {
+                @Override
+                public void onGpsStatusChanged(int event) {
+                    if (event == GpsStatus.GPS_EVENT_STOPPED) {
+                        updateCurrent("Sonty Service", "[GPSS] Signal Lost");
+                    }
+                    if (event == GpsStatus.GPS_EVENT_STARTED) {
+                        updateCurrent("Sonty Service", "[GPS] Connecting..");
+                    }
+                    if (event == GpsStatus.GPS_EVENT_FIRST_FIX) {
+                    }
+                }
+            });
+            locationManager.registerGnssStatusCallback(new GnssStatus.Callback() {
+                @Override
+                public void onFirstFix(int ttffMillis) {
+                    super.onFirstFix(ttffMillis);
+                }
+
+                @Override
+                public void onSatelliteStatusChanged(GnssStatus status) {
+                    gnss_count = String.valueOf(status.getSatelliteCount());
                     /*for (int i = 0; i < status.getSatelliteCount(); i++) {
                         //int type = status.getConstellationType(i);
                         //satellite_types.put(i, convert(type));
                         //Log.d("GNSS_", "TYPE: " + i + " -> " + convert(type));
                     }*/
-                super.onSatelliteStatusChanged(status);
-            }
-
-            public String convert(int i) {
-                switch (i) {
-                    case 0:
-                        return "Unknown";
-                    case 1:
-                        return "GPS";
-                    case 2:
-                        return "SBAS";
-                    case 3:
-                        return "GLONASS";
-                    case 4:
-                        return "QZSS";
-                    case 5:
-                        return "BEIDOU";
-                    case 6:
-                        return "GALILEO";
-                    case 7:
-                        return "IRNSS";
-                    default:
-                        return "Unknown";
+                    super.onSatelliteStatusChanged(status);
                 }
-            }
-        });
-        if (developerDevice == false) { /* SAJAT */
+
+                public String convert(int i) {
+                    switch (i) {
+                        case 0:
+                            return "Unknown";
+                        case 1:
+                            return "GPS";
+                        case 2:
+                            return "SBAS";
+                        case 3:
+                            return "GLONASS";
+                        case 4:
+                            return "QZSS";
+                        case 5:
+                            return "BEIDOU";
+                        case 6:
+                            return "GALILEO";
+                        case 7:
+                            return "IRNSS";
+                        default:
+                            return "Unknown";
+                    }
+                }
+            });
+
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    3, /* 3 */
-                    5, /* 5 */
+                    timeInterval, /* 3 */
+                    meterInterval, /* 5 */
                     locationListener
             );
-        } else { /*ANYAFON*/
+        } else {
             //region SINGLE LOCATION REQUEST
-            android.os.Handler handler = new android.os.Handler();
-            handler.postDelayed(new Runnable() {
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
                 public void run() {
-                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    }
-                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
-                    Thread t = new Thread() {
-                        @Override
-                        public void run() {
-                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
-                                    "PING_location_" +
-                                            SontHelper.getBatteryLevel(getApplicationContext()) + "_" +
-                                            SontHelper.getCurrentWifiName(getApplicationContext()) + "_" +
-                                            SontHelper.getLocalIpAddress()
-                            );
-                        }
-                    };
-                    t.start();
-                    handler.postDelayed(this, 60000 * 30);
+
+                    SontHelper.ExceptionHandler.sendToRemoteLogServer(SontHelper.getDeviceName() + "_ALIVE");
+                    handler.postDelayed(this, 10000);
                 }
-            }, 10000);
+            };
             //endregion
         }
 
+        Thread.setDefaultUncaughtExceptionHandler(
+                new Thread.UncaughtExceptionHandler() {
+                    @Override
+                    public void uncaughtException(
+                            Thread paramThread, Throwable paramThrowable) {
+                        try {
+                            Thread t = new Thread() {
+                                @Override
+                                public void run() {
+                                    //String all_error = "";
+                                    //for (StackTraceElement s : paramThrowable.getStackTrace()) {
+                                    //all_error += s + "\n\n";
+                                    //}
 
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
-                try {
-                    Thread t = new Thread() {
-                        @Override
-                        public void run() {
-                            String all_error = "";
-                            for (StackTraceElement s : paramThrowable.getStackTrace()) {
-                                all_error += s + "\n\n";
-                            }
+                                    Throwable rootCause = paramThrowable;
+                                    while (rootCause.getCause() != null && rootCause.getCause() != rootCause)
+                                        rootCause = rootCause.getCause();
 
-                            String thread = gson.toJson(paramThread);
-                            String throwable = gson.toJson(paramThrowable);
+                                    String className = rootCause.getStackTrace()[0].getClassName();
+                                    String methodName = rootCause.getStackTrace()[0].getMethodName();
+                                    String fileName = rootCause.getStackTrace()[0].getFileName();
+                                    int lineNumber = rootCause.getStackTrace()[0].getLineNumber();
 
-                            //String finalAll_error = all_error;
-                            String finalAll_error = thread + "\n\n" + throwable;
+                                    String ret = "Class Name: " + className + "\n" +
+                                            "Method Name: " + methodName + "\n" +
+                                            "Line Number: " + lineNumber + "\n" +
+                                            "File Name: " + fileName;
 
-                            SontHelper.ExceptionHandler.appendException(
-                                    "UNCAUGHT ERROR\n\n" +
-                                            finalAll_error,
-                                    getApplicationContext()
-                            );
+                                    String stackTrc = Throwables.getStackTraceAsString(paramThrowable);
+                                    gson = new GsonBuilder().setPrettyPrinting().create();
+                                    String thread = gson.toJson(paramThread);
+                                    String throwable = gson.toJson(paramThrowable);
 
-                            SontHelper.ExceptionHandler.sendToRemoteLogServer(
-                                    "UNCAUGHT ERROR\n\n" +
-                                            finalAll_error
-                            );
+                                    String finalAll_error = thread + "\n\n" + throwable;// + "\n\n" + stackTrc;
 
+                                    SontHelper.ExceptionHandler.appendException(
+                                            "UNHANDLED EXCEPTION\n\n" +
+                                                    finalAll_error,
+                                            getApplicationContext()
+                                    );
+
+                                    SontHelper.ExceptionHandler.sendToRemoteLogServer(
+                                            "UNHANDLED EXCEPTION\n\n" +
+                                                    finalAll_error
+                                    );
+                                    String summary = SontHelper.ExceptionHandler.convertExceptionHumanReadable((Exception) paramThrowable);
+
+                                    SontHelper.sendEmail(
+                                            "UNHANDLED EXCEPTION",
+                                            "SUMMARY:\n" + ret + "\n\nSUMMARY_2:\n" + summary + "\n\n" + finalAll_error,
+                                            "sont16@gmail.com",
+                                            "egedzsolt@protonmail.com"
+                                    );
+
+                                }
+                            };
+                            t.start();
+
+                            uncaughtException(paramThread, paramThrowable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    };
-                    t.start();
-
-                    uncaughtException(paramThread, paramThrowable);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    }
                 }
-            }
-        });
+        );
 
         final String[] last = {""};
 
@@ -399,7 +434,7 @@ public class BackgroundService extends Service {
         android.os.Handler handler = new android.os.Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                exitOnTooLowBattery();
+                exitOnTooLowBattery(15);
                 if (developerDevice == true) {
                     Thread t = new Thread() {
                         @Override
@@ -421,7 +456,7 @@ public class BackgroundService extends Service {
         }, 10000);
         //endregion
 
-        Thread logthread = new Thread() {
+        Thread notifyAppStarted = new Thread() {
             @Override
             public void run() {
                 SontHelper.ExceptionHandler.sendToRemoteLogServer(
@@ -429,8 +464,9 @@ public class BackgroundService extends Service {
                 );
             }
         };
-        logthread.start();
+        notifyAppStarted.start();
 
+        //Log.e("CUSTOM_LOGGING_", "LOGCAT: " + SontHelper.ExceptionHandler.getLogcat());
     }
 
     public void updateCurrent(String title, String text) {
@@ -472,11 +508,11 @@ public class BackgroundService extends Service {
                 /* Known Direct Subclasses
                 NotificationCompat.BigPictureStyle,NotificationCompat.BigTextStyle,NotificationCompat.DecoratedCustomViewStyle,NotificationCompat.InboxStyle,NotificationCompat.MediaStyle,NotificationCompat.MessagingStyle
                 */
-                .setStyle(new NotificationCompat.BigTextStyle()
+                /*.setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(finalText)
                         .setSummaryText("IP: " + ip)
                         .setBigContentTitle("Satellites: " + gnss_count)
-                )
+                )*/
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setSmallIcon(color_drawable)
                 .setContentIntent(pendingIntent)
@@ -488,7 +524,7 @@ public class BackgroundService extends Service {
         nm.notify(55, notification);
     }
 
-    public void showOngoing() {
+    public void showOngoing(String text) {
         Intent notificationIntent = new Intent(getApplicationContext(), receiver.class);
         notificationIntent.putExtra("29293", "29293");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -503,8 +539,8 @@ public class BackgroundService extends Service {
         PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), "sonty")
-                .setContentTitle("Sonty Service" + " | Started: " + started_time)
-                .setContentText("Waiting for GPS")
+                .setContentTitle("Sonty Service")
+                .setContentText(text)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setSmallIcon(R.drawable.service)
                 .setContentIntent(pendingIntent)
@@ -522,16 +558,14 @@ public class BackgroundService extends Service {
         super.onStart(intent, startId);
     }
 
-    public void exitOnTooLowBattery() {
-
+    public void exitOnTooLowBattery(int limit) {
         BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        if (batLevel <= 25 && SontHelper.isBatteryCharging(getApplicationContext()) == false) {
+        if (batLevel <= limit && SontHelper.isBatteryCharging(getApplicationContext()) == false) {
             Toast.makeText(getApplicationContext(), "Exiting, too low battery!", Toast.LENGTH_LONG).show();
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
         }
-
     }
 
     public static int convertDBM(int dbm) {
@@ -552,6 +586,21 @@ public class BackgroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && intent.getExtras() != null) {
+            String time = intent.getExtras().getString("timeInterval");
+            String meter = intent.getExtras().getString("meterInterval");
+            Log.d("SERVICE_TESTING", time + "_" + meter);
+        }
+
+        /*int time = 0;
+        int meter = 0;
+        try {
+            time = Integer.parseInt(intent.getStringExtra("timeInterval"));
+            meter = Integer.parseInt(intent.getStringExtra("meterInterval"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        //Log.d("SERVICE_TESTING", "DATAS onstartCommand(): " + time + "_" + meter);
         return START_STICKY;
     }
 

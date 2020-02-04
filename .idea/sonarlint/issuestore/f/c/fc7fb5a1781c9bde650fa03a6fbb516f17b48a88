@@ -1,133 +1,88 @@
 
-jsquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(Èë‹8í¸°ü-
-jsquid:S1192ù"FDefine a constant instead of duplicating this literal "29293" 4 times.(Ğ±¡úøÿÿÿÿ8í¸°ü-
-"squid:ClassVariableVisibilityCheck,"VMake INSERT_URL a static final constant or non-public and provide accessors if needed.(Üşøëÿÿÿÿÿ8Â•ŞÆğ-
-isquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(ãÊ§8í¸°ü-
-rsquid:S1192¯"NDefine a constant instead of duplicating this literal "Sonty Service" 4 times.(ëªôıøÿÿÿÿ8­ÇÛ„õ-
-Lsquid:S1185Ì"(Remove this method to simply inherit it.(Ú°“¦ıÿÿÿÿ8ìøùæû-
-Dsquid:S2386”"%Make member "scanresult" "protected".(ç˜€Ì8ºÚü-
-psquid:S3776d"RRefactor this method to reduce its Cognitive Complexity from 70 to the 15 allowed.(Î¢È8›¬Êòò-
-Ksquid:S1604w"(Make this anonymous inner class a lambda(Æ’¯Šşÿÿÿÿ8­ÇÛ„õ-
-qsquid:S00117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ç²ƒ8í¸°ü-
-tsquid:S3008C"VRename this field "not_touched" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ÇèÈ8ö§Åìò-
-]squid:S1854Œ">Remove this useless assignment to local variable "pi_stop_bl".(¤ç²ƒ8í¸°ü-
-vsquid:S00117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßŸÌûÿÿÿÿ8´™Öáö-
-osquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(¼íœÂşÿÿÿÿ8í¸°ü-
-Usquid:S2696Ò"6Make the enclosing method "static" or remove this set.(·§ì¨8é—Ø‰ú-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(€åŞ8í¸°ü-
-jsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(©£Îá8í¸°ü-
-"squid:ClassVariableVisibilityCheckA"TMake recorded a static final constant or non-public and provide accessors if needed.(ª½µâûÿÿÿÿ8¡»ìò-
-qsquid:S00117ê"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¿ï8í¸°ü-
-{squid:S3008W"]Rename this field "started_at_battery" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒŠÍÕ8­ÇÛ„õ-
-†"squid:ClassVariableVisibilityCheck="QMake count a static final constant or non-public and provide accessors if needed.(˜“ÿ±8ÜÜÅ°å-
-isquid:CommentedOutCodeLine^"<This block of commented-out lines of code should be removed.(å™¤Ö8‹Ÿ–Şû-
-—"squid:ClassVariableVisibilityCheck>"bMake service_icon_lastColor a static final constant or non-public and provide accessors if needed.(ÍùÉ8­ÇÛ„õ-
-‘"squid:ClassVariableVisibilityCheckD"WMake retry_count a static final constant or non-public and provide accessors if needed.(¢™Å€ıÿÿÿÿ8¡»ìò-
-Gsquid:S1148§"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8í¸°ü-
-Tsquid:S2696p"6Make the enclosing method "static" or remove this set.(Øô¸‹8›¬Êòò-
-Dsquid:S2116Š"%Use "Arrays.toString(array)" instead.(ÁŸÉÒ8¯ë×ü-
-jsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(‰Ö—ë8í¸°ü-
-Nsquid:S1481Œ"/Remove this unused "pi_stop_bl" local variable.(¤ç²ƒ8í¸°ü-
-`squid:S1854ˆ"<Remove this useless assignment to local variable "pi_start".(µ¸Šİşÿÿÿÿ8ºÚü-
-Usquid:S2696¡"6Make the enclosing method "static" or remove this set.(º•Óâ8í¸°ü-
-jsquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(Û’İ‚8¼¬ ¹ö-
-jsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(£ÕÌŒ8á¸ŠŞû-
-osquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(€Ô¾±úÿÿÿÿ8ìøùæû-
-nsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(ã„ûÿÿÿÿ8é—Ø‰ú-
-jsquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(¡ºë¾8í¸°ü-
-‘"squid:ClassVariableVisibilityCheck."WMake wifiManager a static final constant or non-public and provide accessors if needed.(õÙÄøÿÿÿÿ8œíÿãò-
-Ysquid:S1444Z"6Make this "public static CURRENT_LOCATION" field final(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
-vsquid:S00117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¸Šİşÿÿÿÿ8ºÚü-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ŒÒêËşÿÿÿÿ8í¸°ü-
-jsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(Åœä8ìøùæû-
-vsquid:S00117û"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÎòúÿÿÿÿ8Å›Ëü-
-qsquid:S00117ı"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( í¯î8­ÇÛ„õ-
-ysquid:S3008D"VRename this field "retry_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢™Å€ıÿÿÿÿ8÷ßÄìò-
-osquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(áíüÈùÿÿÿÿ8í¸°ü-
-Gsquid:S1148‹"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ìøùæû-
-Tsquid:S2209Û"5Change this instance-reference to a static reference.(¦ÇñÚ8—„·éû-
-"squid:ClassVariableVisibilityCheckB"SMake updated a static final constant or non-public and provide accessors if needed.(¿ë³†ÿÿÿÿÿ8¡»ìò-
-nsquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(¢™Å€ıÿÿÿÿ8¦æÍòò-
-]squid:S4973î"9Use the "equals" method if value comparison was intended.(ÜâÜˆşÿÿÿÿ8í¸°ü-
-jsquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.(©£Îá8í¸°ü-
-xsquid:S3008X"URename this field "gnss_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—·•çÿÿÿÿÿ8é—Ø‰ú-
-jsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(Õ£±ñ8í¸°ü-
-Gsquid:S1185Ò"(Remove this method to simply inherit it.(Úİ”ß8í¸°ü-
-Psquid:S1444?"2Make this "public static started_time" field final(µ˜½¤8ÜÜÅ°å-
-Osquid:S1444C"1Make this "public static not_touched" field final(²ÇèÈ8ö§Åìò-
-Msquid:S1125Ú")Remove the literal "false" boolean value.(ÑÚØéøÿÿÿÿ8í¸°ü-
-Xsquid:S4973ë"9Use the "equals" method if value comparison was intended.(Ùšªª8í¸°ü-
-Zsquid:S2696ó"6Make the enclosing method "static" or remove this set.(ëäöìşÿÿÿÿ8®î‰ü-
-jsquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(¬ÿ‰ï8ìøùæû-
-"squid:ClassVariableVisibilityCheck?"XMake started_time a static final constant or non-public and provide accessors if needed.(µ˜½¤8ÜÜÅ°å-
-nsquid:CommentedOutCodeLineh"<This block of commented-out lines of code should be removed.(ıí‰ÿşÿÿÿÿ8á¸ŠŞû-
-qsquid:S00117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¡ğö8¿›àèò-
-jsquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(Ù¹º8í¸°ü-
-Zsquid:S1444>"<Make this "public static service_icon_lastColor" field final(ÍùÉ8­ÇÛ„õ-
-‘"squid:ClassVariableVisibilityCheck0"\Make locationListener a static final constant or non-public and provide accessors if needed.(Ö üš8Éÿãò-
-Œ"squid:ClassVariableVisibilityCheckC"WMake not_touched a static final constant or non-public and provide accessors if needed.(²ÇèÈ8¡»ìò-
-osquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(‚áğïúÿÿÿÿ8í¸°ü-
-Qsquid:S1481ç"-Remove this unused "listener" local variable.(Ä¹„Èıÿÿÿÿ8í¸°ü-
-Qsquid:S1444A".Make this "public static recorded" field final(ª½µâûÿÿÿÿ8‚¸Åìò-
-vsquid:S00117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£á­Œıÿÿÿÿ8­ÇÛ„õ-
-"squid:ClassVariableVisibilityCheck/"[Make locationManager a static final constant or non-public and provide accessors if needed.(³âÉ	8Éÿãò-
-jsquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(Ê°Ø8ìøùæû-
-squid:S3008>"aRename this field "service_icon_lastColor" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍùÉ8­ÇÛ„õ-
-osquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(°ØŠïøÿÿÿÿ8í¸°ü-
-Usquid:S2696Ÿ"6Make the enclosing method "static" or remove this set.(¹üå´8Ãû€çû-
-osquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(ˆ§Åıÿÿÿÿ8í¸°ü-
-jsquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(Œú‹§8ìøùæû-
-qsquid:S00117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÕÊ¾8é—Ø‰ú-
-Zsquid:S2696í"6Make the enclosing method "static" or remove this set.(úòú¹ıÿÿÿÿ8í¸°ü-
-†"squid:ClassVariableVisibilityCheck3"RMake unique a static final constant or non-public and provide accessors if needed.(åéŸ8ÜÜÅ°å-
-isquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(œ‘Ğ…8á¸ŠŞû-
-Ysquid:S2696j"6Make the enclosing method "static" or remove this set.(µóûøùÿÿÿÿ8­ÇÛ„õ-
-isquid:CommentedOutCodeLinea"<This block of commented-out lines of code should be removed.(ÿ¢ó8á¸ŠŞû-
-usquid:S3008?"WRename this field "started_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ˜½¤8Ã•ŞÆğ-
-Lsquid:S1481‰"-Remove this unused "pi_pause" local variable.(¸¡ğö8í¸°ü-
-~squid:S3008Z"[Rename this field "CURRENT_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
-isquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(êó÷V8ŒÇâ‰ü-
-Psquid:S1444B"-Make this "public static updated" field final(¿ë³†ÿÿÿÿÿ8ö§Åìò-
-qsquid:S00117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã“±®8í¸°ü-
-Isquid:S1444="+Make this "public static count" field final(˜“ÿ±8ÜÜÅ°å-
-jsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ù˜ìÏ8í¸°ü-
-[squid:S1854‰"<Remove this useless assignment to local variable "pi_pause".(¸¡ğö8í¸°ü-
-osquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(‡öúøÿÿÿÿ8ìøùæû-
-Usquid:S2696õ"6Make the enclosing method "static" or remove this set.(ÙÄğ“8®î‰ü-
-Nsquid:S14441"0Make this "public static scanresult" field final(ñó×¡8ÜÜÅ°å-
-Usquid:S2696«"6Make the enclosing method "static" or remove this set.(ãÕŞÑ8­ÇÛ„õ-
-:squid:S23863"Make this member "protected".(åéŸ8Ã•ŞÆğ-
-osquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(®éãûÿÿÿÿ8í¸°ü-
-jsquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(š©Ä8ìøùæû-
-Zsquid:S2696ğ"6Make the enclosing method "static" or remove this set.(ú’©ğÿÿÿÿÿ8í¸°ü-
-Gsquid:S1125²"(Remove the literal "true" boolean value.(”â’Ï8ä’ùò-
-jsquid:CommentedOutCodeLine«"<This block of commented-out lines of code should be removed.(Ğûõú8í¸°ü-
-‹"squid:ClassVariableVisibilityCheck1"VMake scanresult a static final constant or non-public and provide accessors if needed.(ñó×¡8ÜÜÅ°å-
-–"squid:ClassVariableVisibilityCheckZ"\Make CURRENT_LOCATION a static final constant or non-public and provide accessors if needed.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
-Usquid:S2696â"6Make the enclosing method "static" or remove this set.(Ë­…8®î‰ü-
-`squid:S1854ç"<Remove this useless assignment to local variable "listener".(Ä¹„Èıÿÿÿÿ8ºÚü-
-^squid:S1854‹"?Remove this useless assignment to local variable "pi_start_bl".(éÕÊ¾8Ò†œü-
-isquid:S1192k"FDefine a constant instead of duplicating this literal "sonty" 9 times.(´®Ûÿÿÿÿÿ8­ÇÛ„õ-
-Usquid:S2696”"6Make the enclosing method "static" or remove this set.(ç˜€Ì8ºÚü-
-Zsquid:S2696­"6Make the enclosing method "static" or remove this set.(ëæûÿÿÿÿÿ8•‘»ùò-
-xsquid:S3008,"URename this field "INSERT_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üşøëÿÿÿÿÿ8Ã•ŞÆğ-
-nsquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(ÔÕ¤Ûüÿÿÿÿ8­ÇÛ„õ-
-Osquid:S2440Ÿ"0Remove this instantiation of "SAVE_HTTP_CUSTOM".(¹üå´8—„·éû-
-vsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚ñÎÖûÿÿÿÿ8ĞùÑü-
-vsquid:S00117ü"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é«Ààùÿÿÿÿ8ºÚü-
-psquid:S1192„"QDefine a constant instead of duplicating this literal "sont16@gmail.com" 3 times.(çÅá«8ĞùÑü-
-Tsquid:S1444D"1Make this "public static retry_count" field final(¢™Å€ıÿÿÿÿ8÷ßÄìò-
-Osquid:S1481‹"0Remove this unused "pi_start_bl" local variable.(éÕÊ¾8Ò†œü-
-Ssquid:S1444,"0Make this "public static INSERT_URL" field final(Üşøëÿÿÿÿÿ8Â•ŞÆğ-
-osquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(÷ñÙªÿÿÿÿÿ8í¸°ü-
-osquid:CommentedOutCodeLineó"<This block of commented-out lines of code should be removed.(úÑéÉùÿÿÿÿ8í¸°ü-
-Lsquid:S1185ø"(Remove this method to simply inherit it.(İßéàúÿÿÿÿ8í¸°ü-
-isquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(ãÊ§8í¸°ü-
-jsquid:CommentedOutCodeLineâ"<This block of commented-out lines of code should be removed.(ÆßÍ™8í¸°ü-
-osquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(’«ëëşÿÿÿÿ8í¸°ü-
-xsquid:S1192…"YDefine a constant instead of duplicating this literal "egedzsolt@protonmail.com" 3 times.(Œ¯òÂ8ĞùÑü-
-Isquid:S14443",Make this "public static unique" field final(åéŸ8ÜÜÅ°å-
-tsquid:S3008\"VRename this field "save_custom" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡±¬Ø8Ãû€çû-
-vsquid:S00117Š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıŒóşøÿÿÿÿ8é—Ø‰ú-
-Qsquid:S1481ˆ"-Remove this unused "pi_start" local variable.(µ¸Šİşÿÿÿÿ8ºÚü-
-Usquid:S2696ç"6Make the enclosing method "static" or remove this set.(ÇãÉ8ºÚü-
+Hsquid:S1125À")Remove the literal "false" boolean value.(Ú½Ç‡8²¸Ûª€.
+“"squid:ClassVariableVisibilityCheckJ"YMake meterInterval a static final constant or non-public and provide accessors if needed.(†€Û¾ıÿÿÿÿ8àÁÚª€.
+nsquid:CommentedOutCodeLine/"<This block of commented-out lines of code should be removed.(¬…Ç¼üÿÿÿÿ8–™‹Šÿ-
+Zsquid:S2696â"6Make the enclosing method "static" or remove this set.(úòú¹ıÿÿÿÿ8²¸Ûª€.
+‘"squid:ClassVariableVisibilityCheck>"WMake not_touched a static final constant or non-public and provide accessors if needed.(¸ßãÁüÿÿÿÿ8–™‹Šÿ-
+wsquid:S1192v"YDefine a constant instead of duplicating this literal "NOT RESPONDING ERROR\n\n" 4 times.(©úÕ¨8çûÒ©€.
+osquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(ğáÕÙùÿÿÿÿ8²¸Ûª€.
+Gsquid:S1185¯"(Remove this method to simply inherit it.(Úİ”ß8¯¡Â¸€.
+usquid:S3008:"WRename this field "started_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ˜½¤8Ã•ŞÆğ-
+jsquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(©£Îá8²¸Ûª€.
+ysquid:S3008>"VRename this field "not_touched" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸ßãÁüÿÿÿÿ8–™‹Šÿ-
+Tsquid:S1444>"1Make this "public static not_touched" field final(¸ßãÁüÿÿÿÿ8–™‹Šÿ-
+"squid:ClassVariableVisibilityCheck:"XMake started_time a static final constant or non-public and provide accessors if needed.(µ˜½¤8ÜÜÅ°å-
+isquid:CommentedOutCodeLineZ"<This block of commented-out lines of code should be removed.(Û’İ‚8²¸Ûª€.
+Lsquid:S1125¸"(Remove the literal "true" boolean value.(„±Óïşÿÿÿÿ8²¸Ûª€.
+fsquid:S1192w"HDefine a constant instead of duplicating this literal "TIMEOUT" 4 times.(ËÙÎÃ8²¸Ûª€.
+isquid:S1192R"FDefine a constant instead of duplicating this literal "sonty" 9 times.(´®Ûÿÿÿÿÿ8²¸Ûª€.
+Ysquid:S2696a"6Make the enclosing method "static" or remove this set.(µóûøùÿÿÿÿ8²¸Ûª€.
+Isquid:S00108ï")Either remove or fill this block of code.(”ı¾8¬ÿ÷¬€.
+osquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(€Ô¾±úÿÿÿÿ8²¸Ûª€.
+‡"squid:ClassVariableVisibilityCheck="SMake updated a static final constant or non-public and provide accessors if needed.(Úî¶8–™‹Šÿ-
+qsquid:S3776N"SRefactor this method to reduce its Cognitive Complexity from 103 to the 15 allowed.(Î¢È8²¸Ûª€.
+Zsquid:S2696ô"6Make the enclosing method "static" or remove this set.(ëäöìşÿÿÿÿ8²¸Ûª€.
+Zsquid:S2696å"6Make the enclosing method "static" or remove this set.(ú’©ğÿÿÿÿÿ8²¸Ûª€.
+rsquid:S1192®"NDefine a constant instead of duplicating this literal "Sonty Service" 4 times.(ëªôıøÿÿÿÿ8²¸Ûª€.
+Lsquid:S1185µ"(Remove this method to simply inherit it.(Ú°“¦ıÿÿÿÿ8²¸Ûª€.
+Xsquid:S4973à"9Use the "equals" method if value comparison was intended.(Ùšªª8²¸Ûª€.
+~squid:S3008H"[Rename this field "CURRENT_LOCATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+osquid:CommentedOutCodeLineè"<This block of commented-out lines of code should be removed.(úÑéÉùÿÿÿÿ8²¸Ûª€.
+Zsquid:S14449"<Make this "public static service_icon_lastColor" field final(ÍùÉ8­ÇÛ„õ-
+Jsquid:S1444="-Make this "public static updated" field final(Úî¶8–™‹Šÿ-
+osquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(Âöã®şÿÿÿÿ8²¸Ûª€.
+Dsquid:S2386ù"%Make member "scanresult" "protected".(ç˜€Ì8çûÒ©€.
+Nsquid:S14444"0Make this "public static scanresult" field final(ñó×¡8ÜÜÅ°å-
+squid:S30089"aRename this field "service_icon_lastColor" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍùÉ8­ÇÛ„õ-
+†"squid:ClassVariableVisibilityCheck8"QMake count a static final constant or non-public and provide accessors if needed.(˜“ÿ±8ÜÜÅ°å-
+qsquid:S00117ß"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¿ï8²¸Ûª€.
+xsquid:S3008B"URename this field "gnss_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—·•çÿÿÿÿÿ8é—Ø‰ú-
+’"squid:ClassVariableVisibilityCheckK"XMake timeInterval a static final constant or non-public and provide accessors if needed.(“çûÿÿÿÿ8Ì¡Ûª€.
+Tsquid:S2696d"6Make the enclosing method "static" or remove this set.(Øô¸‹8²¸Ûª€.
+Usquid:S2696ù"6Make the enclosing method "static" or remove this set.(ç˜€Ì8çûÒ©€.
+isquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(ÜĞĞ8¸½Î¸€.
+Isquid:S14448"+Make this "public static count" field final(˜“ÿ±8ÜÜÅ°å-
+Gsquid:S1148„"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8…ÔÂ¸€.
+osquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(õ¬Ãàúÿÿÿÿ8²¸Ûª€.
+‹"squid:ClassVariableVisibilityCheck4"VMake scanresult a static final constant or non-public and provide accessors if needed.(ñó×¡8ÜÜÅ°å-
+vsquid:S00117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æñ‘‘ıÿÿÿÿ8²¸Ûª€.
+]squid:S4973ã"9Use the "equals" method if value comparison was intended.(ÜâÜˆşÿÿÿÿ8²¸Ûª€.
+Vsquid:S1444J"3Make this "public static meterInterval" field final(†€Û¾ıÿÿÿÿ8àÁÚª€.
+Nsquid:S00108¯")Either remove or fill this block of code.(ò×¿ïûÿÿÿÿ8²¸Ûª€.
+Gsquid:S1125¶")Remove the literal "false" boolean value.(ÖîôA8…ÔÂ¸€.
+"squid:ClassVariableVisibilityCheck2"[Make locationManager a static final constant or non-public and provide accessors if needed.(³âÉ	8Éÿãò-
+Œ"squid:ClassVariableVisibilityCheck?"WMake retry_count a static final constant or non-public and provide accessors if needed.(ğçÿ¶8–™‹Šÿ-
+tsquid:S3008?"VRename this field "retry_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğçÿ¶8–™‹Šÿ-
+"squid:ClassVariableVisibilityCheck<"TMake recorded a static final constant or non-public and provide accessors if needed.( »‘¥úÿÿÿÿ8–™‹Šÿ-
+:squid:S23866"Make this member "protected".(åéŸ8Ã•ŞÆğ-
+vsquid:S00117ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıŒóşøÿÿÿÿ8²¸Ûª€.
+Zsquid:S2696¬"6Make the enclosing method "static" or remove this set.(ëæûÿÿÿÿÿ8²¸Ûª€.
+Usquid:S2696Ü"6Make the enclosing method "static" or remove this set.(ÇãÉ8²¸Ûª€.
+Qsquid:S1481å"-Remove this unused "runnable" local variable.(äë¬±üÿÿÿÿ8²¸Ûª€.
+Usquid:S1444K"2Make this "public static timeInterval" field final(“çûÿÿÿÿ8Ì¡Ûª€.
+—"squid:ClassVariableVisibilityCheck9"bMake service_icon_lastColor a static final constant or non-public and provide accessors if needed.(ÍùÉ8­ÇÛ„õ-
+Ysquid:S1444H"6Make this "public static CURRENT_LOCATION" field final(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+Gsquid:S1148«"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8²¸Ûª€.
+Psquid:S1444:"2Make this "public static started_time" field final(µ˜½¤8ÜÜÅ°å-
+‘"squid:ClassVariableVisibilityCheck3"\Make locationListener a static final constant or non-public and provide accessors if needed.(Ö üš8Éÿãò-
+Isquid:S14446",Make this "public static unique" field final(åéŸ8ÜÜÅ°å-
+Usquid:S2696»"6Make the enclosing method "static" or remove this set.(·§ì¨8çûÒ©€.
+Lsquid:S1185â"(Remove this method to simply inherit it.(İßéàúÿÿÿÿ8…ÔÂ¸€.
+‘"squid:ClassVariableVisibilityCheck1"WMake wifiManager a static final constant or non-public and provide accessors if needed.(õÙÄøÿÿÿÿ8œíÿãò-
+Usquid:S2696ö"6Make the enclosing method "static" or remove this set.(ÙÄğ“8²¸Ûª€.
+{squid:S3008A"]Rename this field "started_at_battery" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒŠÍÕ8­ÇÛ„õ-
+Ksquid:S1125`"(Remove the literal "true" boolean value.(êñşÌÿÿÿÿÿ8²¸Ûª€.
+Osquid:S1444?"1Make this "public static retry_count" field final(ğçÿ¶8–™‹Šÿ-
+`squid:S1854å"<Remove this useless assignment to local variable "runnable".(äë¬±üÿÿÿÿ8²¸Ûª€.
+jsquid:S1192î"FDefine a constant instead of duplicating this literal "29293" 4 times.(Ğ±¡úøÿÿÿÿ8²¸Ûª€.
+Usquid:S2696€"6Make the enclosing method "static" or remove this set.(º•Óâ8…ÔÂ¸€.
+Usquid:S2696ª"6Make the enclosing method "static" or remove this set.(ãÕŞÑ8²¸Ûª€.
+Qsquid:S1444<".Make this "public static recorded" field final( »‘¥úÿÿÿÿ8–™‹Šÿ-
+Gsquid:S1604…"(Make this anonymous inner class a lambda(à„™8²¸Ûª€.
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûùıÛúÿÿÿÿ8²¸Ûª€.
+Usquid:S2696è"6Make the enclosing method "static" or remove this set.(Ë­…8²¸Ûª€.
+–"squid:ClassVariableVisibilityCheckH"\Make CURRENT_LOCATION a static final constant or non-public and provide accessors if needed.(©Û¥êûÿÿÿÿ8­ÇÛ„õ-
+Ksquid:S1604o"(Make this anonymous inner class a lambda(¬©ª„ıÿÿÿÿ8²¸Ûª€.
+Gsquid:S1125±"(Remove the literal "true" boolean value.(”â’Ï8²¸Ûª€.
+†"squid:ClassVariableVisibilityCheck6"RMake unique a static final constant or non-public and provide accessors if needed.(åéŸ8ÜÜÅ°å-
+vsquid:S00117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßŸÌûÿÿÿÿ8²¸Ûª€.

@@ -19,3 +19,5 @@ e
 5app/src/main/java/com/sontme/esp/sonty/SAVE_HTTP.java,0\0\00f173d094ffaf9d2334234479474e2c1f5ecaa1
 l
 <app/src/main/java/com/sontme/esp/sonty/SAVE_HTTP_CUSTOM.java,7\d\7d974b7c0c58867b47fa54cfdeff52ab1fcbe0f8
+g
+7app/src/main/java/com/sontme/esp/sonty/BetaService.java,2\8\28a33620026411fed15efd7bbe9b6abc4a241048

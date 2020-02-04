@@ -76,6 +76,8 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -144,7 +146,6 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -195,21 +196,6 @@ public class SontHelper {
             }
             return true;
         }*/
-        static class Logger {
-            static java.util.logging.Logger logger;
-
-            public Logger(String className) {
-                logger = java.util.logging.Logger.getLogger(className);
-            }
-
-            public static void logException(Exception e) {
-                logger.log(Level.ALL, "exception", e);
-            }
-
-            public static void logString(String str) {
-                logger.log(Level.ALL, "exception", str);
-            }
-        }
 
         public static boolean sendToRemoteLogServer(String text) {
             try {
@@ -227,23 +213,6 @@ public class SontHelper {
                 return false;
             }
             // UDP VPS
-        }
-
-        public static void appendException(Exception ex, Context context) {
-            // Make human readable exception format:
-            // DateTime - class - linenumber - message
-            /*
-                thread.getClass().getName(),
-                throwable.getMessage()
-                e.getStackTrace()[0].getLineNumber()
-            */
-            String readableFormat = "Datetime: " + SontHelper.getCurrentTimeHumanReadable() + " _ Class: " +
-                    ex.getClass() + " _ Line number: " +
-                    ex.getStackTrace()[0].getLineNumber() + " _ Message: " +
-                    ex.getMessage();
-            SontHelper.fileIO.saveSharedPref(context,
-                    "exception", readableFormat
-            );
         }
 
         public static void appendException(String ex, Context context) {
@@ -268,23 +237,97 @@ public class SontHelper {
             );
         }
 
-        public void emailException(Exception exception, String email) {
+
+        public static String convertExceptionHumanReadable(Exception e) {
+            /*StringWriter sw = new StringWriter();
+            e.printStackTrace(new
+
+            PrintWriter(sw));
+            return sw.toString();*/
+
+            Throwable rootCause = e;
+            while (rootCause.getCause() != null && rootCause.getCause() != rootCause)
+                rootCause = rootCause.getCause();
+
+            String className = rootCause.getStackTrace()[0].getClassName();
+            String methodName = rootCause.getStackTrace()[0].getMethodName();
+            String fileName = rootCause.getStackTrace()[0].getFileName();
+            int lineNumber = rootCause.getStackTrace()[0].getLineNumber();
+
+            String ret = "Class Name: " + className + "\n" +
+                    "Method Name: " + methodName + "\n" +
+                    "Line Number: " + lineNumber + "\n" +
+                    "File Name: " + fileName;
+            String ret_singleLine = "Class Name: " + className + "_" +
+                    "Method Name: " + methodName + "_" +
+                    "Line Number: " + lineNumber + "_" +
+                    "File Name: " + fileName;
+
+            return ret_singleLine;
         }
 
-        public static String readExceptionSpecific(Context context, int number) {
-            return SontHelper.fileIO.getSharedPref(context, "exception_" + number);
+
+        /*public static String convertExceptionHumanReadable(Throwable e) {
+            StringWriter sw = new StringWriter();
+            Exception e_2 = (Exception) e;
+            e_2.printStackTrace(new PrintWriter(sw));
+            return sw.toString();
+        }*/
+
+        public static void clearLogcat() {
+            try {
+                Process process = new ProcessBuilder()
+                        .command("logcat", "-c")
+                        .redirectErrorStream(true)
+                        .start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        public static String readExceptionAll(Context context) {
-            String all_exception = "";
+        public static void clearExceptions(Context ctx) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+            preferences.edit().clear().commit();
+        }
+
+        public static ArrayList<String> getLogcatArray() {
+            Process logcat;
+            final ArrayList<String> rows = new ArrayList<>();
+            try {
+                //V-Verbose (lowest priority) D-Debug I-Info W-Warning E-Error F-Fatal S-Silent
+                logcat = Runtime.getRuntime().exec(new String[]{
+                        "logcat", "-d", "-E", ""
+                });
+                BufferedReader br = new BufferedReader(new InputStreamReader(logcat.getInputStream()), 4 * 1024);
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    rows.add(line);
+                    rows.add("====================");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Collections.reverse(rows);
+            return rows;
+        }
+
+        public static ArrayList<String> readExceptionAllArray(Context context) {
+
+            ArrayList<String> all_exception = new ArrayList<>();
+
             Map<String, ?> keys = SontHelper.fileIO.getAllKeysOfSharedPreferences(context);
 
             int count = keys.size();
             for (Map.Entry<String, ?> entry : keys.entrySet()) {
                 String key = entry.getKey();
                 String value_exception = SontHelper.fileIO.getSharedPref(context, key);
-                all_exception = all_exception + value_exception + "\n\n";
+                all_exception.add(value_exception);
+                all_exception.add("====================");
+                //all_exception.add(key);
+                //Log.d("tesztelem", "KULCS --> " + key + "_ ERTEK --> " + value_exception);
             }
+            //Collections.reverse(all_exception);
             return all_exception;
         }
     }
@@ -463,6 +506,20 @@ public class SontHelper {
         }
         */
         }
+    }
+
+    public static Spanned getPlainText(String html) {
+
+        return Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT);
+
+        //return Jsoup.parse(html).text();
+        // for tags only
+        //return html.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
+    }
+
+    static class NetworkTools {
+
+
     }
 
     static class TimeElapsedUtil {
@@ -1175,6 +1232,35 @@ public class SontHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void rootCommand(String command) {
+        try {
+            Process su = Runtime.getRuntime().exec("su");
+            String cmd = command + " \n" + "exit\n";
+            su.getOutputStream().write(cmd.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String runAdbCommand(String command) {
+        Process logcat;
+        String str = "";
+        try {
+            logcat = Runtime.getRuntime().exec(new String[]{
+                    "ping google.com", ""
+            });
+            BufferedReader br = new BufferedReader(new InputStreamReader(logcat.getInputStream()), 4 * 1024);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                str += line + "\n";
+            }
+        } catch (Exception e) {
+
+        }
+        return str;
     }
 
     public static String getCurrentTimeHumanReadable() {

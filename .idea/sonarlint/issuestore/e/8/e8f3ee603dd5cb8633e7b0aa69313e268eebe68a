@@ -1,29 +1,63 @@
 
-usquid:S00117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÛ®Ñûÿÿÿÿ8Õ¥ã¤ü-
-Fsquid:S11857"(Remove this method to simply inherit it.(Û£Ì…8¡ÇÛ„õ-
-}squid:S2293’"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8Õ¥ã¤ü-
-jsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(°Û¦€8Õ¥ã¤ü-
-osquid:CommentedOutCodeLineã"<This block of commented-out lines of code should be removed.(şè»€ùÿÿÿÿ8Õ¥ã¤ü-
-xsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8Õ¥ã¤ü-
-Isquid:S00108¢")Either remove or fill this block of code.(”ı¾8Õ¥ã¤ü-
-}squid:S2293±"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8İ¿€£ü-
-}squid:S2293¸"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8Õ¥ã¤ü-
-isquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(ÙÊh8æ×Ë¥ü-
-Gsquid:S1148˜"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Õ¥ã¤ü-
-isquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.( ¶«a8æ×Ë¥ü-
-bsquid:UselessImportCheck"7Remove this unused import 'android.webkit.WebSettings'.(íäå8Ğ¸Êü-
-jsquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8Õ¥ã¤ü-
-isquid:S1192c"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8Õ¥ã¤ü-
-}squid:S2293‘"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8Õ¥ã¤ü-
-jsquid:CommentedOutCodeLineõ"<This block of commented-out lines of code should be removed.(µöšÂ8Õ¥ã¤ü-
-Fsquid:S1148^"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Õ¥ã¤ü-
-jsquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8Õ¥ã¤ü-
-squid:CallToDeprecatedMethodè"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ø™ñŒşÿÿÿÿ8Õ¥ã¤ü-
-xsquid:S2293³"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8Õ¥ã¤ü-
-}squid:S2293‹"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8İ¿€£ü-
-jsquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(†€éˆ8Õ¥ã¤ü-
-osquid:CommentedOutCodeLineá"<This block of commented-out lines of code should be removed.(ÖˆÑëıÿÿÿÿ8Û‚£ü-
-}squid:S2293·"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8Õ¥ã¤ü-
-jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(ìË¨»8Õ¥ã¤ü-
-osquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(§œ÷±úÿÿÿÿ8Õ¥ã¤ü-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÙÀã¼ûÿÿÿÿ8Ò·¸Êü-
+Qsquid:S1481¤"-Remove this unused "textview" local variable.(ÎŞÉşúÿÿÿÿ8øØŸ­€.
+vsquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÛ®Ñûÿÿÿÿ8öÀ¸€.
+`squid:S1854¤"<Remove this useless assignment to local variable "textview".(ÎŞÉşúÿÿÿÿ8øØŸ­€.
+osquid:UselessImportCheck
+"?Remove this unused import 'android.content.pm.ApplicationInfo'.(‰­üÿÿÿÿ8Ï›¾ûÿ-
+bsquid:UselessImportCheck"7Remove this unused import 'android.view.WindowManager'.(Ü³‹Å8ñƒ¡øÿ-
+xsquid:S2293€"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8öÀ¸€.
+lsquid:HiddenFieldCheckÄ"=Rename "wificount" which hides the field declared at line 64.(‰—í¨şÿÿÿÿ8öÀ¸€.
+xsquid:S2293ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢³æ¹8öÀ¸€.
+jsquid:UselessImportCheck,"?Remove this unused import 'com.google.common.annotations.Beta'.(°¬¬†8É§¦ûÿ-
+fsquid:S1192K"HDefine a constant instead of duplicating this literal "#00574B" 4 times.(òŞæ 8ÑÒµûÿ-
+lsquid:HiddenFieldCheck·"=Rename "wificount" which hides the field declared at line 64.(‰—í¨şÿÿÿÿ8øØŸ­€.
+}squid:S2293â"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8öÀ¸€.
+Tsquid:UselessImportCheck2")Remove this unused import 'java.io.File'.(†Ğ¥Å8àÀ¾ûÿ-
+}squid:UselessImportCheck*"RRemove this unused import 'com.github.mikephil.charting.formatter.ValueFormatter'.(‹¼Ä‚8¡¥§€.
+Fsquid:S1604¿"(Make this anonymous inner class a lambda(ç’ƒL8øØŸ­€.
+}squid:S2293ş"YReplace the type specification in this constructor call with the diamond operator ("<>").(šËºœúÿÿÿÿ8öÀ¸€.
+Isquid:S00108”")Either remove or fill this block of code.(”ı¾8öÀ¸€.
+@squid:S1643Ş"Use a StringBuilder instead.(¹ã˜øüÿÿÿÿ8øØŸ­€.
+Ysquid:S1141î"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8öÀ¸€.
+vsquid:S00117Ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ¤†ºúÿÿÿÿ8øØŸ­€.
+}squid:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8öÀ¸€.
+Fsquid:S1604Ì"(Make this anonymous inner class a lambda(ç’ƒL8öÀ¸€.
+Gsquid:S1148È"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8öÀ¸€.
+}squid:S2293„"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8øØŸ­€.
+usquid:S00117z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Ëñşÿÿÿÿ8ì—©ûÿ-
+Fsquid:S1148p"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8øØŸ­€.
+Zsquid:S2696•"6Make the enclosing method "static" or remove this set.(·Ôó şÿÿÿÿ8øØŸ­€.
+osquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(˜ãÉşøÿÿÿÿ8øØŸ­€.
+}squid:S2293è"YReplace the type specification in this constructor call with the diamond operator ("<>").(®‘®’ùÿÿÿÿ8øØŸ­€.
+psquid:S00117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù³ß8øØŸ­€.
+jsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8öÀ¸€.
+usquid:S00117y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áÿ‡şÿÿÿÿ8øØŸ­€.
+\squid:UselessImportCheck"1Remove this unused import 'android.app.Activity'.(‡ÊÍÆ8ñƒ¡øÿ-
+qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÈÔµ8ÑÒµûÿ-
+jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(«­Ú8øØŸ­€.
+Isquid:S00108ù")Either remove or fill this block of code.(”ı¾8öÀ¸€.
+qsquid:S00117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—¿ªª8øØŸ­€.
+Gsquid:S1148Ç"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8øØŸ­€.
+Gsquid:S1148Ô"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8öÀ¸€.
+Ysquid:S1141‰"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8öÀ¸€.
+Gsquid:S1185ä"(Remove this method to simply inherit it.(Û£Ì…8öÀ¸€.
+jsquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.(¶ø¢Ñ8öÀ¸€.
+jsquid:S1192ñ"FDefine a constant instead of duplicating this literal "sonty" 4 times.(´®Ûÿÿÿÿÿ8øØŸ­€.
+vsquid:S00117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã´‰¯øÿÿÿÿ8øØŸ­€.
+Gsquid:S1148Ñ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8øØŸ­€.
+jsquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(µöšÂ8öÀ¸€.
+hsquid:S1192²"IDefine a constant instead of duplicating this literal "#D81B60" 12 times.(®¬™“8öÀ¸€.
+ squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦Œœ¢8øØŸ­€.
+qsquid:S00117Ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥ı Ì8ÑÒµûÿ-
+jsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(°Û¦€8öÀ¸€.
+_squid:UselessImportCheck4"4Remove this unused import 'java.text.DecimalFormat'.(¤°Ó˜8¡¥§€.
+}squid:S2293é"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚ğ›‚ûÿÿÿÿ8öÀ¸€.
+squid:UselessImportCheck+"ORemove this unused import 'com.github.mikephil.charting.utils.ViewPortHandler'.(š´¬³şÿÿÿÿ8¡¥§€.
+xsquid:S1192Î"YDefine a constant instead of duplicating this literal "com.huawei.systemmanager" 4 times.(Šàúï8öÀ¸€.
+@squid:S1643†"Use a StringBuilder instead.(¢Øû±ıÿÿÿÿ8øØŸ­€.
+ squid:S1186ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦Œœ¢8øØŸ­€.
+osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ã»•€øÿÿÿÿ8¾Ìø±€.
+vsquid:S00117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã´‰¯øÿÿÿÿ8öÀ¸€.
+Gsquid:S1148®"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8öÀ¸€.
+psquid:S00117{"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÑ¾›8ÑÒµûÿ-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¡¥Z8ŸëÀ¸€.
